@@ -1,8 +1,8 @@
 package bakery.inventory;
 import java.util.ArrayList;
 
-public abstract class Inventory implements Iterable<String> {
-	 // Static Methods
+public abstract class Inventory implements Iterable<Item> {
+     // Static Methods
     /** Returns a new Empty map.
      * @param <K> 
      *             Key of type K
@@ -23,7 +23,7 @@ public abstract class Inventory implements Iterable<String> {
      *             Value of type V
      * @return Inventory
      */
-    public abstract Inventory addToStock(String item, int quantity);
+    public abstract Inventory addToStock(Item item, int quantity);
 
     /** Adds key and value to a map.
      * @param k
@@ -32,7 +32,7 @@ public abstract class Inventory implements Iterable<String> {
      *             Value of type V
      * @return Inventory
      */
-    public abstract Inventory removeFromStock(String item, int quantity);
+    public abstract Inventory removeFromStock(Item item, int quantity);
     
     
     /** Checks if a map is empty.
@@ -50,7 +50,7 @@ public abstract class Inventory implements Iterable<String> {
      *             Key of type K
      * @return true or false if it contains k
      */
-    public abstract boolean containsKey(String item);
+    public abstract boolean containsKey(Item item);
     
     /** Check if the map contains value.
      * @param v
@@ -64,7 +64,7 @@ public abstract class Inventory implements Iterable<String> {
      *             Key of type K
      * @return value in key
      */
-    public abstract int getQuantity(String item);
+    public abstract int getQuantity(Item item);
     
     
     // Dynamic Methods
@@ -81,12 +81,12 @@ public abstract class Inventory implements Iterable<String> {
      *             Array List x
      * @return Array List
      */
-    public abstract ArrayList getArrayKeys(ArrayList<String> x);
+    public abstract ArrayList getArrayKeys(ArrayList<Item> x);
 
     /** Iterator.
      * @return new MyIterator 
      */
     public MyIterator iterator() {
-        return new MyIterator(this.getArrayKeys(new ArrayList<String>()));
+        return new MyIterator(this.getArrayKeys(new ArrayList<Item>()));
     }
 }

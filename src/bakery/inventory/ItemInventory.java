@@ -6,19 +6,19 @@ public class ItemInventory extends Inventory {
     private Inventory m0;
     
     /** this is the key to be added to the map */
-    private String k0;
+    private Item item0;
     
     /** this is the value to be added */
-    private int v0;
+    private int quantity0;
     
     /** Constructor
      * @param m0 the prev map
-     * @param k0 this is key to be added
-     * @param v0 this is the value to be added
+     * @param item0 this is key to be added
+     * @param quantity0 this is the value to be added
      */
-    ItemInventory(String k0, int v0, Inventory m0) {
-        this.k0 = k0;
-        this.v0 = v0;
+    ItemInventory(Item item0, int quantity0, Inventory m0) {
+        this.item0 = item0;
+        this.quantity0 = quantity0;
         this.m0 = m0;
     }
     
@@ -29,8 +29,13 @@ public class ItemInventory extends Inventory {
      *             Value of type v
      * @return a new map
      */
-    public Inventory addToStock(String item, int quantity) {
-        return new ItemInventory(item, quantity, this);
+    public Inventory addToStock(Item item, int quantity) {
+        if (this.item0.equals(item)) {
+        	return new ItemInventory(item, quantity + quantity0, m0);
+        }
+        else {
+        	return this.m0.addToStock(item, quantity);
+        }
     }
     
     /** Removes item from stock class.
@@ -40,7 +45,7 @@ public class ItemInventory extends Inventory {
      *         Value of type v
      * @return new Inventory
      */
-    public Inventory removeFromStock(String item, int quantity) {
+    public Inventory removeFromStock(Item item, int quantity) {
         return new ItemInventory(item, quantity, this);
     }
     
@@ -55,7 +60,7 @@ public class ItemInventory extends Inventory {
      * @return the size of map
      */
     public int size() {
-        if (m0.containsKey(k0)) {
+        if (m0.containsKey(item0)) {
             return m0.size();
         }
         else {
@@ -68,8 +73,8 @@ public class ItemInventory extends Inventory {
      *             Key of type K
      * @return whether the map contains key k
      */
-    public boolean containsKey(String item) {
-        if (item.equals(k0)) {
+    public boolean containsKey(Item item) {
+        if (item.equals(item0)) {
             return true;
         } 
         else {
@@ -83,7 +88,7 @@ public class ItemInventory extends Inventory {
      * @return whether the map contains value v
      */
     public boolean containsValue(int quantity) {
-        for (String item : this) {
+        for (Item item : this) {
             if (this.getQuantity(item) == quantity) {
                 return true;
             }
@@ -97,9 +102,9 @@ public class ItemInventory extends Inventory {
      *             get Value from K
      * @return the value from the key
      */
-    public int getQuantity(String item) {
-        if (item.equals(k0)) {
-            return v0;
+    public int getQuantity(Item item) {
+        if (item.equals(item0)) {
+            return quantity0;
         } 
         else {
             return m0.getQuantity(item);
@@ -116,7 +121,7 @@ public class ItemInventory extends Inventory {
         if (o instanceof Inventory) {
             Inventory m2 = ((Inventory) o);
             if (this.size() == m2.size()) {
-                for (String key : this) {
+                for (Item key : this) {
                     if (!m2.containsKey(key) || 
                        !(this.getQuantity(key) == m2.getQuantity(key))) {
                         return false;
@@ -132,7 +137,7 @@ public class ItemInventory extends Inventory {
      * @return hashcode for map
      */
     public int hashCode() {
-    	return 2;
+        return 2;
     }
     
     /** Get all the keys from Inventory and put them into an array list.
@@ -141,8 +146,8 @@ public class ItemInventory extends Inventory {
      * @return An Array list
      */
     public ArrayList getArrayKeys(ArrayList x) {
-        if (!m0.containsKey(k0)) {
-            x.add(this.k0);
+        if (!m0.containsKey(item0)) {
+            x.add(this.item0);
             return (m0.getArrayKeys(x));
         }
         else {

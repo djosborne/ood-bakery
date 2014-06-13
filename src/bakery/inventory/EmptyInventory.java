@@ -15,7 +15,7 @@ public class EmptyInventory extends Inventory {
      *         Value of type v
      * @return new Inventory
      */
-    public Inventory addToStock(String item, int quantity) {
+    public Inventory addToStock(Item item, int quantity) {
         return new ItemInventory(item, quantity, this);
     }
     
@@ -26,7 +26,7 @@ public class EmptyInventory extends Inventory {
      *         Value of type v
      * @return new Inventory
      */
-    public Inventory removeFromStock(String item, int quantity) {
+    public Inventory removeFromStock(Item item, int quantity) {
         return this;
     }
     
@@ -49,7 +49,7 @@ public class EmptyInventory extends Inventory {
      *         Key of type K
      * @return false
      */
-    public boolean containsKey(String item) {
+    public boolean containsKey(Item item) {
         return false;
     }
     
@@ -67,7 +67,7 @@ public class EmptyInventory extends Inventory {
      *             Key of type K
      * @return exception
      */
-    public int getQuantity(String item) {
+    public int getQuantity(Item item) {
         throw new RuntimeException("Empty Inventory.");
     }
     
