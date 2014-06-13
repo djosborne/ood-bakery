@@ -49,7 +49,7 @@ public class EmptyInventory extends Inventory {
      *         Key of type K
      * @return false
      */
-    public boolean containsKey(Item item) {
+    public boolean containsItem(Item item) {
         return false;
     }
     

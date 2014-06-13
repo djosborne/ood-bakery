@@ -5,16 +5,16 @@ public class ItemInventory extends Inventory {
     /** this is the previous map */
     private Inventory m0;
     
-    /** this is the key to be added to the map */
+    /** this is the item to be added to the map */
     private Item item0;
     
-    /** this is the value to be added */
+    /** this is the quantity to be added */
     private int quantity0;
     
     /** Constructor
      * @param m0 the prev map
-     * @param item0 this is key to be added
-     * @param quantity0 this is the value to be added
+     * @param item0 this is item to be added
+     * @param quantity0 this is the quantity to be added
      */
     ItemInventory(Item item0, int quantity0, Inventory m0) {
         this.item0 = item0;
@@ -23,30 +23,35 @@ public class ItemInventory extends Inventory {
     }
     
     /** ItemInventory a new key and value to a map.
-     * @param k
-     *             Key of type K
-     * @param v 
-     *             Value of type v
+     * @param item
+     *             item name
+     * @param quantity
+     *             quantity of item
      * @return a new map
      */
     public Inventory addToStock(Item item, int quantity) {
         if (this.item0.equals(item)) {
-        	return new ItemInventory(item, quantity + quantity0, m0);
+            return new ItemInventory(item, quantity + quantity0, m0);
         }
         else {
-        	return this.m0.addToStock(item, quantity);
+            return this.m0.addToStock(item, quantity);
         }
     }
     
     /** Removes item from stock class.
-     * @param k
-     *         Key of type K
-     * @param v
-     *         Value of type v
+     * @param item
+     *             item name
+     * @param quantity
+     *             quantity of item
      * @return new Inventory
      */
     public Inventory removeFromStock(Item item, int quantity) {
-        return new ItemInventory(item, quantity, this);
+        if (this.item0.equals(item)) {
+            return new ItemInventory(item, quantity0 - quantity, m0);
+        }
+        else {
+            return this.m0.removeFromStock(item, quantity);
+        }
     }
     
     /** Checks if map is empty.
@@ -60,7 +65,7 @@ public class ItemInventory extends Inventory {
      * @return the size of map
      */
     public int size() {
-        if (m0.containsKey(item0)) {
+        if (m0.containsItem(item0)) {
             return m0.size();
         }
         else {
@@ -69,22 +74,22 @@ public class ItemInventory extends Inventory {
     }
     
     /** Checks if contains key.
-     * @param k
-     *             Key of type K
-     * @return whether the map contains key k
+     * @param item
+     *             item name
+     * @return whether the map contains item
      */
-    public boolean containsKey(Item item) {
+    public boolean containsItem(Item item) {
         if (item.equals(item0)) {
             return true;
         } 
         else {
-            return m0.containsKey(item);
+            return m0.containsItem(item);
         }
     }
     
     /** Checks if contains value.
-     * @param v
-     *             Value of type v
+     * @param quantity
+     *             quantity of item
      * @return whether the map contains value v
      */
     public boolean containsValue(int quantity) {
@@ -98,8 +103,8 @@ public class ItemInventory extends Inventory {
 
     
     /** Get the value from key.
-     * @param k
-     *             get Value from K
+     * @param item
+     *             item name
      * @return the value from the key
      */
     public int getQuantity(Item item) {
@@ -122,7 +127,7 @@ public class ItemInventory extends Inventory {
             Inventory m2 = ((Inventory) o);
             if (this.size() == m2.size()) {
                 for (Item key : this) {
-                    if (!m2.containsKey(key) || 
+                    if (!m2.containsItem(key) || 
                        !(this.getQuantity(key) == m2.getQuantity(key))) {
                         return false;
                     }
@@ -146,7 +151,7 @@ public class ItemInventory extends Inventory {
      * @return An Array list
      */
     public ArrayList getArrayKeys(ArrayList x) {
-        if (!m0.containsKey(item0)) {
+        if (!m0.containsItem(item0)) {
             x.add(this.item0);
             return (m0.getArrayKeys(x));
         }

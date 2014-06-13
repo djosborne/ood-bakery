@@ -4,10 +4,6 @@ import java.util.ArrayList;
 public abstract class Inventory implements Iterable<Item> {
      // Static Methods
     /** Returns a new Empty map.
-     * @param <K> 
-     *             Key of type K
-     * @param <V>
-     *             Value of type V
      * @return new EmptyInventory
      */
     public static Inventory emptyMap() {
@@ -17,19 +13,19 @@ public abstract class Inventory implements Iterable<Item> {
     // Dynamic Methods
     
     /** Adds key and value to a map.
-     * @param k
-     *             Key of type K
-     * @param v
-     *             Value of type V
+     * @param item
+     *             item name
+     * @param quantity
+     *             quantity of item
      * @return Inventory
      */
     public abstract Inventory addToStock(Item item, int quantity);
 
     /** Adds key and value to a map.
-     * @param k
-     *             Key of type K
-     * @param v
-     *             Value of type V
+     * @param item
+     *             item name
+     * @param quantity
+     *             quantity of item
      * @return Inventory
      */
     public abstract Inventory removeFromStock(Item item, int quantity);
@@ -45,23 +41,23 @@ public abstract class Inventory implements Iterable<Item> {
      */
     public abstract int size();
     
-    /** Checks if the map contains key.
-     * @param k
-     *             Key of type K
-     * @return true or false if it contains k
+    /** Checks if the map contains item.
+     * @param item
+     *             item name
+     * @return true or false if it contains the item
      */
-    public abstract boolean containsKey(Item item);
+    public abstract boolean containsItem(Item item);
     
     /** Check if the map contains value.
-     * @param v
-     *             Value of type V
-     * @return true or false if it contains v
+     * @param quantity
+     *             quantity of item
+     * @return true or false if it contains 
      */
     public abstract boolean containsValue(int quantity);
     
-    /** gets value from key.
-     * @param k
-     *             Key of type K
+    /** gets item from quantity
+     * @param item
+     *             item name
      * @return value in key
      */
     public abstract int getQuantity(Item item);

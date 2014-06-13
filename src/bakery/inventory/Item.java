@@ -7,16 +7,6 @@ public class Item {
     private int itemPrice;
 
     /**
-     * Construct a new default 
-     */
-    public Item() {
-        itemID = 0;
-        itemName = "Bread";
-        category = "Bread";
-        itemPrice = 1;
-    }
-
-    /**
      * Construct a new item with given parameters
      * 
      * @param itemID
