@@ -7,19 +7,19 @@ public class ItemInventory extends Inventory {
     
     /** this is the item to be added to the map */
     private Item item0;
-    
-    /** this is the quantity to be added */
-    private int quantity0;
-    
+
     /** Constructor
      * @param m0 the prev map
      * @param item0 this is item to be added
-     * @param quantity0 this is the quantity to be added
      */
-    ItemInventory(Item item0, int quantity0, Inventory m0) {
+    ItemInventory(Item item0, Inventory m0) {
         this.item0 = item0;
-        this.quantity0 = quantity0;
         this.m0 = m0;
+    }
+    
+    public Inventory addToStock(int itemID, String itemName, String category, double itemPrice) {
+    	Item item = new Item(itemID, itemName, category, itemPrice);
+    	return this.addToStock(item);
     }
     
     /** ItemInventory a new key and value to a map.
@@ -29,12 +29,12 @@ public class ItemInventory extends Inventory {
      *             quantity of item
      * @return a new map
      */
-    public Inventory addToStock(Item item, int quantity) {
+    public Inventory addToStock(Item item) {
         if (this.item0.equals(item)) {
-            return new ItemInventory(item, quantity + quantity0, m0);
+            return new ItemInventory(item, m0);
         }
         else {
-            return this.m0.addToStock(item, quantity);
+            return new ItemInventory(item, this);
         }
     }
     
@@ -45,12 +45,12 @@ public class ItemInventory extends Inventory {
      *             quantity of item
      * @return new Inventory
      */
-    public Inventory removeFromStock(Item item, int quantity) {
+    public Inventory removeFromStock(Item item) {
         if (this.item0.equals(item)) {
-            return new ItemInventory(item, quantity0 - quantity, m0);
+            return new ItemInventory(item, m0);
         }
         else {
-            return this.m0.removeFromStock(item, quantity);
+            return this.m0.removeFromStock(item);
         }
     }
     
@@ -85,35 +85,6 @@ public class ItemInventory extends Inventory {
         else {
             return m0.containsItem(item);
         }
-    }
-    
-    /** Checks if contains value.
-     * @param quantity
-     *             quantity of item
-     * @return whether the map contains value v
-     */
-    public boolean containsValue(int quantity) {
-        for (Item item : this) {
-            if (this.getQuantity(item) == quantity) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    
-    /** Get the value from key.
-     * @param item
-     *             item name
-     * @return the value from the key
-     */
-    public int getQuantity(Item item) {
-        if (item.equals(item0)) {
-            return quantity0;
-        } 
-        else {
-            return m0.getQuantity(item);
-        }
     }    
     
     /** Equal Operator.
@@ -127,8 +98,7 @@ public class ItemInventory extends Inventory {
             Inventory m2 = ((Inventory) o);
             if (this.size() == m2.size()) {
                 for (Item key : this) {
-                    if (!m2.containsItem(key) || 
-                       !(this.getQuantity(key) == m2.getQuantity(key))) {
+                    if (!m2.containsItem(key)) {
                         return false;
                     }
                 } 
@@ -159,4 +129,5 @@ public class ItemInventory extends Inventory {
             return (m0.getArrayKeys(x));
         }
     }
+   
 }

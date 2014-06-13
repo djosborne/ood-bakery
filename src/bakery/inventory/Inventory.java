@@ -6,7 +6,7 @@ public abstract class Inventory implements Iterable<Item> {
     /** Returns a new Empty map.
      * @return new EmptyInventory
      */
-    public static Inventory emptyMap() {
+    public static Inventory emptyInventory() {
         return new EmptyInventory();
     }
     
@@ -19,8 +19,9 @@ public abstract class Inventory implements Iterable<Item> {
      *             quantity of item
      * @return Inventory
      */
-    public abstract Inventory addToStock(Item item, int quantity);
-
+    public abstract Inventory addToStock(int itemID, String itemName, String category, double itemPrice);
+    public abstract Inventory addToStock(Item item);
+    
     /** Adds key and value to a map.
      * @param item
      *             item name
@@ -28,7 +29,7 @@ public abstract class Inventory implements Iterable<Item> {
      *             quantity of item
      * @return Inventory
      */
-    public abstract Inventory removeFromStock(Item item, int quantity);
+    public abstract Inventory removeFromStock(Item item);
     
     
     /** Checks if a map is empty.
@@ -47,20 +48,6 @@ public abstract class Inventory implements Iterable<Item> {
      * @return true or false if it contains the item
      */
     public abstract boolean containsItem(Item item);
-    
-    /** Check if the map contains value.
-     * @param quantity
-     *             quantity of item
-     * @return true or false if it contains 
-     */
-    public abstract boolean containsValue(int quantity);
-    
-    /** gets item from quantity
-     * @param item
-     *             item name
-     * @return value in key
-     */
-    public abstract int getQuantity(Item item);
     
     
     // Dynamic Methods

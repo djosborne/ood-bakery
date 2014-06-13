@@ -4,7 +4,7 @@ public class Item {
     private int itemID;
     private String itemName;
     private String category;
-    private int itemPrice;
+    private double itemPrice;
 
     /**
      * Construct a new item with given parameters
@@ -18,7 +18,7 @@ public class Item {
      * @param item Price
      *                 Price for item
      */
-    public Item(int itemID, String itemName, String category, int itemPrice) {
+    public Item(int itemID, String itemName, String category, double itemPrice) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.category = category;
@@ -53,7 +53,7 @@ public class Item {
     /** Get the item price
      * @return item price
      */
-    public int getPrice() {
+    public double getPrice() {
         return itemPrice;
     }
     

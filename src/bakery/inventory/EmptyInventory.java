@@ -8,6 +8,11 @@ public class EmptyInventory extends Inventory {
         /** Empty Constructor */
     }
     
+    public Inventory addToStock(int itemID, String itemName, String category, double itemPrice) {
+    	Item it = new Item(itemID, itemName, category, itemPrice);
+        return new ItemInventory(it, this);
+    }
+    
     /** Creates an ItemInventory class.
      * @param k
      *         Key of type K
@@ -15,8 +20,8 @@ public class EmptyInventory extends Inventory {
      *         Value of type v
      * @return new Inventory
      */
-    public Inventory addToStock(Item item, int quantity) {
-        return new ItemInventory(item, quantity, this);
+    public Inventory addToStock(Item item) {
+        return new ItemInventory(item, this);
     }
     
     /** Removes item from stock class.
@@ -26,7 +31,7 @@ public class EmptyInventory extends Inventory {
      *         Value of type v
      * @return new Inventory
      */
-    public Inventory removeFromStock(Item item, int quantity) {
+    public Inventory removeFromStock(Item item) {
         return this;
     }
     
@@ -51,24 +56,6 @@ public class EmptyInventory extends Inventory {
      */
     public boolean containsItem(Item item) {
         return false;
-    }
-    
-    /** Whether the map contains v.
-     * @param v
-     *         Value of type v
-     * @return false
-     */
-    public boolean containsValue(int quantity) {
-        return false;
-    }
-    
-    /** Throw exception.
-     * @param k
-     *             Key of type K
-     * @return exception
-     */
-    public int getQuantity(Item item) {
-        throw new RuntimeException("Empty Inventory.");
     }
     
     
