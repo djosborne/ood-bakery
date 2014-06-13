@@ -1,4 +1,4 @@
-package bakery.inventory;
+package bakery;
 
 public class Item {
     private int itemID;

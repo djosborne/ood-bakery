@@ -2,9 +2,10 @@ package bakery.inventory;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import bakery.Item;
 
 public class InventoryTest {
     private final String apple = "Apple";
@@ -24,7 +25,7 @@ public class InventoryTest {
     @Before
     public void setUp() {
         inv1 = Inventory.emptyInventory();
-        inv1 = inv1.addToStock(item1).addToStock(item2).addToStock(item3).addToStock(item1);
+        inv1 = inv1.addToStock(item1).addToStock(item2).addToStock(item3).addToStock(item1).addToStock(item4);
     }
 
     @Test

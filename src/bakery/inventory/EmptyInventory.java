@@ -1,6 +1,8 @@
 package bakery.inventory;
 import java.util.ArrayList;
 
+import bakery.Item;
+
 
 public class EmptyInventory extends Inventory {
     /** Empty Constructor */

@@ -1,6 +1,8 @@
 package bakery.inventory;
 import java.util.ArrayList;
 
+import bakery.Item;
+
 public class ItemInventory extends Inventory {
     /** this is the previous map */
     private Inventory m0;

@@ -1,6 +1,8 @@
 package bakery.inventory;
 import java.util.ArrayList;
 
+import bakery.Item;
+
 public abstract class Inventory implements Iterable<Item> {
      // Static Methods
     /** Returns a new Empty map.
