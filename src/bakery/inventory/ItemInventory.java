@@ -1,22 +1,22 @@
 package bakery.inventory;
 import java.util.ArrayList;
 
-public class ItemInventory<K, V> extends Inventory<K, V> {
+public class ItemInventory extends Inventory {
     /** this is the previous map */
-    private Inventory<K, V> m0;
+    private Inventory m0;
     
     /** this is the key to be added to the map */
-    private K k0;
+    private String k0;
     
     /** this is the value to be added */
-    private V v0;
+    private int v0;
     
     /** Constructor
      * @param m0 the prev map
      * @param k0 this is key to be added
      * @param v0 this is the value to be added
      */
-    ItemInventory(K k0, V v0, Inventory<K, V> m0) {
+    ItemInventory(String k0, int v0, Inventory m0) {
         this.k0 = k0;
         this.v0 = v0;
         this.m0 = m0;
@@ -29,8 +29,19 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
      *             Value of type v
      * @return a new map
      */
-    public Inventory<K, V> addToStock(K k, V v) {
-        return new ItemInventory<K, V>(k, v, this);
+    public Inventory addToStock(String item, int quantity) {
+        return new ItemInventory(item, quantity, this);
+    }
+    
+    /** Removes item from stock class.
+     * @param k
+     *         Key of type K
+     * @param v
+     *         Value of type v
+     * @return new Inventory
+     */
+    public Inventory removeFromStock(String item, int quantity) {
+        return new ItemInventory(item, quantity, this);
     }
     
     /** Checks if map is empty.
@@ -57,12 +68,12 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
      *             Key of type K
      * @return whether the map contains key k
      */
-    public boolean containsKey(K k) {
-        if (k.equals(k0)) {
+    public boolean containsKey(String item) {
+        if (item.equals(k0)) {
             return true;
         } 
         else {
-            return m0.containsKey(k);
+            return m0.containsKey(item);
         }
     }
     
@@ -71,9 +82,9 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
      *             Value of type v
      * @return whether the map contains value v
      */
-    public boolean containsValue(V v) {
-        for (K k : this) {
-            if (this.getQuantity(k).equals(v)) {
+    public boolean containsValue(int quantity) {
+        for (String item : this) {
+            if (this.getQuantity(item) == quantity) {
                 return true;
             }
         }
@@ -86,12 +97,12 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
      *             get Value from K
      * @return the value from the key
      */
-    public V getQuantity(K k) {
-        if (k.equals(k0)) {
+    public int getQuantity(String item) {
+        if (item.equals(k0)) {
             return v0;
         } 
         else {
-            return m0.getQuantity(k);
+            return m0.getQuantity(item);
         }
     }    
     
@@ -103,11 +114,11 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
     @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         if (o instanceof Inventory) {
-            Inventory<K, V> m2 = ((Inventory<K, V>) o);
+            Inventory m2 = ((Inventory) o);
             if (this.size() == m2.size()) {
-                for (K key : this) {
+                for (String key : this) {
                     if (!m2.containsKey(key) || 
-                        !this.getQuantity(key).equals(m2.getQuantity(key))) {
+                       !(this.getQuantity(key) == m2.getQuantity(key))) {
                         return false;
                     }
                 } 
@@ -121,12 +132,7 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
      * @return hashcode for map
      */
     public int hashCode() {
-        ArrayList<K> a = this.getArrayKeys(new ArrayList<K>());
-        int x = 0;
-        for (K k : a) {
-            x = x + k.hashCode() * 3 + 11;
-        }
-        return this.size() * 13 * x + 47;
+    	return 2;
     }
     
     /** Get all the keys from Inventory and put them into an array list.
@@ -134,7 +140,7 @@ public class ItemInventory<K, V> extends Inventory<K, V> {
      *             Array List
      * @return An Array list
      */
-    public ArrayList<K> getArrayKeys(ArrayList<K> x) {
+    public ArrayList getArrayKeys(ArrayList x) {
         if (!m0.containsKey(k0)) {
             x.add(this.k0);
             return (m0.getArrayKeys(x));

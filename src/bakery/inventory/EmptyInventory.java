@@ -2,7 +2,7 @@ package bakery.inventory;
 import java.util.ArrayList;
 
 
-public class EmptyInventory<K, V> extends Inventory<K, V> {
+public class EmptyInventory extends Inventory {
     /** Empty Constructor */
     EmptyInventory() {
         /** Empty Constructor */
@@ -15,8 +15,19 @@ public class EmptyInventory<K, V> extends Inventory<K, V> {
      *         Value of type v
      * @return new Inventory
      */
-    public Inventory<K, V> addToStock(K k, V v) {
-        return new ItemInventory<K, V>(k, v, this);
+    public Inventory addToStock(String item, int quantity) {
+        return new ItemInventory(item, quantity, this);
+    }
+    
+    /** Removes item from stock class.
+     * @param k
+     *         Key of type K
+     * @param v
+     *         Value of type v
+     * @return new Inventory
+     */
+    public Inventory removeFromStock(String item, int quantity) {
+        return this;
     }
     
     /** See whether a map is empty
@@ -38,7 +49,7 @@ public class EmptyInventory<K, V> extends Inventory<K, V> {
      *         Key of type K
      * @return false
      */
-    public boolean containsKey(K k) {
+    public boolean containsKey(String item) {
         return false;
     }
     
@@ -47,7 +58,7 @@ public class EmptyInventory<K, V> extends Inventory<K, V> {
      *         Value of type v
      * @return false
      */
-    public boolean containsValue(V v) {
+    public boolean containsValue(int quantity) {
         return false;
     }
     
@@ -56,7 +67,7 @@ public class EmptyInventory<K, V> extends Inventory<K, V> {
      *             Key of type K
      * @return exception
      */
-    public V getQuantity(K k) {
+    public int getQuantity(String item) {
         throw new RuntimeException("Empty Inventory.");
     }
     
@@ -69,7 +80,7 @@ public class EmptyInventory<K, V> extends Inventory<K, V> {
     @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         if (o instanceof Inventory) {
-            Inventory<K, V> m1 = (Inventory<K, V>) o;
+            Inventory m1 = (Inventory) o;
             return m1.isEmpty();
         }
         return false;
@@ -87,7 +98,7 @@ public class EmptyInventory<K, V> extends Inventory<K, V> {
      *             An array list
      * @return Array list with ks
      */
-    public ArrayList<K> getArrayKeys(ArrayList<K> x) {
+    public ArrayList getArrayKeys(ArrayList x) {
         return x;
     }
 }

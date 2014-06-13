@@ -1,7 +1,7 @@
 package bakery.inventory;
 import java.util.ArrayList;
 
-public abstract class Inventory<K, V> implements Iterable<K> {
+public abstract class Inventory implements Iterable<String> {
 	 // Static Methods
     /** Returns a new Empty map.
      * @param <K> 
@@ -10,8 +10,8 @@ public abstract class Inventory<K, V> implements Iterable<K> {
      *             Value of type V
      * @return new EmptyInventory
      */
-    public static <K, V> Inventory<K, V> emptyMap() {
-        return new EmptyInventory<K, V>();
+    public static Inventory emptyMap() {
+        return new EmptyInventory();
     }
     
     // Dynamic Methods
@@ -23,7 +23,7 @@ public abstract class Inventory<K, V> implements Iterable<K> {
      *             Value of type V
      * @return Inventory
      */
-    public abstract Inventory<K, V> addToStock(K k, V v);
+    public abstract Inventory addToStock(String item, int quantity);
 
     /** Adds key and value to a map.
      * @param k
@@ -32,7 +32,7 @@ public abstract class Inventory<K, V> implements Iterable<K> {
      *             Value of type V
      * @return Inventory
      */
-    public abstract Inventory<K, V> RemoveFromStock(K k, V v);
+    public abstract Inventory removeFromStock(String item, int quantity);
     
     
     /** Checks if a map is empty.
@@ -50,21 +50,21 @@ public abstract class Inventory<K, V> implements Iterable<K> {
      *             Key of type K
      * @return true or false if it contains k
      */
-    public abstract boolean containsKey(K k);
+    public abstract boolean containsKey(String item);
     
     /** Check if the map contains value.
      * @param v
      *             Value of type V
      * @return true or false if it contains v
      */
-    public abstract boolean containsValue(V v);
+    public abstract boolean containsValue(int quantity);
     
     /** gets value from key.
      * @param k
      *             Key of type K
      * @return value in key
      */
-    public abstract V getQuantity(K k);
+    public abstract int getQuantity(String item);
     
     
     // Dynamic Methods
@@ -81,12 +81,12 @@ public abstract class Inventory<K, V> implements Iterable<K> {
      *             Array List x
      * @return Array List
      */
-    public abstract ArrayList<K> getArrayKeys(ArrayList<K> x);
+    public abstract ArrayList getArrayKeys(ArrayList<String> x);
 
     /** Iterator.
      * @return new MyIterator 
      */
-    public MyIterator<K> iterator() {
-        return new MyIterator<K>(this.getArrayKeys(new ArrayList<K>()));
+    public MyIterator iterator() {
+        return new MyIterator(this.getArrayKeys(new ArrayList<String>()));
     }
 }
