@@ -9,15 +9,13 @@ public class EmptyInventory extends Inventory {
     }
     
     public Inventory addToStock(int itemID, String itemName, String category, double itemPrice) {
-    	Item it = new Item(itemID, itemName, category, itemPrice);
+        Item it = new Item(itemID, itemName, category, itemPrice);
         return new ItemInventory(it, this);
     }
     
     /** Creates an ItemInventory class.
-     * @param k
-     *         Key of type K
-     * @param v
-     *         Value of type v
+     * @param item
+     *         item in inventory
      * @return new Inventory
      */
     public Inventory addToStock(Item item) {
@@ -25,10 +23,8 @@ public class EmptyInventory extends Inventory {
     }
     
     /** Removes item from stock class.
-     * @param k
-     *         Key of type K
-     * @param v
-     *         Value of type v
+     * @param item
+     *         item in inventory
      * @return new Inventory
      */
     public Inventory removeFromStock(Item item) {
@@ -49,15 +45,18 @@ public class EmptyInventory extends Inventory {
         return 0;
     }
     
-    /** Whether the map contains k.
-     * @param k
-     *         Key of type K
+    /** Whether the map contains item.
+     * @param item
+     *         item in inventory
      * @return false
      */
     public boolean containsItem(Item item) {
         return false;
     }
     
+	public Item getItem() {
+		throw new RuntimeException("Empty Inventory");
+	}
     
     /** Equal Operator.
      * @return boolean whether they are equal or not
@@ -87,5 +86,9 @@ public class EmptyInventory extends Inventory {
      */
     public ArrayList getArrayKeys(ArrayList x) {
         return x;
+    }
+    
+    public String toString() {
+        return "";
     }
 }

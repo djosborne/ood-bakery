@@ -14,23 +14,24 @@ public class InventoryTest {
     private final String melon = "Melon";
     private final String fruit = "Fruit";
     
-	private Item item1 = new Item(1, apple, fruit, 5);
-	private Item item2 = new Item(2, pear, fruit, 2);
-	private Item item3 = new Item(3, melon, fruit, 3);
-	private Item item4 = new Item(4, orange, fruit, 7);
-	
-	private Inventory inv1;
-	
-	@Before
-	public void setUp() {
-		inv1 = Inventory.emptyInventory();
-		inv1 = inv1.addToStock(item1).addToStock(item2).addToStock(item3);
-	}
+    private Item item1 = new Item(1, apple, fruit, 5);
+    private Item item2 = new Item(2, pear, fruit, 2);
+    private Item item3 = new Item(3, melon, fruit, 3);
+    private Item item4 = new Item(4, orange, fruit, 7);
+    
+    private Inventory inv1;
+    
+    @Before
+    public void setUp() {
+        inv1 = Inventory.emptyInventory();
+        inv1 = inv1.addToStock(item1).addToStock(item2).addToStock(item3).addToStock(item1);
+    }
 
-	@Test
-	public void test() {
-		//assertSame(inv1.size(), 3);
-		System.out.println(inv1.size());
-	}
+    @Test
+    public void test() {
+        //assertSame(inv1.size(), 3);
+        System.out.println(inv1.size());
+        System.out.println(inv1.toString());
+    }
 
 }

@@ -17,17 +17,22 @@ public class ItemInventory extends Inventory {
         this.m0 = m0;
     }
     
+    /** Adds item to inventory
+     * @param itemID item ID
+     * @param itemName Name of the item
+     * @param category Item category
+     * @param itemPrice item price
+     * @return Inventory
+     */
     public Inventory addToStock(int itemID, String itemName, String category, double itemPrice) {
-    	Item item = new Item(itemID, itemName, category, itemPrice);
-    	return this.addToStock(item);
+        Item item = new Item(itemID, itemName, category, itemPrice);
+        return this.addToStock(item);
     }
     
-    /** ItemInventory a new key and value to a map.
+    /** Adds item to inventory
      * @param item
      *             item name
-     * @param quantity
-     *             quantity of item
-     * @return a new map
+     * @return Inventory
      */
     public Inventory addToStock(Item item) {
         if (this.item0.equals(item)) {
@@ -87,6 +92,15 @@ public class ItemInventory extends Inventory {
         }
     }    
     
+    /** Get the value from key.
+     * @param k
+     *             get Value from K
+     * @return the value from the key
+     */
+    public Item getItem() {
+        return this.item0;
+    }   
+    
     /** Equal Operator.
      * @return boolean whether they are equal or not
      * @param o 
@@ -130,4 +144,12 @@ public class ItemInventory extends Inventory {
         }
     }
    
+    public String toString() {
+        if (this.isEmpty()) {
+            return "[]";
+        } 
+        else {
+            return this.getItem().toString() + "\n" + m0.toString();
+        }
+    }
 }

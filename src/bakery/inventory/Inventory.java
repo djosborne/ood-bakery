@@ -12,37 +12,41 @@ public abstract class Inventory implements Iterable<Item> {
     
     // Dynamic Methods
     
-    /** Adds key and value to a map.
-     * @param item
-     *             item name
-     * @param quantity
-     *             quantity of item
+    /** Adds item to inventory
+     * @param itemID item ID
+     * @param itemName Name of the item
+     * @param category Item category
+     * @param itemPrice item price
      * @return Inventory
      */
     public abstract Inventory addToStock(int itemID, String itemName, String category, double itemPrice);
-    public abstract Inventory addToStock(Item item);
     
-    /** Adds key and value to a map.
+    /** Adds item to inventory
      * @param item
      *             item name
-     * @param quantity
-     *             quantity of item
+     * @return Inventory
+     */
+    public abstract Inventory addToStock(Item item);
+    
+    /** remove item from inventory.
+     * @param item
+     *             item name
      * @return Inventory
      */
     public abstract Inventory removeFromStock(Item item);
     
     
-    /** Checks if a map is empty.
+    /** Checks if a inventory is empty.
      * @return true or false map is empty
      */
     public abstract boolean isEmpty();
     
-    /** Returns the size of the map.
+    /** Returns the size of the inventory.
      * @return size of map
      */
     public abstract int size();
     
-    /** Checks if the map contains item.
+    /** Checks if the inventory contains item.
      * @param item
      *             item name
      * @return true or false if it contains the item
@@ -54,10 +58,15 @@ public abstract class Inventory implements Iterable<Item> {
     /** override toString method from object.
      * @return a string 
      */
-    public String toString() {
-        return ("{...[There are " + this.size() + 
-            " unique key(s) mapped to " + "value(s) in this Inventory]...}");
-    }
+//    public String toString() {
+//        return ("{...[There are " + this.size() + 
+//            " unique key(s) mapped to " + "value(s) in this Inventory]...}");
+//    }
+    public abstract String toString();
+    
+    
+    public abstract Item getItem();
+    
     
     /** Get all the keys from Inventory and put them into an array list.
      * @param x

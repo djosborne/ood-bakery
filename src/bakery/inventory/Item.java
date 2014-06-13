@@ -8,7 +8,6 @@ public class Item {
 
     /**
      * Construct a new item with given parameters
-     * 
      * @param itemID
      *            item ID
      * @param itemName
@@ -16,7 +15,7 @@ public class Item {
      * @param category
      *            item category
      * @param item Price
-     *                 Price for item
+     *             Price for item
      */
     public Item(int itemID, String itemName, String category, double itemPrice) {
         this.itemID = itemID;
@@ -26,8 +25,7 @@ public class Item {
     }
 
     /**
-     * Accessor method for itemID
-     * 
+     * get item ID
      * @return itemID
      */
     public int getItemID() {
@@ -35,8 +33,7 @@ public class Item {
     }
 
     /**
-     * Accessor method for itemName
-     * 
+     * Get item Name
      * @return itemName
      */
     public String getItemName() {
@@ -61,8 +58,8 @@ public class Item {
      * Overriding toString() method 
      */
     public String toString() {
-        return "[" + itemID + ": " + itemName + " "
-                + category + "]";
+        return "[" + itemID + ", " + itemName + ", "
+                + category + ", " + itemPrice + "]";
     }
 
     /**
