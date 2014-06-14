@@ -8,6 +8,10 @@ public class Node extends CustomerRoll {
 
     private Customer c;
     private CustomerRoll rest;
+    
+	/**************************************************************************
+	 * Getters, Setters, and Constructors
+	 *************************************************************************/
 
     /**
      * Constructor
@@ -43,30 +47,29 @@ public class Node extends CustomerRoll {
         return rest;
     }
 
-    /**
-     * Gets the number of non-duplicate Students in ClassRoll
-     * 
-     * @return number of students in CR
-     */
-//    protected int numCustomers() {
-//        if (!CustomerRoll.inCustomerRoll(this.getCustomerRoll(), this
-//            .getCustomer())) {
-//            return 1 + this.getCustomerRoll().numCustomers();
+    protected boolean isSubset(CustomerRoll crSuperSet) {
+    	return true;
+//        if (CustomerRoll.inCustomerRoll(crSuperSet, getCustomer())) {
+//            return getCustomerRoll().isSubset(crSuperSet);
 //        }
 //        else {
-//            return this.getCustomerRoll().numCustomers();
+//            return false;
 //        }
-//    }
-//
-    protected boolean isSubset(CustomerRoll crSuperSet) {
-        if (CustomerRoll.inCustomerRoll(crSuperSet, getCustomer())) {
-            return getCustomerRoll().isSubset(crSuperSet);
-        }
-        else {
-            return false;
-        }
     }
+	
 
+	/**************************************************************************
+	 * Functions to search if customers already exist in the roll
+	 *************************************************************************/
+	public boolean isReturningCustomer(Integer ID) {
+		if (getCustomer().getCustomerID().equals(ID)) {
+			return true;
+		}
+		else {
+			return getCustomerRoll().isReturningCustomer(ID);
+		}
+	}
+	
     /**
      * Dynamic method to check if student is in ClassRoll
      * 
@@ -74,7 +77,7 @@ public class Node extends CustomerRoll {
      *            Student to be checked if in class
      * @return T/F if student is in class
      */
-    protected boolean isReturningCustomer(String lastName, String address,
+    public boolean isReturningCustomer(String lastName, String address,
         String city, String state, Integer zipCode) {
         Customer c = getCustomer();
         if (c.getLastName().equals(lastName)
@@ -86,4 +89,10 @@ public class Node extends CustomerRoll {
             return this.getCustomerRoll().isReturningCustomer(lastName, address, city, state, zipCode);
         }
     }
+    
+    
+
+	protected int numCustomers() {
+		return 1 + getCustomerRoll().numCustomers();
+	}
 }

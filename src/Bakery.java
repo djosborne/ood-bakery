@@ -23,8 +23,26 @@ public class Bakery {
         return custRoll;
     }
     
+    void setCustomerRoll(CustomerRoll cr) {
+    	this.custRoll = cr;
+    }
+    
     boolean isRegisteredCustomer(String lastName, String address, String city, String state, Integer zipCode) {
         return getCustomerRoll().isReturningCustomer(lastName, address, city, state, zipCode);
+    }
+    
+    boolean isRegisteredCustomer(Integer ID) {
+    	return getCustomerRoll().isReturningCustomer(ID);
+    }
+    
+    // provided ID
+    void registerNewCustomer(Integer ID, String lastName, String address, String city, String state, Integer zipCode) {
+        setCustomerRoll(getCustomerRoll().addNewCustomer(ID, lastName, address, city, state, zipCode));
+    }
+    
+    // generate ID
+    void registerNewCustomer(String lastName, String address, String city, String state, Integer zipCode) {
+    	setCustomerRoll(getCustomerRoll().addNewCustomer(lastName, address, city, state, zipCode));
     }
     
     
@@ -42,7 +60,8 @@ public class Bakery {
 //         CurrentLoyalty
 //    }
 
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
         Bakery bakeryCtrl = new Bakery(Inventory.emptyInventory(),
             CustomerRoll.emptyRoll());
 
@@ -183,19 +202,20 @@ public class Bakery {
             String bakeryItemCategory = entries[12];
             Integer quantity = Integer.valueOf(entries[13]);
             double price = Double.valueOf(entries[14]);
-            Integer total = Integer.valueOf(entries[15]);
+            double total = Double.valueOf(entries[15]);
             double discountUsedOnOrder = Double.valueOf(entries[16]);
             double totalDue = Double.valueOf(entries[17]);
             double availableDiscount = Double.valueOf(entries[18]);
             double currentLoyalty = Double.valueOf(entries[19]);
-                    
+               
+            if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
+            	bakeryCtrl.registerNewCustomer(customerID, lastName, address, city, state, zipCode);
+            }
             
-//             if (!this.isRegisteredCustomer(lastName address city state zipCode)) {
-//                 registerNewCustomer(lastName, address, city, state);
-//             }
+            
              
-             /** if (
-             *     make user if they don't exist
+             /** if (user doesn't exist)
+             *     make user
              * get the userID from (LastName Address City State ZipCode)
              * get current rewards balance, save for later (preRewardsBalance)
              * 

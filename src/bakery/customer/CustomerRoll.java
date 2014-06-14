@@ -5,6 +5,18 @@ package bakery.customer;
  * @version 1.0
  */
 public abstract class CustomerRoll {
+	
+	private Integer lastUsedID = 0;
+	
+	
+	private Integer getNextAvailableID() {
+		while (isReturningCustomer(lastUsedID)) {
+			lastUsedID++;
+		}
+		
+		return lastUsedID;
+	}
+	
     /**
      * Return True or False if ClassRoll has students
      * 
@@ -36,6 +48,34 @@ public abstract class CustomerRoll {
      */
     abstract public boolean isReturningCustomer(String lastName, String address,
         String city, String state, Integer zipCode);
+    
+    abstract public boolean isReturningCustomer(Integer ID);
+    
+    public CustomerRoll addNewCustomer(String lastName, String address,
+            String city, String state, Integer zipCode) {
+    	if (isReturningCustomer(lastName, address, city, state, zipCode)) {
+    		throw new RuntimeException("Tried to add a new customer who already exists!");
+    	}
+    	else {
+    		Customer c = new Customer(getNextAvailableID(), lastName, address, city, zipCode);
+    		return new Node(c, this);
+    	}
+    	
+    }
+    
+    
+    
+    public CustomerRoll addNewCustomer(Integer ID, String lastName, String address,
+            String city, String state, Integer zipCode) {
+    	if (isReturningCustomer(ID)) {
+    		throw new RuntimeException("That ID is already used by a customer!");
+    	}
+    	else {
+    		Customer c = new Customer(ID, lastName, address, city, zipCode);
+    		return new Node(c, this);
+    	}
+    }
+    
 
     /**
      * Returns true if TODO
@@ -54,16 +94,6 @@ public abstract class CustomerRoll {
         return new EmptyRoll();
     }
 
-    /**
-     * @param cr
-     *            ClassRoll instance
-     * @param s
-     *            Student Instance
-     * @return cr The passed in ClassRoll instance with the Student 's'
-     */
-    public CustomerRoll addCustomer(Customer s) {
-        return new Node(s, this);
-    }
 
     /**
      * @param cr
