@@ -1,84 +1,118 @@
 package bakery;
+import bakery.inventory.Inventory;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Order {
     private int orderID;
     private boolean paid;
-    private String orderDate;
-    private String pickUpDate;
-    
-    private String itemName;
-    private String category;
-    private double itemPrice;
+    private Date orderDate;
+    private Date pickUpDate;
+    private Inventory inv;
+    private double total;
+    private double discount;
+    private double totalDue;
 
     /**
-     * Construct a new item with given parameters
+     * Construct a new order with given parameters
      * @param orderID
-     *            item ID
-     * @param itemName
-     *            item name
+     *            order ID
+     * @param orderName
+     *            order name
      * @param category
-     *            item category
-     * @param item Price
-     *             Price for item
+     *            order category
+     * @param order Price
+     *             Price for order
      */
-    public Order(int orderID, String itemName, String category, double itemPrice) {
+    public Order(int orderID, boolean paid, Date pickUpDate, Inventory inv, double total, double discount) {
         this.orderID = orderID;
-        this.itemName = itemName;
-        this.category = category;
-        this.itemPrice = itemPrice;
+        this.paid = paid;
+        this.orderDate = orderDate;
+        this.pickUpDate = pickUpDate;
+        this.inv = inv;
+        this.total = total;
+        this.discount = discount;
+        this.totalDue = total - discount;
     }
 
     /**
-     * get item ID
+     * get order ID
      * @return orderID
      */
-    public int getorderID() {
+    public int getOrderID() {
         return orderID;
     }
 
     /**
-     * Get item Name
-     * @return itemName
+     * Get order Name
+     * @return orderName
      */
-    public String getItemName() {
-        return itemName;
+    public boolean paid() {
+        return paid;
     }
 
-    /** get the item category
-     * @return item category
+    /** get the order category
+     * @return order category
      */
-    public String getCategory() {
-        return category;
+    public Date getOrderDate() {
+        return orderDate;
     }
 
-    /** Get the item price
-     * @return item price
+    /** Get the order price
+     * @return order price
      */
-    public double getPrice() {
-        return itemPrice;
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
+    
+    /** Get inventory
+     * @return inventory inv
+     */
+    public Inventory getInv() {
+        return inv;
+    }
+    
+    /** Get the order total
+     * @return order total
+     */
+    public double getTotal() {
+        return total;
+    }
+    
+    public double getDiscount() {
+        return discount;
+    }
+    
+    /** Get the order total due after discount
+     * @return order price
+     */
+    public double getTotalDue() {
+        return totalDue;
     }
     
     /**
      * Overriding toString() method 
      */
     public String toString() {
-        return "[" + orderID + ", " + itemName + ", "
-                + category + ", " + itemPrice + "]";
+        return "[" + orderID + ", " + paid + ", " + orderDate + ", " + pickUpDate + 
+            ", " + inv + ", " + total + ", " + discount + ", " + totalDue +" ]";
     }
 
-//    /**
-//     * Overriding equals method from object
-//     */
-//    public boolean equals(Object o) {
-//        if (o instanceof Item) {
-//            Item that = (Item) o;
-//            return this.getorderID() == that.getorderID();
-//        }
-//        else {
-//            return false;
-//        }
-//    }
-
+    /**
+     * Overriding equals method from object
+     */
+    public boolean equals(Object o) {
+        if (o instanceof Order) {
+            Order that = (Order) o;
+            return this.getOrderID() == that.getOrderID();
+        }
+        else {
+            return false;
+        }
+    }
+    
     /**
      * @return hashCode for this
      */
