@@ -21,7 +21,7 @@ public class EmptyRoll extends CustomerRoll {
     /**
      * @return true since Empty has no Students
      */
-    protected boolean noCustomers() {
+    protected boolean isEmpty() {
         return true;
     }
 
@@ -46,9 +46,11 @@ public class EmptyRoll extends CustomerRoll {
      *            student to be tested if in class
      * @return false since there are no students in Empty's class
      */
-    protected boolean isReturningCustomer(Customer s) {
+    protected boolean isReturningCustomer(String lastName, String address,
+        String city, String state, Integer zipCode) {
         return false;
     }
+    
 
     /**
      * @param cr

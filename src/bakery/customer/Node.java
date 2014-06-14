@@ -25,7 +25,7 @@ public class Node extends CustomerRoll {
     /**
      * @return false
      */
-    protected boolean noCustomers() {
+    protected boolean isEmpty() {
         return false;
     }
 
@@ -48,16 +48,16 @@ public class Node extends CustomerRoll {
      * 
      * @return number of students in CR
      */
-    protected int numCustomers() {
-        if (!CustomerRoll.inCustomerRoll(this.getCustomerRoll(), this.getCustomer())) {
-            return 1 + this.getCustomerRoll().numCustomers();
-        }
-        else {
-            return this.getCustomerRoll().numCustomers();
-        }
-    }
-    
-    
+//    protected int numCustomers() {
+//        if (!CustomerRoll.inCustomerRoll(this.getCustomerRoll(), this
+//            .getCustomer())) {
+//            return 1 + this.getCustomerRoll().numCustomers();
+//        }
+//        else {
+//            return this.getCustomerRoll().numCustomers();
+//        }
+//    }
+//
     protected boolean isSubset(CustomerRoll crSuperSet) {
         if (CustomerRoll.inCustomerRoll(crSuperSet, getCustomer())) {
             return getCustomerRoll().isSubset(crSuperSet);
@@ -74,12 +74,16 @@ public class Node extends CustomerRoll {
      *            Student to be checked if in class
      * @return T/F if student is in class
      */
-    protected boolean isReturningCustomer(Customer s1) {
-        if (s1.equals(this.getCustomer())) {
+    protected boolean isReturningCustomer(String lastName, String address,
+        String city, String state, Integer zipCode) {
+        Customer c = getCustomer();
+        if (c.getLastName().equals(lastName)
+            && c.getAddress().equals(address) && c.getCity().equals(city)
+            && c.getState().equals(state) && c.getZipCode().equals(zipCode)) {
             return true;
         }
         else {
-            return this.getCustomerRoll().isReturningCustomer(s1);
+            return this.getCustomerRoll().isReturningCustomer(lastName, address, city, state, zipCode);
         }
     }
 }

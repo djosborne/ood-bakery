@@ -10,10 +10,11 @@ public abstract class CustomerRoll {
      * 
      * @return boolean
      */
-    protected abstract boolean noCustomers();
+    protected abstract boolean isEmpty();
 
     /**
-     * Accessor method for ClassRoll Student
+     * Accessor method for ClassRoll Student TODO: Add a parameter to get
+     * customer by
      * 
      * @return Student
      */
@@ -33,7 +34,8 @@ public abstract class CustomerRoll {
      *            Student to check
      * @return T/F depending on enrollment status
      */
-    protected abstract boolean isReturningCustomer(Customer s);
+    abstract public boolean isReturningCustomer(String lastName, String address,
+        String city, String state, Integer zipCode);
 
     /**
      * Returns true if TODO
@@ -59,8 +61,8 @@ public abstract class CustomerRoll {
      *            Student Instance
      * @return cr The passed in ClassRoll instance with the Student 's'
      */
-    public static CustomerRoll enroll(CustomerRoll cr, Customer s) {
-        return new Node(s, cr);
+    public CustomerRoll addCustomer(Customer s) {
+        return new Node(s, this);
     }
 
     /**
@@ -68,7 +70,7 @@ public abstract class CustomerRoll {
      *            ClassRoll instance
      * @return number of students in cr
      */
-    public static int numStudents(CustomerRoll cr) {
+    public static int numCustomers(CustomerRoll cr) {
         return cr.numCustomers();
     }
 
@@ -78,20 +80,10 @@ public abstract class CustomerRoll {
      * @return T/F depending on whether cr's enrolled students is empty (true)
      *         or not (false)
      */
-    public static boolean noStudents(CustomerRoll cr) {
-        return cr.noCustomers();
+    public static boolean isEmpty(CustomerRoll cr) {
+        return cr.isEmpty();
     }
 
-    /**
-     * @param cr
-     *            ClassRoll instance
-     * @param s
-     *            Student instance
-     * @return T/F if ClassRoll contains Student
-     */
-    public static boolean inCustomerRoll(CustomerRoll cr, Customer s) {
-        return cr.isReturningCustomer(s);
-    }
 
     /**
      * @param crSuperSet
@@ -100,15 +92,18 @@ public abstract class CustomerRoll {
      *            The subset to be tested
      * @return boolean True or False, if it is a subset or not
      */
-    public static boolean isSubset(CustomerRoll crSubSet, CustomerRoll crSuperSet) {
+    public static boolean isSubset(CustomerRoll crSubSet,
+        CustomerRoll crSuperSet) {
         return crSubSet.isSubset(crSuperSet);
     }
+    
+    
 
     /**
      * @return str1 String containing number of students in class
      */
     public String toString() {
-        String str1 = "There are " + CustomerRoll.numStudents(this);
+        String str1 = "There are " + CustomerRoll.numCustomers(this);
         str1 += " registered customers.";
         return str1;
     }
@@ -136,11 +131,11 @@ public abstract class CustomerRoll {
      * @return hashcode for this classroll
      */
     public int hashCode() {
-        if (this.noCustomers()) {
+        if (this.isEmpty()) {
             return 0;
         }
         else {
-            return CustomerRoll.numStudents(this);
+            return CustomerRoll.numCustomers(this);
         }
     }
 }
