@@ -1,5 +1,9 @@
 package bakery.customer;
 
+import bakery.Order;
+
+import java.util.ArrayList;
+
 /**
  * Class to store customer data
  * 
@@ -8,7 +12,7 @@ package bakery.customer;
  */
 public class Customer {
     /** customer's ID */
-    private int customerID;
+    private Integer customerID;
 
     /** customer's last name */
     private String lastName;
@@ -19,11 +23,16 @@ public class Customer {
     /** customer's city */
     private String city;
 
+    /** customer's state */
+    private String state;
+    
     /** customer's zipCode */
-    private int zipCode;
+    private Integer zipCode;
 
     /** reward membership status */
     private boolean isRewardsMember;
+    
+    private ArrayList<Order> orders;
 
     /**
      * Construct a new customer with given parameters
@@ -44,11 +53,29 @@ public class Customer {
         this.isRewardsMember = false;
     }
     
-    int getCustomerID() {
-        return this.customerID;
+    Integer getCustomerID() {
+        return customerID;
     }
     
+    String getLastName() {
+        return lastName;
+    }
+    
+    String getAddress() {
+        return address;
+    }
+    
+    String getCity() {
+        return city;
+    }
 
+    String getState() {
+        return state;
+    }
+    
+    Integer getZipCode() {
+        return zipCode;
+    }
     /**
      * String representation of this customer
      * 

@@ -21,7 +21,7 @@ public class EmptyRoll extends CustomerRoll {
     /**
      * @return true since Empty has no Students
      */
-    protected boolean noCustomers() {
+    protected boolean isEmpty() {
         return true;
     }
 
@@ -41,14 +41,7 @@ public class EmptyRoll extends CustomerRoll {
         return true;
     }
 
-    /**
-     * @param s
-     *            student to be tested if in class
-     * @return false since there are no students in Empty's class
-     */
-    protected boolean isReturningCustomer(Customer s) {
-        return false;
-    }
+
 
     /**
      * @param cr
@@ -87,4 +80,21 @@ public class EmptyRoll extends CustomerRoll {
     protected CustomerRoll inCommonWith(CustomerRoll otherCR) {
         return CustomerRoll.emptyRoll();
     }
+
+
+
+	public boolean isReturningCustomer(Integer ID) {
+		return false;
+	}
+	
+    /**
+     * @param s
+     *            student to be tested if in class
+     * @return false since there are no students in Empty's class
+     */
+    public boolean isReturningCustomer(String lastName, String address,
+        String city, String state, Integer zipCode) {
+        return false;
+    }
+    
 }
