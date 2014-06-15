@@ -1,5 +1,7 @@
 package bakery.customer;
 
+import bakery.Order;
+
 /**
  * @author Daniel Osborne
  * @version 1.0
@@ -7,7 +9,7 @@ package bakery.customer;
 public abstract class CustomerRoll {
 	
 	private Integer lastUsedID = 0;
-	
+	private Integer lastUsedOrderID = 0;
 	
 	private Integer getNextAvailableID() {
 		while (isReturningCustomer(lastUsedID)) {
@@ -15,6 +17,14 @@ public abstract class CustomerRoll {
 		}
 		
 		return lastUsedID;
+	}
+	
+	private Integer getNextAvailableOrderID() {
+		while (isExistingOrder(lastUsedOrderID)) {
+			lastUsedOrderID++;
+		}
+		
+		return lastUsedOrderID;
 	}
 	
     /**
@@ -168,4 +178,14 @@ public abstract class CustomerRoll {
             return CustomerRoll.numCustomers(this);
         }
     }
+    
+    
+    /******************************
+     * Order Functions
+     */
+    
+    abstract boolean isExistingOrder(Integer lastUsedOrderID);
+    
+    abstract CustomerRoll addOrder(Integer customerID, Order o);
 }
+

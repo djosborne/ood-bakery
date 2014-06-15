@@ -31,8 +31,6 @@ public class Customer {
 
     /** reward membership status */
     private boolean isRewardsMember;
-    
-    private ArrayList<Order> orders;
 
     /**
      * Construct a new customer with given parameters

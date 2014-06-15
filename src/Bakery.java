@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 import bakery.customer.CustomerRoll;
@@ -44,8 +46,6 @@ public class Bakery {
     void registerNewCustomer(String lastName, String address, String city, String state, Integer zipCode) {
     	setCustomerRoll(getCustomerRoll().addNewCustomer(lastName, address, city, state, zipCode));
     }
-    
-    
 
     public Bakery addToInventory(int itemID, String itemName,
         String category, double itemPrice) {
@@ -53,12 +53,14 @@ public class Bakery {
             category, itemPrice), getCustomerRoll());
     }
 
-//    public Bakery performTransaction(int customerID) {
-//         CustomerID LastName Address City State ZipCode OrderID Paid?
-//         OrderDate PickupDate BakeryItemID BakeryItemName BakeryItemCategory
-//         Quantity Price Total DiscountUsedOnOrder TotalDue AvailableDiscount
-//         CurrentLoyalty
+//    public Bakery performTransaction(int customerID, int orderID, int itemID, boolean paid, Date pickupDate) {
+//         Item purchasedItem = getInventory().getItem(itemID);               
 //    }
+    
+    public Bakery performTransaction(int customerID, int orderID, int itemID, boolean paid, Date pickupDate) {
+        Item purchasedItem = getInventory().getItem(itemID);               
+   }
+    
 
     @SuppressWarnings("unused")
 	public static void main(String[] args) {
@@ -195,8 +197,8 @@ public class Bakery {
             Integer zipCode = Integer.valueOf(entries[5]);
             Integer orderID = Integer.valueOf(entries[6]);
             boolean paid = entries[7].equalsIgnoreCase("Yes") ? true : false;
-            String orderDate = entries[8];
-            String pickupDate = entries[9];
+            String sOrderDate = entries[8];
+            String sPickupDate = entries[9];
             Integer bakeryItemID = Integer.valueOf(entries[10]);
             String bakeryItemName = entries[11];
             String bakeryItemCategory = entries[12];
@@ -211,6 +213,19 @@ public class Bakery {
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
             	bakeryCtrl.registerNewCustomer(customerID, lastName, address, city, state, zipCode);
             }
+            
+            SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+            Date dPickupDate;
+            Date dOrderDate;
+            try {
+            	dPickupDate = dFormatter.parse(sPickupDate);
+            	dOrderDate = dFormatter.parse(sOrderDate);
+            }
+            catch (Exception e) {
+            	
+            }
+            
+            
             
             
              

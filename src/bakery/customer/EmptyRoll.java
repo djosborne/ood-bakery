@@ -1,4 +1,7 @@
 package bakery.customer;
+
+import bakery.Order;
+
 /**
  * @author Daniel Osborne
  * @version 1.0
@@ -96,5 +99,17 @@ public class EmptyRoll extends CustomerRoll {
         String city, String state, Integer zipCode) {
         return false;
     }
+
+	/*****************************************************************
+	 * Order Functions
+	 ****************************************************************/
+	boolean isExistingOrder(Integer lastUsedOrderID) {
+		return false;
+	}
+
+	
+	CustomerRoll addOrder(Integer customerID, Order o) {
+		throw new RuntimeException("No user with that ID exists!");
+	}
     
 }
