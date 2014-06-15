@@ -55,9 +55,9 @@ public class Bakery {
     }
 
     // generate ID
-    void registerNewCustomer(String lastName, String address, String city,
+    Bakery registerNewCustomer(String lastName, String address, String city,
         String state, Integer zipCode) {
-        setCustomerRoll(getCustomerRoll().addNewCustomer(lastName, address,
+        return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(lastName, address,
             city, state, zipCode));
     }
 
@@ -72,11 +72,11 @@ public class Bakery {
     // Item purchasedItem = getInventory().getItem(itemID);
     // }
 
-    public Bakery performTransaction(int orderID, int customerID, int itemID,
-        int quantity, boolean paid, Date orderDate, Date pickupDate) {
-        Item getItem = getInventory().getItem(itemID);
-        Order newOrder = new Order(getItem, quantity, customerID, paid,
-            pickupDate);
+    public Bakery performTransaction(Integer orderID, int customerID, int itemID,
+        int quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickupDate) {
+        Item orderedItem = getInventory().getItem(itemID);
+        Order newOrder = new Order(orderID, orderedItem, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid,
+            orderDate, pickupDate);
 
         return new Bakery(getInventory(), getCustomerRoll().addOrder(
             customerID, newOrder));
@@ -87,13 +87,15 @@ public class Bakery {
             FileWriter fw = new FileWriter(filename);
             ArrayList<Order> allOrders = getCustomerRoll().getAllOrders();
 
+            SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+            
             fw.write("CustomerID\tLastName\tAddress\tCity\tState\tZipCode\tOrderID\tPaid?\tOrderDate\tPickupDate\tBakeryItemID\tBakeryItemName\tBakeryItemCategory\tQuantity\tPrice\tTotal\tDiscountUsedOnOrder\tTotalDue\tAvailableDiscout\tCurrentLoyalty\n");
 
             for (Order o : allOrders) {
                 Integer customerID = o.getCustomerID();
                 Customer customer = getCustomerRoll().getCustomer(customerID);
                 
-                fw.write(customerID);
+                fw.write(customerID.toString());
                 fw.write("\t");
                 fw.write(customer.getLastName());
                 fw.write("\t");
@@ -105,35 +107,47 @@ public class Bakery {
                 fw.write("\t");
                 fw.write(customer.getZipCode().toString());
                 fw.write("\t");
-                fw.write(o.getOrderID());
+                fw.write(o.getOrderID().toString());
                 fw.write("\t");
                 fw.write(o.paid() ? "Yes" : "No");
                 fw.write("\t");
-                fw.write(o.getOrderDate().toString());
+                fw.write(dFormatter.format(o.getOrderDate()));
                 fw.write("\t");
-                fw.write(o.getPickUpDate().toString());
+                fw.write(dFormatter.format(o.getPickUpDate()));
                 fw.write("\t");
-                fw.write(o.getItem().getItemID());
+                fw.write(o.getItem().getItemID().toString());
                 fw.write("\t");
                 fw.write(o.getItem().getItemName());
                 fw.write("\t");
                 fw.write(o.getItem().getCategory());
                 fw.write("\t");
-                fw.write(o.getQuantity());
+                fw.write(o.getQuantity().toString());
                 fw.write("\t");
                 fw.write(Double.toString(o.getItem().getPrice()));
                 fw.write("\t");
-                fw.write(Double.toString(o.getItem().getPrice()));
+                
+                
+                double total = 0;
+                for (Order customerOrder : getCustomerRoll().getOrdersWithOrderId(o.getOrderID())) {
+                    total += customerOrder.getTotal();
+                }
+                /*
+                 * get all orders with same ID from a user
+                 * add all totals together
+                 * pritn that total
+                 * 
+                 */
+                
+                fw.write(Double.toString(total));
                 fw.write("\t");
-                fw.write(Double.toString(o.getTotal()));
+                fw.write(Double.toString(o.getDiscountUsedOnOrder()));
+                fw.write("\t");
+                
+                fw.write(Double.toString(total + o.getDiscountUsedOnOrder()));
                 fw.write("\t");
                 fw.write("0");
                 fw.write("\t");
-                fw.write(Double.toString(o.getTotalDue()));
-                fw.write("\t");
-                fw.write("0");
-                fw.write("\t");
-                fw.write("0");
+                fw.write(Double.toString(o.getLoyaltyAtTimeOfOrder()));
                 fw.write("\n");
             }
             fw.flush();
@@ -296,13 +310,16 @@ public class Bakery {
 
             // Register the customer if necessary
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
+                System.out.println("Adding " + customerID + ":" + lastName);
                 bakeryCtrl.registerNewCustomer(customerID, lastName, address,
                     city, state, zipCode);
             }
+            
+            System.out.println(bakeryCtrl.getCustomerRoll().numCustomers());
 
             // Register the item if necessary
             if (!bakeryCtrl.isInInventory(bakeryItemID)) {
-                bakeryCtrl.addToInventory(bakeryItemID, bakeryItemName,
+                bakeryCtrl = bakeryCtrl.addToInventory(bakeryItemID, bakeryItemName,
                     bakeryItemCategory, price);
             }
 
@@ -319,7 +336,7 @@ public class Bakery {
             }
 
             bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
-                bakeryItemID, quantity, paid, dOrderDate, dPickupDate);
+            bakeryItemID, quantity, currentLoyalty, discountUsedOnOrder, paid, dOrderDate, dPickupDate);
 
             /**
              * if (user doesn't exist) make user get the userID from (LastName
@@ -351,10 +368,14 @@ public class Bakery {
              * 
              */
         }
-
-        inputScanner.close();
+        
         inventoryScanner.close();
         orderScanner.close();
+
+        /**********************************************************************
+         * Run remaining GUI
+         *********************************************************************/
+
 
         bakeryCtrl.save("ordersSave.csv");
     }

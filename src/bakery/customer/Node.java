@@ -105,7 +105,7 @@ public class Node extends CustomerRoll {
     
     
 
-	protected int numCustomers() {
+	public int numCustomers() {
 		return 1 + getCustomerRoll().numCustomers();
 	}
 
@@ -134,7 +134,7 @@ public class Node extends CustomerRoll {
 			return new Node(getCustomer(), getCustomerRoll(), retOrders);
 		}
 		else {
-			return getCustomerRoll().addOrder(customerID, newOrder);
+			return new Node(getCustomer(), getCustomerRoll().addOrder(customerID, newOrder), getOrders());
 		}
 	}
 
@@ -143,8 +143,8 @@ public class Node extends CustomerRoll {
     }
 
     public ArrayList<Order> getAllOrders() {
-        ArrayList<Order> retAL = getCustomerRoll().getAllOrders();
-        retAL.addAll(getOrders());
+        ArrayList<Order> retAL = getOrders();
+        retAL.addAll(getCustomerRoll().getAllOrders());
         
         return retAL;
     }
@@ -155,6 +155,25 @@ public class Node extends CustomerRoll {
         }
         else {
             return getCustomerRoll().getCustomer(customerID);
+        }
+    }
+
+    
+    public ArrayList<Order> getOrdersWithOrderId(Integer orderID) {
+        ArrayList<Order> matchedOrders = new ArrayList<Order>();
+        
+        for (Order o : getOrders()) {
+            if (o.getOrderID().equals(orderID)) {
+                matchedOrders.add(o);
+            }
+        }
+        
+        if (matchedOrders.isEmpty()) {
+            return getCustomerRoll().getOrdersWithOrderId(orderID);
+        }
+        
+        else {
+            return matchedOrders;
         }
     }
 }

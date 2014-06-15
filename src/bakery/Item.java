@@ -1,7 +1,7 @@
 package bakery;
 
 public class Item {
-    private int itemID;
+    private Integer itemID;
     private String itemName;
     private String category;
     private double itemPrice;
@@ -28,7 +28,7 @@ public class Item {
      * get item ID
      * @return itemID
      */
-    public int getItemID() {
+    public Integer getItemID() {
         return itemID;
     }
 

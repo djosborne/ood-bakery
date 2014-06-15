@@ -72,6 +72,7 @@ public class Customer {
     public Integer getZipCode() {
         return zipCode;
     }
+
     /**
      * String representation of this customer
      * 

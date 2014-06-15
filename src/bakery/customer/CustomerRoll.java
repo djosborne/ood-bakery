@@ -53,7 +53,7 @@ public abstract class CustomerRoll {
      * 
      * @return integer number of non-duplicate customers
      */
-    protected abstract int numCustomers();
+    public abstract int numCustomers();
 
     /**
      * Returns true if customer is in class
@@ -197,6 +197,9 @@ public abstract class CustomerRoll {
     abstract public CustomerRoll addOrder(Integer customerID, Order o);
     
     abstract public ArrayList<Order> getAllOrders();
+    
+    abstract public ArrayList<Order> getOrdersWithOrderId(Integer orderID);
+   
     
 //    abstract public CustomerRoll performTransaction(Integer orderID, Integer customerID, Integer itemID, boolean paid, Date pickupDate);
 }

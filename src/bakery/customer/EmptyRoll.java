@@ -34,7 +34,7 @@ public class EmptyRoll extends CustomerRoll {
     /**
      * @return 0 since Empty has no Students
      */
-    protected int numCustomers() {
+    public int numCustomers() {
         return 0;
     }
 
@@ -134,6 +134,11 @@ public class EmptyRoll extends CustomerRoll {
     
     public Customer getCustomer(Integer customerID) {
         throw new RuntimeException("Customer doesn't exist with that ID");
+    }
+
+    @Override
+    public ArrayList<Order> getOrdersWithOrderId(Integer orderID) {
+      throw new RuntimeException("No order exists with that ID");
     }
     
 }

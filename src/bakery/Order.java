@@ -8,14 +8,14 @@ import java.util.Calendar;
 
 public class Order {
     private int customerID;
-	private int orderID;
+	private Integer orderID;
 	private boolean paid;
 	private Date orderDate;
 	private Date pickUpDate;
 	private Item item;
-	private int quantity;
-//	private double total;
-	private double discount; // TODO do we need this?
+	private Integer quantity;
+	private double loyaltyAtTimeOfOrder;
+	private double discountUsedOnOrder;
 //	private double totalDue;
 
 	/**
@@ -30,31 +30,44 @@ public class Order {
 	 * @param order
 	 *            Price Price for order
 	 */
-	public Order(Item item, Integer quantity, int customerID, boolean paid, Date pickUpDate) {
-		this.customerID = customerID;
-	    this.orderID = 0; // TODO: generate
+	public Order(Integer orderID, Item item, Integer quantity, int customerID,double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
+		this.orderID = orderID;
+	    this.customerID = customerID;
+	    this.orderID = orderID; // TODO: generate
 		this.paid = paid;
 		this.orderDate = new Date();
 		this.pickUpDate = pickUpDate;
 		this.item = item;
 		this.quantity = quantity;
+		this.discountUsedOnOrder = discountUsedOnOrder;
+		this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
 	}
 	
-	   public Order(Item item, Integer quantity, int customerID, boolean paid, Date orderDate, Date pickUpDate) {
+	   public Order(Integer orderID, Item item, Integer quantity, int customerID, double loyaltyAtTimeOfOrder, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickUpDate) {
+	       this.orderID = orderID;
 	       this.customerID = customerID; 
-	       this.orderID = 0; // TODO: generate
+	       this.orderID = orderID; // TODO: generate
 	        this.paid = paid;
 	        this.orderDate = orderDate;
 	        this.pickUpDate = pickUpDate;
 	        this.item = item;
 	        this.quantity = quantity;
+	        this.discountUsedOnOrder = discountUsedOnOrder;
+	        this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
 	    }
+	   
+	   public double getLoyaltyAtTimeOfOrder() {
+	       return loyaltyAtTimeOfOrder;
+	   }
+	   public double getDiscountUsedOnOrder() {
+	       return discountUsedOnOrder;
+	   }
 	
 	public Item getItem() {
 		return item;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 	
@@ -71,7 +84,7 @@ public class Order {
 	 * 
 	 * @return orderID
 	 */
-	public int getOrderID() {
+	public Integer getOrderID() {
 		return orderID;
 	}
 
@@ -102,17 +115,13 @@ public class Order {
 		return pickUpDate;
 	}
 
-	public double getDiscount() {
-		return discount;
-	}
-
 	/**
 	 * Get the order total due after discount
 	 * 
 	 * @return order price
 	 */
 	public double getTotalDue() {
-		return getTotal() - getDiscount();
+		return getTotal() - getDiscountUsedOnOrder();
 	}
 
 	/**
@@ -121,7 +130,7 @@ public class Order {
 	public String toString() {
 		
 		return "[" + orderID + ", " + paid + ", " + orderDate + ", "
-				+ pickUpDate + ", " + item + ", " + getTotal() + ", " + discount
+				+ pickUpDate + ", " + item + ", " + getTotal() + ", " + discountUsedOnOrder
 				+ ", " + getTotalDue() + " ]";
 	}
 
