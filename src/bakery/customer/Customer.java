@@ -1,8 +1,5 @@
 package bakery.customer;
 
-import bakery.Order;
-
-import java.util.ArrayList;
 
 /**
  * Class to store customer data

@@ -127,7 +127,7 @@ public class Node extends CustomerRoll {
 	}
 
 	
-	CustomerRoll addOrder(Integer customerID, Order newOrder) {
+	public CustomerRoll addOrder(Integer customerID, Order newOrder) {
 		if (getCustomer().getCustomerID().equals(customerID)) {
 			ArrayList<Order> retOrders = getOrders();
 			retOrders.add(newOrder);

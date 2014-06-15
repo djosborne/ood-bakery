@@ -1,5 +1,7 @@
 package bakery.customer;
 
+import java.util.Date;
+
 import bakery.Order;
 
 /**
@@ -108,8 +110,14 @@ public class EmptyRoll extends CustomerRoll {
 	}
 
 	
-	CustomerRoll addOrder(Integer customerID, Order o) {
+	public CustomerRoll addOrder(Integer customerID, Order o) {
 		throw new RuntimeException("No user with that ID exists!");
+	}
+
+	
+	public CustomerRoll performTransaction(Integer orderID, Integer customerID,
+			Integer itemID, boolean paid, Date pickupDate) {
+		throw new RuntimeException("no user with that ID exists!");
 	}
     
 }

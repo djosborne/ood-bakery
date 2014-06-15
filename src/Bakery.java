@@ -1,10 +1,10 @@
 import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import bakery.Item;
+import bakery.Order;
 import bakery.customer.CustomerRoll;
 import bakery.inventory.Inventory;
 
@@ -61,8 +61,11 @@ public class Bakery {
 //         Item purchasedItem = getInventory().getItem(itemID);               
 //    }
     
-    public Bakery performTransaction(int customerID, int orderID, int itemID, boolean paid, Date pickupDate) {
-        Item purchasedItem = getInventory().getItem(itemID);               
+    public Bakery performTransaction(int orderID, int customerID, int itemID, int quantity, boolean paid, Date pickupDate) {
+    	Item getItem = getInventory().getItem(itemID);
+    	Order newOrder = new Order(getItem, quantity, paid, pickupDate);
+    	
+    	return new Bakery(getInventory(), getCustomerRoll().addOrder(customerID, newOrder));
    }
     
 
@@ -275,6 +278,10 @@ public class Bakery {
              * 
              */
         }
+        
+        inputScanner.close();
+        inventoryScanner.close();
+        orderScanner.close();
 
     }
 }

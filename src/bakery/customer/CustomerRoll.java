@@ -1,5 +1,8 @@
 package bakery.customer;
 
+
+import java.util.Date;
+
 import bakery.Order;
 
 /**
@@ -186,6 +189,8 @@ public abstract class CustomerRoll {
     
     abstract boolean isExistingOrder(Integer lastUsedOrderID);
     
-    abstract CustomerRoll addOrder(Integer customerID, Order o);
+    abstract public CustomerRoll addOrder(Integer customerID, Order o);
+    
+//    abstract public CustomerRoll performTransaction(Integer orderID, Integer customerID, Integer itemID, boolean paid, Date pickupDate);
 }
 
