@@ -1,8 +1,14 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
+import bakery.Item;
+import bakery.Order;
+import bakery.customer.Customer;
 import bakery.customer.CustomerRoll;
 import bakery.inventory.Inventory;
 
@@ -22,30 +28,38 @@ public class Bakery {
     CustomerRoll getCustomerRoll() {
         return custRoll;
     }
-    
+
     void setCustomerRoll(CustomerRoll cr) {
-    	this.custRoll = cr;
+        this.custRoll = cr;
     }
-    
-    boolean isRegisteredCustomer(String lastName, String address, String city, String state, Integer zipCode) {
-        return getCustomerRoll().isReturningCustomer(lastName, address, city, state, zipCode);
+
+    boolean isRegisteredCustomer(String lastName, String address,
+        String city, String state, Integer zipCode) {
+        return getCustomerRoll().isReturningCustomer(lastName, address, city,
+            state, zipCode);
     }
-    
-    boolean isRegisteredCustomer(Integer ID) {
-    	return getCustomerRoll().isReturningCustomer(ID);
+
+    boolean isRegisteredCustomer(Integer customerID) {
+        return getCustomerRoll().isReturningCustomer(customerID);
     }
-    
+
+    boolean isInInventory(Integer itemID) {
+        return getInventory().containsItem(itemID);
+    }
+
     // provided ID
-    void registerNewCustomer(Integer ID, String lastName, String address, String city, String state, Integer zipCode) {
-        setCustomerRoll(getCustomerRoll().addNewCustomer(ID, lastName, address, city, state, zipCode));
+    void registerNewCustomer(Integer ID, String lastName, String address,
+        String city, String state, Integer zipCode) {
+        setCustomerRoll(getCustomerRoll().addNewCustomer(ID, lastName,
+            address, city, state, zipCode));
     }
-    
+
     // generate ID
-    void registerNewCustomer(String lastName, String address, String city, String state, Integer zipCode) {
-    	setCustomerRoll(getCustomerRoll().addNewCustomer(lastName, address, city, state, zipCode));
+    void registerNewCustomer(String lastName, String address, String city,
+        String state, Integer zipCode) {
+        setCustomerRoll(getCustomerRoll().addNewCustomer(lastName, address,
+            city, state, zipCode));
     }
-    
-    
 
     public Bakery addToInventory(int itemID, String itemName,
         String category, double itemPrice) {
@@ -53,15 +67,87 @@ public class Bakery {
             category, itemPrice), getCustomerRoll());
     }
 
-//    public Bakery performTransaction(int customerID) {
-//         CustomerID LastName Address City State ZipCode OrderID Paid?
-//         OrderDate PickupDate BakeryItemID BakeryItemName BakeryItemCategory
-//         Quantity Price Total DiscountUsedOnOrder TotalDue AvailableDiscount
-//         CurrentLoyalty
-//    }
+    // public Bakery performTransaction(int customerID, int orderID, int itemID,
+    // boolean paid, Date pickupDate) {
+    // Item purchasedItem = getInventory().getItem(itemID);
+    // }
+
+    public Bakery performTransaction(int orderID, int customerID, int itemID,
+        int quantity, boolean paid, Date orderDate, Date pickupDate) {
+        Item getItem = getInventory().getItem(itemID);
+        Order newOrder = new Order(getItem, quantity, customerID, paid,
+            pickupDate);
+
+        return new Bakery(getInventory(), getCustomerRoll().addOrder(
+            customerID, newOrder));
+    }
+
+    public void save(String filename) {
+        try {
+            FileWriter fw = new FileWriter(filename);
+            ArrayList<Order> allOrders = getCustomerRoll().getAllOrders();
+
+            fw.write("CustomerID\tLastName\tAddress\tCity\tState\tZipCode\tOrderID\tPaid?\tOrderDate\tPickupDate\tBakeryItemID\tBakeryItemName\tBakeryItemCategory\tQuantity\tPrice\tTotal\tDiscountUsedOnOrder\tTotalDue\tAvailableDiscout\tCurrentLoyalty\n");
+
+            for (Order o : allOrders) {
+                Integer customerID = o.getCustomerID();
+                Customer customer = getCustomerRoll().getCustomer(customerID);
+                
+                fw.write(customerID);
+                fw.write("\t");
+                fw.write(customer.getLastName());
+                fw.write("\t");
+                fw.write(customer.getAddress());
+                fw.write("\t");
+                fw.write(customer.getCity());
+                fw.write("\t");
+                fw.write(customer.getState());
+                fw.write("\t");
+                fw.write(customer.getZipCode().toString());
+                fw.write("\t");
+                fw.write(o.getOrderID());
+                fw.write("\t");
+                fw.write(o.paid() ? "Yes" : "No");
+                fw.write("\t");
+                fw.write(o.getOrderDate().toString());
+                fw.write("\t");
+                fw.write(o.getPickUpDate().toString());
+                fw.write("\t");
+                fw.write(o.getItem().getItemID());
+                fw.write("\t");
+                fw.write(o.getItem().getItemName());
+                fw.write("\t");
+                fw.write(o.getItem().getCategory());
+                fw.write("\t");
+                fw.write(o.getQuantity());
+                fw.write("\t");
+                fw.write(Double.toString(o.getItem().getPrice()));
+                fw.write("\t");
+                fw.write(Double.toString(o.getItem().getPrice()));
+                fw.write("\t");
+                fw.write(Double.toString(o.getTotal()));
+                fw.write("\t");
+                fw.write("0");
+                fw.write("\t");
+                fw.write(Double.toString(o.getTotalDue()));
+                fw.write("\t");
+                fw.write("0");
+                fw.write("\t");
+                fw.write("0");
+                fw.write("\n");
+            }
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            System.out.print("ERROR");
+        }
+    }
 
     @SuppressWarnings("unused")
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         Bakery bakeryCtrl = new Bakery(Inventory.emptyInventory(),
             CustomerRoll.emptyRoll());
 
@@ -168,7 +254,7 @@ public class Bakery {
          *********************************************************************/
         // skip the headers
         inventoryScanner.nextLine();
-        
+
         // read actual data
         while (inventoryScanner.hasNext()) {
             String line = inventoryScanner.nextLine();
@@ -181,12 +267,12 @@ public class Bakery {
 
         // skip the headers
         orderScanner.nextLine();
-        
+
         // read the actual data
         while (orderScanner.hasNext()) {
             String line = orderScanner.nextLine();
             String entries[] = line.split("\t");
-            
+
             Integer customerID = Integer.valueOf(entries[0]);
             String lastName = entries[1];
             String address = entries[2];
@@ -195,8 +281,8 @@ public class Bakery {
             Integer zipCode = Integer.valueOf(entries[5]);
             Integer orderID = Integer.valueOf(entries[6]);
             boolean paid = entries[7].equalsIgnoreCase("Yes") ? true : false;
-            String orderDate = entries[8];
-            String pickupDate = entries[9];
+            String sOrderDate = entries[8];
+            String sPickupDate = entries[9];
             Integer bakeryItemID = Integer.valueOf(entries[10]);
             String bakeryItemName = entries[11];
             String bakeryItemCategory = entries[12];
@@ -207,41 +293,57 @@ public class Bakery {
             double totalDue = Double.valueOf(entries[17]);
             double availableDiscount = Double.valueOf(entries[18]);
             double currentLoyalty = Double.valueOf(entries[19]);
-               
+
+            // Register the customer if necessary
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
-            	bakeryCtrl.registerNewCustomer(customerID, lastName, address, city, state, zipCode);
+                bakeryCtrl.registerNewCustomer(customerID, lastName, address,
+                    city, state, zipCode);
             }
-            
-            
-             
-             /** if (user doesn't exist)
-             *     make user
-             * get the userID from (LastName Address City State ZipCode)
-             * get current rewards balance, save for later (preRewardsBalance)
+
+            // Register the item if necessary
+            if (!bakeryCtrl.isInInventory(bakeryItemID)) {
+                bakeryCtrl.addToInventory(bakeryItemID, bakeryItemName,
+                    bakeryItemCategory, price);
+            }
+
+            // Register the order
+            SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+            Date dPickupDate = null;
+            Date dOrderDate = null;
+            try {
+                dPickupDate = dFormatter.parse(sPickupDate);
+                dOrderDate = dFormatter.parse(sOrderDate);
+            }
+            catch (Exception e) {
+
+            }
+
+            bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
+                bakeryItemID, quantity, paid, dOrderDate, dPickupDate);
+
+            /**
+             * if (user doesn't exist) make user get the userID from (LastName
+             * Address City State ZipCode) get current rewards balance, save for
+             * later (preRewardsBalance)
              * 
              * 
              * 
-             * generate a new order
-             *    For each item
-             *       scan ID
-             *       prompt quantity
-             *    end
-             *    
-             *    getTotal()
-             *    
-             *    print preRewardsBalance, available discount
-             *    
-             *    if they have >0 available discount, ask how much they want to apply
-             *       prompt for DiscountUsedOnOrder
-             *       getTotalDue() = getttotal - discount
-             *       
-             *       add points to customer's rewards (from totalDue)
-             *      
-             *      
-             *    Pay now or bill you?
-             *    Generate order date (today)
-             *    Prompt for pickup date
-             *     
+             * generate a new order For each item scan ID prompt quantity end
+             * 
+             * getTotal()
+             * 
+             * print preRewardsBalance, available discount
+             * 
+             * if they have >0 available discount, ask how much they want to
+             * apply prompt for DiscountUsedOnOrder getTotalDue() = getttotal -
+             * discount
+             * 
+             * add points to customer's rewards (from totalDue)
+             * 
+             * 
+             * Pay now or bill you? Generate order date (today) Prompt for
+             * pickup date
+             * 
              * 
              * getBakeryItemID(BakeryItemName)
              * 
@@ -250,5 +352,10 @@ public class Bakery {
              */
         }
 
+        inputScanner.close();
+        inventoryScanner.close();
+        orderScanner.close();
+
+        bakeryCtrl.save("ordersSave.csv");
     }
 }

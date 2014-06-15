@@ -19,6 +19,10 @@ public class ItemInventory extends Inventory {
         this.m0 = m0;
     }
     
+    Inventory getRest() {
+    	return m0;
+    }
+    
     /** Adds item to inventory
      * @param itemID item ID
      * @param itemName Name of the item
@@ -92,16 +96,34 @@ public class ItemInventory extends Inventory {
         else {
             return m0.containsItem(item);
         }
-    }    
+    }
+    
+    public boolean containsItem(Integer ID) {
+    	if (item0.getItemID() == ID) {
+    		return true;
+    	}
+    	else {
+    		return m0.containsItem(ID);
+    	}
+    }
     
     /** Get the value from key.
      * @param k
      *             get Value from K
      * @return the value from the key
      */
-    public Item getItem() {
+    private Item getItem() {
         return this.item0;
-    }   
+    }
+    
+    public Item getItem(int ID) {
+    	if (getItem().getItemID() == ID) {
+    		return getItem();
+    	}
+    	else {
+    		return getRest().getItem(ID);
+    	}
+    }
     
     /** Equal Operator.
      * @return boolean whether they are equal or not
@@ -154,4 +176,14 @@ public class ItemInventory extends Inventory {
             return this.getItem().toString() + "\n" + m0.toString();
         }
     }
+
+	@Override
+	public Item getItem(Integer ID) {
+		if (getItem().getItemID()== ID) {
+			return getItem();
+		}
+		else {
+			return getRest().getItem(ID);
+		}
+	}
 }

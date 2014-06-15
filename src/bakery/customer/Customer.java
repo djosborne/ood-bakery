@@ -1,8 +1,5 @@
 package bakery.customer;
 
-import bakery.Order;
-
-import java.util.ArrayList;
 
 /**
  * Class to store customer data
@@ -31,8 +28,6 @@ public class Customer {
 
     /** reward membership status */
     private boolean isRewardsMember;
-    
-    private ArrayList<Order> orders;
 
     /**
      * Construct a new customer with given parameters
@@ -43,37 +38,38 @@ public class Customer {
      *            customer's last name
      */
     public Customer(int customerID, String lastName, String address,
-        String city, int zipCode) {
+        String city, String state, int zipCode) {
         this.customerID = customerID;
         this.lastName = lastName;
         this.address = address;
         this.city = city;
+        this.state = state;
         this.zipCode = zipCode;
 
         this.isRewardsMember = false;
     }
     
-    Integer getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
     
-    String getLastName() {
+    public String getLastName() {
         return lastName;
     }
     
-    String getAddress() {
+    public String getAddress() {
         return address;
     }
     
-    String getCity() {
+    public String getCity() {
         return city;
     }
 
-    String getState() {
+    public String getState() {
         return state;
     }
     
-    Integer getZipCode() {
+    public Integer getZipCode() {
         return zipCode;
     }
     /**
@@ -82,7 +78,7 @@ public class Customer {
      * @return String representation of this customer
      */
     public String toString() {
-        return customerID + ":" + lastName + ":" + address + ":" + city + ":" + zipCode;
+        return "[" + customerID + "] \t[" + lastName + "]\t[" + address + "]\t[" + city + "]\t[" + zipCode + "]";
     }
 
     /**

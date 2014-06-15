@@ -1,5 +1,9 @@
 package bakery.customer;
 
+import java.util.ArrayList;
+
+import bakery.Order;
+
 /**
  * @author Daniel Osborne
  * @version 1.0
@@ -7,6 +11,8 @@ package bakery.customer;
 public class Node extends CustomerRoll {
 
     private Customer c;
+    private ArrayList<Order> orders;
+    
     private CustomerRoll rest;
     
 	/**************************************************************************
@@ -16,14 +22,21 @@ public class Node extends CustomerRoll {
     /**
      * Constructor
      * 
-     * @param s
+     * @param c
      *            Student to be initialized in the classroll
-     * @param cr
+     * @param rest
      *            ClassRoll to be passed into rest
      */
-    public Node(Customer s, CustomerRoll cr) {
-        this.c = s;
-        this.rest = cr;
+    public Node(Customer c, CustomerRoll rest) {
+        this.c = c;
+        this.rest = rest;
+        this.orders = new ArrayList<Order>();
+    }
+    
+    private Node(Customer c, CustomerRoll rest, ArrayList<Order> orders) {
+    	this.c = c;
+    	this.rest = rest;
+    	this.orders = orders;
     }
 
     /**
@@ -95,4 +108,53 @@ public class Node extends CustomerRoll {
 	protected int numCustomers() {
 		return 1 + getCustomerRoll().numCustomers();
 	}
+
+	/*********************************************8
+	 * Order Functions
+	 **********************************************/
+	
+	ArrayList<Order> getOrders() {
+		return orders;
+	}
+	
+	boolean isExistingOrder(Integer orderID) {
+		for (Order o : getOrders()) {
+			if (o.getOrderDate().equals(orderID)) {
+				return true;
+			}
+		}
+		return getCustomerRoll().isExistingOrder(orderID);
+	}
+
+	
+	public CustomerRoll addOrder(Integer customerID, Order newOrder) {
+		if (getCustomer().getCustomerID().equals(customerID)) {
+			ArrayList<Order> retOrders = getOrders();
+			retOrders.add(newOrder);
+			return new Node(getCustomer(), getCustomerRoll(), retOrders);
+		}
+		else {
+			return getCustomerRoll().addOrder(customerID, newOrder);
+		}
+	}
+
+    String toStringHelper() {
+        return getCustomer().toString() + "\n" + getCustomerRoll().toStringHelper();
+    }
+
+    public ArrayList<Order> getAllOrders() {
+        ArrayList<Order> retAL = getCustomerRoll().getAllOrders();
+        retAL.addAll(getOrders());
+        
+        return retAL;
+    }
+
+    public Customer getCustomer(Integer customerID) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return getCustomer();
+        }
+        else {
+            return getCustomerRoll().getCustomer(customerID);
+        }
+    }
 }

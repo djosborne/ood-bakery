@@ -56,8 +56,12 @@ public class EmptyInventory extends Inventory {
         return false;
     }
     
-	public Item getItem() {
-		throw new RuntimeException("Empty Inventory");
+    public boolean containsItem(Integer ID) {
+    	return false;
+    }
+    
+	public Item getItem(Integer ID) {
+		throw new RuntimeException("No item with such ID exists");
 	}
     
     /** Equal Operator.
