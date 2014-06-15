@@ -37,6 +37,10 @@ public class Bakery {
     	return getCustomerRoll().isReturningCustomer(ID);
     }
     
+    boolean isInInventory(Integer ID) {
+    	return getInventory().containsItem(ID);
+    }
+    
     // provided ID
     void registerNewCustomer(Integer ID, String lastName, String address, String city, String state, Integer zipCode) {
         setCustomerRoll(getCustomerRoll().addNewCustomer(ID, lastName, address, city, state, zipCode));
@@ -210,10 +214,17 @@ public class Bakery {
             double availableDiscount = Double.valueOf(entries[18]);
             double currentLoyalty = Double.valueOf(entries[19]);
                
+            // Register the customer if necessary
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
             	bakeryCtrl.registerNewCustomer(customerID, lastName, address, city, state, zipCode);
             }
             
+            // Register the item if necessary
+            if (!bakeryCtrl.isInInventory(bakeryItemID)) {
+            	bakeryCtrl.addToInventory(bakeryItemID, bakeryItemName, bakeryItemCategory, price);
+            }
+            
+            // Register the order            
             SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
             Date dPickupDate;
             Date dOrderDate;

@@ -96,7 +96,16 @@ public class ItemInventory extends Inventory {
         else {
             return m0.containsItem(item);
         }
-    }    
+    }
+    
+    public boolean containsItem(Integer ID) {
+    	if (item0.getItemID() == ID) {
+    		return true;
+    	}
+    	else {
+    		return m0.containsItem(ID);
+    	}
+    }
     
     /** Get the value from key.
      * @param k

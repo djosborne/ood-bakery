@@ -55,6 +55,8 @@ public abstract class Inventory implements Iterable<Item> {
      */
     public abstract boolean containsItem(Item item);
     
+    public abstract boolean containsItem(Integer ID);
+    
     
     // Dynamic Methods
     /** override toString method from object.
