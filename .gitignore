@@ -1,1 +1,3 @@
 bin
+*ordersSave.csv
+*.~lock*

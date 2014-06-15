@@ -1,6 +1,7 @@
 package bakery.customer;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import bakery.Order;
@@ -29,6 +30,8 @@ public abstract class CustomerRoll {
 		
 		return lastUsedOrderID;
 	}
+	
+	public abstract Customer getCustomer(Integer customerID);
 	
     /**
      * Return True or False if ClassRoll has students
@@ -70,7 +73,7 @@ public abstract class CustomerRoll {
     		throw new RuntimeException("Tried to add a new customer who already exists!");
     	}
     	else {
-    		Customer c = new Customer(getNextAvailableID(), lastName, address, city, zipCode);
+    		Customer c = new Customer(getNextAvailableID(), lastName, address, city, state, zipCode);
     		return new Node(c, this);
     	}
     	
@@ -84,7 +87,7 @@ public abstract class CustomerRoll {
     		throw new RuntimeException("That ID is already used by a customer!");
     	}
     	else {
-    		Customer c = new Customer(ID, lastName, address, city, zipCode);
+    		Customer c = new Customer(ID, lastName, address, city, state, zipCode);
     		return new Node(c, this);
     	}
     }
@@ -147,9 +150,11 @@ public abstract class CustomerRoll {
      */
     public String toString() {
         String str1 = "There are " + CustomerRoll.numCustomers(this);
-        str1 += " registered customers.";
+        str1 += " registered customers." + "\n" + toStringHelper();
         return str1;
     }
+    
+    abstract String toStringHelper();
 
     /**
      * Tests input to see if it equals the current ClassRoll
@@ -190,6 +195,8 @@ public abstract class CustomerRoll {
     abstract boolean isExistingOrder(Integer lastUsedOrderID);
     
     abstract public CustomerRoll addOrder(Integer customerID, Order o);
+    
+    abstract public ArrayList<Order> getAllOrders();
     
 //    abstract public CustomerRoll performTransaction(Integer orderID, Integer customerID, Integer itemID, boolean paid, Date pickupDate);
 }

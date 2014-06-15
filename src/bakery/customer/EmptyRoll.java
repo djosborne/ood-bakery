@@ -1,5 +1,6 @@
 package bakery.customer;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import bakery.Order;
@@ -119,5 +120,20 @@ public class EmptyRoll extends CustomerRoll {
 			Integer itemID, boolean paid, Date pickupDate) {
 		throw new RuntimeException("no user with that ID exists!");
 	}
+
+    
+    String toStringHelper() {
+        return "";
+    }
+
+    
+    public ArrayList<Order> getAllOrders() {
+        return new ArrayList<Order>();
+    }
+
+    
+    public Customer getCustomer(Integer customerID) {
+        throw new RuntimeException("Customer doesn't exist with that ID");
+    }
     
 }

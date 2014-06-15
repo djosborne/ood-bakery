@@ -137,4 +137,24 @@ public class Node extends CustomerRoll {
 			return getCustomerRoll().addOrder(customerID, newOrder);
 		}
 	}
+
+    String toStringHelper() {
+        return getCustomer().toString() + "\n" + getCustomerRoll().toStringHelper();
+    }
+
+    public ArrayList<Order> getAllOrders() {
+        ArrayList<Order> retAL = getCustomerRoll().getAllOrders();
+        retAL.addAll(getOrders());
+        
+        return retAL;
+    }
+
+    public Customer getCustomer(Integer customerID) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return getCustomer();
+        }
+        else {
+            return getCustomerRoll().getCustomer(customerID);
+        }
+    }
 }

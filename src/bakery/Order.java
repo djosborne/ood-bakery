@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Order {
+    private int customerID;
 	private int orderID;
 	private boolean paid;
 	private Date orderDate;
@@ -29,14 +30,25 @@ public class Order {
 	 * @param order
 	 *            Price Price for order
 	 */
-	public Order(Item item, Integer quantity, boolean paid, Date pickUpDate) {
-		this.orderID = 0; // TODO: generate
+	public Order(Item item, Integer quantity, int customerID, boolean paid, Date pickUpDate) {
+		this.customerID = customerID;
+	    this.orderID = 0; // TODO: generate
 		this.paid = paid;
 		this.orderDate = new Date();
 		this.pickUpDate = pickUpDate;
 		this.item = item;
 		this.quantity = quantity;
 	}
+	
+	   public Order(Item item, Integer quantity, int customerID, boolean paid, Date orderDate, Date pickUpDate) {
+	       this.customerID = customerID; 
+	       this.orderID = 0; // TODO: generate
+	        this.paid = paid;
+	        this.orderDate = orderDate;
+	        this.pickUpDate = pickUpDate;
+	        this.item = item;
+	        this.quantity = quantity;
+	    }
 	
 	public Item getItem() {
 		return item;
@@ -48,6 +60,10 @@ public class Order {
 	
 	public double getTotal() {
 		return getQuantity() * getItem().getPrice();
+	}
+	
+	public int getCustomerID() {
+	    return customerID;
 	}
 	
 	/**
