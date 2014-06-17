@@ -113,5 +113,8 @@ public class EmptyRoll extends CustomerRoll {
         throw new RuntimeException("Customer doesn't exist with that ID");
     }
 
+    public CustomerRoll removeCustomer(Integer customerID) {
+        throw new RuntimeException("Customer doesn't exist with that ID");
+    }
     
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import bakery.Order;
+import bakery.inventory.ItemInventory;
 
 /**
  * @author Daniel Osborne
@@ -70,15 +71,8 @@ public abstract class CustomerRoll {
     	
     }
     
-    public CustomerRoll removeCustomer(Integer customerID) {
-    	if (isReturningCustomer(ID)) {
-    		throw new RuntimeException("That ID is already used by a customer!");
-    	}
-    	else {
-    		Customer c = new Customer(ID, lastName, address, city, state, zipCode);
-    		return new Node(c, this);
-    	}
-    }
+    public abstract CustomerRoll removeCustomer(Integer customerID);
+
     
     
     public CustomerRoll addNewCustomer(Integer ID, String lastName, String address,

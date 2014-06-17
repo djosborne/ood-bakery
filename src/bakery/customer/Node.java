@@ -123,4 +123,12 @@ public class Node extends CustomerRoll {
             return getCustomerRoll().getCustomer(customerID);
         }
     }
+    
+    public CustomerRoll removeCustomer(Integer customerID) {
+		if (getCustomer().getCustomerID().equals(customerID)) {
+			return rest.removeCustomer(customerID);
+		} else {
+			return new Node(getCustomer(), rest.removeCustomer(customerID));
+		}
+    }
 }

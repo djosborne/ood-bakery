@@ -75,6 +75,12 @@ public class Bakery {
             lastName, address, city, state, zipCode), getOrderList());
     }
 
+    // generate ID
+    Bakery removeCustomer(Integer customerID) {
+        return new Bakery(getInventory(), getCustomerRoll().removeCustomer(customerID), 
+        	getOrderList());
+    }
+    
     public Bakery addToInventory(int itemID, String itemName,
         String category, double itemPrice) {
         return new Bakery(getInventory().addToStock(itemID, itemName,
@@ -447,7 +453,7 @@ public class Bakery {
                 bakeryCtrl.viewExistingCustomers();
             }
             else if (userInput.equals("6")) {
-                // bakeryCtrl = bakeryCtrl.updateExistingCustomer();
+                bakeryCtrl = bakeryCtrl.updateExistingCustomer();
             }
             else if (userInput.equals("7")) {
                 bakeryCtrl = bakeryCtrl.addInventoryItem();
@@ -753,7 +759,7 @@ public class Bakery {
             }
             System.out.println();
             
-            return registerNewCustomer(customerID, lastName, address, city, state, 
+            return removeCustomer(customerID).registerNewCustomer(customerID, lastName, address, city, state, 
             	zipCode);
             
             
