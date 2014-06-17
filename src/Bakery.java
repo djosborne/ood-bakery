@@ -91,7 +91,6 @@ public class Bakery {
         return new Bakery(getInventory().removeFromStock(itemID),
             getCustomerRoll(), getOrderList());
     }
-
     public Bakery performTransaction(Integer orderID, int customerID,
         int itemID, int quantity, double loyaltyAtTimeOfOrder,
         double discountUsedOnOrder, boolean paid, Date orderDate,
@@ -448,7 +447,7 @@ public class Bakery {
                 bakeryCtrl.viewExistingCustomers();
             }
             else if (userInput.equals("6")) {
-                // updateExistingCustomer();
+                // bakeryCtrl = bakeryCtrl.updateExistingCustomer();
             }
             else if (userInput.equals("7")) {
                 bakeryCtrl = bakeryCtrl.addInventoryItem();
@@ -708,6 +707,59 @@ public class Bakery {
         }
         else {
             throw new RuntimeException("That inventory item does not exist!");
+        }
+    }
+    
+    public Bakery updateExistingCustomer() {
+        System.out.println(getCustomerRoll().toString());
+        
+        
+        System.out.println("Please input User ID to be updated");
+
+        System.out.print("User ID: ");
+        String sCustomerID = inputScanner.next();
+        Integer customerID = Integer.valueOf(sCustomerID);
+        
+        if (isRegisteredCustomer(customerID)) {
+            System.out.println("Please enter the following customer info:");
+
+            System.out.print("Last Name: ");
+            String lastName = inputScanner.next();
+            System.out.println();
+
+            System.out.print("Address: ");
+            String address = inputScanner.next();
+            System.out.println();
+
+            System.out.print("City: ");
+            String city = inputScanner.next();
+            System.out.println();
+
+            System.out.print("State: ");
+            String state = inputScanner.next();
+            System.out.println();
+            
+            Integer zipCode = 0;
+            boolean validZip = false;
+            while (!validZip) {
+                System.out.print("Zip Code: ");
+                String sZipCode = inputScanner.next();
+                try {
+                    zipCode = Integer.valueOf(sZipCode);
+                }
+                catch (Exception e) {
+                    System.out.println("Invalid zip code.");
+                }
+            }
+            System.out.println();
+            
+            return registerNewCustomer(customerID, lastName, address, city, state, 
+            	zipCode);
+            
+            
+        }
+        else {
+            throw new RuntimeException("That user does not exist!");
         }
     }
 }

@@ -70,6 +70,15 @@ public abstract class CustomerRoll {
     	
     }
     
+    public CustomerRoll removeCustomer(Integer customerID) {
+    	if (isReturningCustomer(ID)) {
+    		throw new RuntimeException("That ID is already used by a customer!");
+    	}
+    	else {
+    		Customer c = new Customer(ID, lastName, address, city, state, zipCode);
+    		return new Node(c, this);
+    	}
+    }
     
     
     public CustomerRoll addNewCustomer(Integer ID, String lastName, String address,
@@ -82,6 +91,7 @@ public abstract class CustomerRoll {
     		return new Node(c, this);
     	}
     }
+    
     
 
     /**
