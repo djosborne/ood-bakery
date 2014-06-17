@@ -55,9 +55,10 @@ public class Bakery {
     boolean isInInventory(Integer itemID) {
         return getInventory().containsItem(itemID);
     }
-    
+
     boolean isInInventory(String bakeryItemName, String bakeryItemCategory) {
-        return getInventory().containsItem(bakeryItemName, bakeryItemCategory);
+        return getInventory()
+            .containsItem(bakeryItemName, bakeryItemCategory);
     }
 
     // provided ID
@@ -92,11 +93,10 @@ public class Bakery {
         Date pickupDate) {
 
         Item item = getInventory().getItem(itemID);
-        
-         return new Bakery(getInventory(), getCustomerRoll(),
-         getOrderList().addToOrderList(customerID, orderID, paid, orderDate,
-         pickupDate, item, quantity, loyaltyAtTimeOfOrder,
-         discountUsedOnOrder));
+
+        return new Bakery(getInventory(), getCustomerRoll(), getOrderList()
+            .addToOrderList(customerID, orderID, paid, orderDate, pickupDate,
+                item, quantity, loyaltyAtTimeOfOrder, discountUsedOnOrder));
     }
 
     public void save(String filename) {
@@ -143,18 +143,20 @@ public class Bakery {
                 fw.write(Double.toString(o.getItem().getPrice()));
                 fw.write("\t");
 
-                
                 /*
                  * get all orders with same ID from a user add all totals
                  * together pritn that total
                  */
 
-                fw.write(Double.toString(getOrderList().getOrderTotal(o.getOrderID())));
+                fw.write(Double.toString(getOrderList().getOrderTotal(
+                    o.getOrderID())));
                 fw.write("\t");
                 fw.write(Double.toString(o.getDiscountUsedOnOrder()));
                 fw.write("\t");
 
-                fw.write(Double.toString(getOrderList().getOrderTotal(o.getOrderID()) + o.getDiscountUsedOnOrder()));
+                fw.write(Double.toString(getOrderList().getOrderTotal(
+                    o.getOrderID())
+                    + o.getDiscountUsedOnOrder()));
                 fw.write("\t");
                 fw.write("0");
                 fw.write("\t");
@@ -435,16 +437,16 @@ public class Bakery {
                 // updateExistingOrders();
             }
             else if (userInput.equals("4")) {
-                bakeryCtrl.addNewCustomer();
+                bakeryCtrl = bakeryCtrl.addNewCustomer();
             }
             else if (userInput.equals("5")) {
-                // viewExistingCustomers();
+                bakeryCtrl.viewExistingCustomers();
             }
             else if (userInput.equals("6")) {
                 // updateExistingCustomer();
             }
             else if (userInput.equals("7")) {
-            	bakeryCtrl.addInventoryItem();
+            	bakeryCtrl = bakeryCtrl.addInventoryItem();
             }
             else if (userInput.equals("8")) {
                 // viewInventoryItems();
@@ -463,7 +465,60 @@ public class Bakery {
         bakeryCtrl.save("ordersSave.csv");
     }
 
-    public void addNewCustomer() {
+    void viewExistingCustomers() {
+        boolean quit = false;
+        while (!quit) {
+            System.out.println("------------");
+            System.out
+                .println("1.) Print All Registered Customer Information");
+            System.out.println("2.) Print Customer by ID");
+            System.out.println("3.) Print All Customers by Last Name");
+            System.out.println("4.) Go Back");
+            System.out.print("Select [1/2/3/4]: ");
+            String userInput = inputScanner.next();
+
+            if (userInput.equals("1")) {
+                System.out.println(getCustomerRoll().toString());
+                quit = true;
+            }
+            else if (userInput.equals("2")) {
+                System.out.println("------------");
+                System.out.print("User ID: ");
+                String idInput = inputScanner.next();
+                Integer customerID = 0;
+                
+                try {
+                    customerID = Integer.valueOf(idInput);
+                }
+                catch (Exception e) {
+                    System.out.println("[ERROR] Not a valid input");
+                    continue;
+                }
+
+                if (isRegisteredCustomer(customerID)) {
+                    System.out.println(getCustomerRoll().getCustomer(customerID));
+                    // TODO: Print orders
+                    quit = true;
+                }
+                else {
+                    System.out.println("[ERROR] No customer exists with that ID");
+                }
+                
+
+            }
+        }
+
+    }
+
+    void viewExistingCustomersById(Integer ID) {
+
+    }
+
+    void viewExistingCustomersByLastName(String lastName) {
+
+    }
+
+    public Bakery addNewCustomer() {
         System.out.println("Please enter the following customer info:");
 
         System.out.print("Last Name: ");
@@ -482,18 +537,34 @@ public class Bakery {
         String state = inputScanner.next();
         System.out.println();
 
-        System.out.print("Zip Code: ");
-        String sZipCode = inputScanner.next();
-        Integer zipCode = Integer.valueOf(sZipCode);
+        Integer zipCode = 0;
+        boolean validZip = false;
+        while (!validZip) {
+            System.out.print("Zip Code: ");
+            String sZipCode = inputScanner.next();
+
+            try {
+                zipCode = Integer.valueOf(sZipCode);
+            }
+            catch (Exception e) {
+                System.out.println("Invalid zip code.");
+            }
+        }
         System.out.println();
 
         if (!isRegisteredCustomer(lastName, address, city, state, zipCode)) {
-            registerNewCustomer(lastName, address, city, state, zipCode);
+            return registerNewCustomer(lastName, address, city, state,
+                zipCode);
+        }
+        else {
+            System.out.println("That customer already exists!");
+            return this;
         }
     }
+
     
     // CHANGE addToInventory
-    public void addInventoryItem() {
+    public Bakery addInventoryItem() {
     	 System.out.println("Please enter the following Item info:");
 
          System.out.print("Item Name: ");
@@ -506,15 +577,16 @@ public class Bakery {
 
          System.out.print("Item Price: ");
          String sItemPrice = inputScanner.next();
-         double itemPrice = Integer.valueOf(sItemPrice);
+         double itemPrice = Double.valueOf(sItemPrice);
          System.out.println();
         
-        
-        
         if (!isInInventory(itemName, itemCategory)) {
-            addToInventory(itemName, itemCategory, itemPrice);
+            return addToInventory(itemName, itemCategory, itemPrice);
         }
+        else {
+            throw new RuntimeException("That inventory item already exists!");
+        }
+
     }
-    
-    
+
 }
