@@ -15,6 +15,8 @@ import bakery.inventory.Inventory;
 public class Bakery {
     private Inventory inv;
     private CustomerRoll custRoll;
+    
+    private Scanner inputScanner = new Scanner(System.in);
 
     Bakery(Inventory inv, CustomerRoll custRoll) {
         this.inv = inv;
@@ -169,7 +171,7 @@ public class Bakery {
          * Gather user input to load the Scanners for inventory/customers
          *********************************************************************/
 
-        Scanner inputScanner = new Scanner(System.in);
+        
         System.out.println("Welcome to Schmiddty's Bakery!");
         System.out.println("------------------------------");
         System.out.println("1.) to use CCS provided data.");
@@ -184,7 +186,7 @@ public class Bakery {
         boolean allSet = false;
 
         while (!allSet) {
-            userInput = inputScanner.next();
+            userInput = bakeryCtrl.inputScanner.next();
             System.out.println();
             if (userInput.equals("1")) {
                 try {
@@ -236,12 +238,12 @@ public class Bakery {
                 System.out.println("------------------------------");
                 try {
                     System.out.print("Orders Filename: ");
-                    userInput = inputScanner.next();
+                    userInput = bakeryCtrl.inputScanner.next();
                     File ordersFile = new File(userInput);
                     orderScanner = new Scanner(ordersFile);
 
                     System.out.print("Bakery Inventory Filename: ");
-                    userInput = inputScanner.next();
+                    userInput = bakeryCtrl.inputScanner.next();
                     File inventoryFile = new File(userInput);
                     inventoryScanner = new Scanner(inventoryFile);
                     allSet = true;
@@ -278,6 +280,8 @@ public class Bakery {
                 .parseInt(entries[0]), entries[1], entries[2], Double
                 .parseDouble(entries[3]));
         }
+        
+        System.out.print("Loading...");
 
         // skip the headers
         orderScanner.nextLine();
@@ -310,12 +314,9 @@ public class Bakery {
 
             // Register the customer if necessary
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
-                System.out.println("Adding " + customerID + ":" + lastName);
                 bakeryCtrl.registerNewCustomer(customerID, lastName, address,
                     city, state, zipCode);
             }
-            
-            System.out.println(bakeryCtrl.getCustomerRoll().numCustomers());
 
             // Register the item if necessary
             if (!bakeryCtrl.isInInventory(bakeryItemID)) {
@@ -375,8 +376,47 @@ public class Bakery {
         /**********************************************************************
          * Run remaining GUI
          *********************************************************************/
-
-
+        boolean admin = false;
+        System.out.println("...loaded!");
+        System.out.println("------------------------------");
+        System.out.println("1.) Cashier Interface");
+        System.out.println("2.) Owner Interface");
+        System.out.print("Enter [1/2]: ");
+        userInput = bakeryCtrl.inputScanner.next();
+        System.out.println();
+        
+        if (userInput.equals("2")) {
+            admin = true;
+        }
+        
+        System.out.println("------------------------------");
+        // orders
+        System.out.println("ORDERS");
+        System.out.println("1.) Add New Order"); // need output reciept - customer info, order info, order total
+        System.out.println("2.) View Existing Orders"); // by pickup date, by order date, by product, by paid status
+        System.out.println("3.) Update Existing Order");
+        
+        
+        // customers
+        System.out.println();
+        System.out.println("CUSTOMERS");
+        System.out.println("4.) Add New Customer");       // admin only
+        System.out.println("5.) View Existing Customer Information"); // loyalty status, contact info,  all orders
+        System.out.println("6.) Update Existing Customer Info");
+        
+        
+        // inventory
+        System.out.println();
+        System.out.println("INVENTORY");
+        System.out.println("7.) Add Inventory Item");
+        System.out.println("8.) View All Items in Inventory");
+        System.out.println("9.) Update Inventory Items");
+        
+        
+        System.out.println("10.) Save and Quit");
+        
+        
+        userInput = bakeryCtrl.inputScanner.next();
         bakeryCtrl.save("ordersSave.csv");
     }
 }
