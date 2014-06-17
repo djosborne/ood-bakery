@@ -38,6 +38,10 @@ public class EmptyInventory extends Inventory {
         return this;
     }
     
+    public Inventory removeFromStock(Integer itemID) {
+    	return this;
+    }
+    
     /** See whether a map is empty
      * @return true 
      */

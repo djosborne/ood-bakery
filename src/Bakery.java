@@ -86,6 +86,10 @@ public class Bakery {
             return new Bakery(getInventory().addToStock(itemName,
                 category, itemPrice), getCustomerRoll(), getOrderList());
         }
+    public Bakery removeFromInventory(Integer itemID) {
+            return new Bakery(getInventory().removeFromStock(itemID),
+            	getCustomerRoll(), getOrderList());
+        }
     
     public Bakery performTransaction(Integer orderID, int customerID,
         int itemID, int quantity, double loyaltyAtTimeOfOrder,
@@ -446,13 +450,13 @@ public class Bakery {
                 // updateExistingCustomer();
             }
             else if (userInput.equals("7")) {
-            	bakeryCtrl = bakeryCtrl.addInventoryItem();
+                bakeryCtrl = bakeryCtrl.addInventoryItem();
             }
             else if (userInput.equals("8")) {
                  bakeryCtrl.viewExistingInventory();
             }
             else if (userInput.equals("9")) {
-                // updateInventoryItems();
+                 bakeryCtrl = bakeryCtrl.updateInventoryItems();
             }
             else if (userInput.equals("10")) {
                 quit = true;
@@ -562,7 +566,7 @@ public class Bakery {
     
     // CHANGE addToInventory
     public Bakery addInventoryItem() {
-    	 System.out.println("Please enter the following Item info:");
+         System.out.println("Please enter the following Item info:");
 
          System.out.print("Item Name: ");
          String itemName = inputScanner.next();
@@ -637,5 +641,38 @@ public class Bakery {
                 // TODO: invalid entry
             }
         }
+    }
+    
+    public Bakery updateInventoryItems() {
+        System.out.println(getInventory().toString());
+        
+        System.out.println("Please input Item ID to be updated");
+
+        System.out.print("Item ID: ");
+        String sItemID = inputScanner.next();
+        Integer itemID = Integer.valueOf(sItemID);
+       
+       if (isInInventory(itemID)) {
+           System.out.println("Please enter the following Item info:");
+
+         System.out.print("Item Name: ");
+         String itemName = inputScanner.next();
+         System.out.println();
+
+         System.out.print("Item Category: ");
+         String itemCategory = inputScanner.next();
+         System.out.println();
+
+         System.out.print("Item Price: ");
+         String sItemPrice = inputScanner.next();
+         double itemPrice = Double.valueOf(sItemPrice);
+         System.out.println();
+           
+         
+         return removeFromInventory(itemID).addToInventory(itemID, itemName, itemCategory, itemPrice);
+       }
+       else {
+           throw new RuntimeException("That inventory item does not exist!");
+       }
     }
 }

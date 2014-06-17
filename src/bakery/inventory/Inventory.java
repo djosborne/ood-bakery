@@ -38,6 +38,7 @@ public abstract class Inventory implements Iterable<Item> {
      */
     public abstract Inventory removeFromStock(Item item);
     
+    public abstract Inventory removeFromStock(Integer itemID);
     
     /** Checks if a inventory is empty.
      * @return true or false map is empty
