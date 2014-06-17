@@ -55,6 +55,10 @@ public class Bakery {
     boolean isInInventory(Integer itemID) {
         return getInventory().containsItem(itemID);
     }
+    
+    boolean isInInventory(String bakeryItemName, String bakeryItemCategory) {
+        return getInventory().containsItem(bakeryItemName, bakeryItemCategory);
+    }
 
     // provided ID
     void registerNewCustomer(Integer ID, String lastName, String address,
@@ -434,7 +438,7 @@ public class Bakery {
                 // updateExistingCustomer();
             }
             else if (userInput.equals("7")) {
-                // addInventoryItem();
+                 addInventoryItem();
             }
             else if (userInput.equals("8")) {
                 // viewInventoryItems();
@@ -481,4 +485,16 @@ public class Bakery {
             registerNewCustomer(lastName, address, city, state, zipCode);
         }
     }
+    
+    public void addInventoryItem() {
+        
+        
+        
+        
+        if (!isInInventory(bakeryItemName, bakeryItemCategory)) {
+            addToInventory(bakeryItemName, bakeryItemCategory, price);
+        }
+    }
+    
+    
 }
