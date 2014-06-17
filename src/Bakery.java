@@ -11,24 +11,31 @@ import bakery.Order;
 import bakery.customer.Customer;
 import bakery.customer.CustomerRoll;
 import bakery.inventory.Inventory;
+import bakery.order.OrderList;
 
 public class Bakery {
     private Inventory inv;
     private CustomerRoll custRoll;
-    
+    private OrderList orderList;
+
     private Scanner inputScanner = new Scanner(System.in);
 
-    Bakery(Inventory inv, CustomerRoll custRoll) {
+    Bakery(Inventory inv, CustomerRoll custRoll, OrderList orderList) {
         this.inv = inv;
         this.custRoll = custRoll;
+        this.orderList = orderList;
     }
 
-    Inventory getInventory() {
+    private Inventory getInventory() {
         return inv;
     }
 
-    CustomerRoll getCustomerRoll() {
+    private CustomerRoll getCustomerRoll() {
         return custRoll;
+    }
+
+    private OrderList getOrderList() {
+        return orderList;
     }
 
     void setCustomerRoll(CustomerRoll cr) {
@@ -59,44 +66,42 @@ public class Bakery {
     // generate ID
     Bakery registerNewCustomer(String lastName, String address, String city,
         String state, Integer zipCode) {
-        return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(lastName, address,
-            city, state, zipCode));
+        return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(
+            lastName, address, city, state, zipCode), getOrderList());
     }
 
     public Bakery addToInventory(int itemID, String itemName,
         String category, double itemPrice) {
         return new Bakery(getInventory().addToStock(itemID, itemName,
-            category, itemPrice), getCustomerRoll());
+            category, itemPrice), getCustomerRoll(), getOrderList());
     }
 
-    // public Bakery performTransaction(int customerID, int orderID, int itemID,
-    // boolean paid, Date pickupDate) {
-    // Item purchasedItem = getInventory().getItem(itemID);
-    // }
+    public Bakery performTransaction(Integer orderID, int customerID,
+        int itemID, int quantity, double loyaltyAtTimeOfOrder,
+        double discountUsedOnOrder, boolean paid, Date orderDate,
+        Date pickupDate) {
 
-    public Bakery performTransaction(Integer orderID, int customerID, int itemID,
-        int quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickupDate) {
-        Item orderedItem = getInventory().getItem(itemID);
-        Order newOrder = new Order(orderID, orderedItem, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid,
-            orderDate, pickupDate);
-
-        return new Bakery(getInventory(), getCustomerRoll().addOrder(
-            customerID, newOrder));
+        Item item = getInventory().getItem(itemID);
+        
+         return new Bakery(getInventory(), getCustomerRoll(),
+         getOrderList().addToOrderList(customerID, orderID, paid, orderDate,
+         pickupDate, item, quantity, loyaltyAtTimeOfOrder,
+         discountUsedOnOrder));
     }
 
     public void save(String filename) {
         try {
             FileWriter fw = new FileWriter(filename);
-            ArrayList<Order> allOrders = getCustomerRoll().getAllOrders();
 
             SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
-            
+
             fw.write("CustomerID\tLastName\tAddress\tCity\tState\tZipCode\tOrderID\tPaid?\tOrderDate\tPickupDate\tBakeryItemID\tBakeryItemName\tBakeryItemCategory\tQuantity\tPrice\tTotal\tDiscountUsedOnOrder\tTotalDue\tAvailableDiscout\tCurrentLoyalty\n");
 
-            for (Order o : allOrders) {
+            for (Order o : getOrderList()) {
+
                 Integer customerID = o.getCustomerID();
                 Customer customer = getCustomerRoll().getCustomer(customerID);
-                
+
                 fw.write(customerID.toString());
                 fw.write("\t");
                 fw.write(customer.getLastName());
@@ -127,25 +132,19 @@ public class Bakery {
                 fw.write("\t");
                 fw.write(Double.toString(o.getItem().getPrice()));
                 fw.write("\t");
+
                 
-                
-                double total = 0;
-                for (Order customerOrder : getCustomerRoll().getOrdersWithOrderId(o.getOrderID())) {
-                    total += customerOrder.getTotal();
-                }
                 /*
-                 * get all orders with same ID from a user
-                 * add all totals together
-                 * pritn that total
-                 * 
+                 * get all orders with same ID from a user add all totals
+                 * together pritn that total
                  */
-                
-                fw.write(Double.toString(total));
+
+                fw.write(Double.toString(getOrderList().getOrderTotal(o.getOrderID())));
                 fw.write("\t");
                 fw.write(Double.toString(o.getDiscountUsedOnOrder()));
                 fw.write("\t");
-                
-                fw.write(Double.toString(total + o.getDiscountUsedOnOrder()));
+
+                fw.write(Double.toString(getOrderList().getOrderTotal(o.getOrderID()) + o.getDiscountUsedOnOrder()));
                 fw.write("\t");
                 fw.write("0");
                 fw.write("\t");
@@ -165,13 +164,12 @@ public class Bakery {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
         Bakery bakeryCtrl = new Bakery(Inventory.emptyInventory(),
-            CustomerRoll.emptyRoll());
+            CustomerRoll.emptyRoll(), OrderList.emptyOrder());
 
         /**********************************************************************
          * Gather user input to load the Scanners for inventory/customers
          *********************************************************************/
 
-        
         System.out.println("Welcome to Schmiddty's Bakery!");
         System.out.println("------------------------------");
         System.out.println("1.) to use CCS provided data.");
@@ -280,7 +278,7 @@ public class Bakery {
                 .parseInt(entries[0]), entries[1], entries[2], Double
                 .parseDouble(entries[3]));
         }
-        
+
         System.out.print("Loading...");
 
         // skip the headers
@@ -320,8 +318,8 @@ public class Bakery {
 
             // Register the item if necessary
             if (!bakeryCtrl.isInInventory(bakeryItemID)) {
-                bakeryCtrl = bakeryCtrl.addToInventory(bakeryItemID, bakeryItemName,
-                    bakeryItemCategory, price);
+                bakeryCtrl = bakeryCtrl.addToInventory(bakeryItemID,
+                    bakeryItemName, bakeryItemCategory, price);
             }
 
             // Register the order
@@ -337,7 +335,8 @@ public class Bakery {
             }
 
             bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
-            bakeryItemID, quantity, currentLoyalty, discountUsedOnOrder, paid, dOrderDate, dPickupDate);
+                bakeryItemID, quantity, currentLoyalty, discountUsedOnOrder,
+                paid, dOrderDate, dPickupDate);
 
             /**
              * if (user doesn't exist) make user get the userID from (LastName
@@ -369,7 +368,7 @@ public class Bakery {
              * 
              */
         }
-        
+
         inventoryScanner.close();
         orderScanner.close();
 
@@ -384,39 +383,102 @@ public class Bakery {
         System.out.print("Enter [1/2]: ");
         userInput = bakeryCtrl.inputScanner.next();
         System.out.println();
-        
+
         if (userInput.equals("2")) {
             admin = true;
         }
-        
-        System.out.println("------------------------------");
-        // orders
-        System.out.println("ORDERS");
-        System.out.println("1.) Add New Order"); // need output reciept - customer info, order info, order total
-        System.out.println("2.) View Existing Orders"); // by pickup date, by order date, by product, by paid status
-        System.out.println("3.) Update Existing Order");
-        
-        
-        // customers
-        System.out.println();
-        System.out.println("CUSTOMERS");
-        System.out.println("4.) Add New Customer");       // admin only
-        System.out.println("5.) View Existing Customer Information"); // loyalty status, contact info,  all orders
-        System.out.println("6.) Update Existing Customer Info");
-        
-        
-        // inventory
-        System.out.println();
-        System.out.println("INVENTORY");
-        System.out.println("7.) Add Inventory Item");
-        System.out.println("8.) View All Items in Inventory");
-        System.out.println("9.) Update Inventory Items");
-        
-        
-        System.out.println("10.) Save and Quit");
-        
-        
-        userInput = bakeryCtrl.inputScanner.next();
+
+        boolean quit = false;
+        while (!quit) {
+            System.out.println("------------------------------");
+            // orders
+            System.out.println("ORDERS");
+            System.out.println("1.) Add New Order"); /*- need output reciept customer info, order info, order total */
+            System.out.println("2.) View Existing Orders"); /*- by pickup date, by order date, by product, by paid status */
+            System.out.println("3.) Update Existing Order");
+
+            // customers
+            System.out.println();
+            System.out.println("CUSTOMERS");
+            System.out.println("4.) Add New Customer"); // admin only
+            System.out.println("5.) View Existing Customer Information"); /*- loyalty status, contact info, all orders */
+            System.out.println("6.) Update Existing Customer Info");
+
+            // inventory
+            System.out.println();
+            System.out.println("INVENTORY");
+            System.out.println("7.) Add Inventory Item");
+            System.out.println("8.) View All Items in Inventory");
+            System.out.println("9.) Update Inventory Items");
+
+            System.out.println("10.) Save and Quit");
+            System.out.print("Enter [1/2/3/4/5/6/7/8/9/10]: ");
+
+            userInput = bakeryCtrl.inputScanner.next();
+            if (userInput.equals("1")) {
+                // addNewOrder();
+            }
+            else if (userInput.equals("2")) {
+                // viewExistingOrders();
+            }
+            else if (userInput.equals("3")) {
+                // updateExistingOrders();
+            }
+            else if (userInput.equals("4")) {
+                bakeryCtrl.addNewCustomer();
+            }
+            else if (userInput.equals("5")) {
+                // viewExistingCustomers();
+            }
+            else if (userInput.equals("6")) {
+                // updateExistingCustomer();
+            }
+            else if (userInput.equals("7")) {
+                // addInventoryItem();
+            }
+            else if (userInput.equals("8")) {
+                // viewInventoryItems();
+            }
+            else if (userInput.equals("9")) {
+                // updateInventoryItems();
+            }
+            else if (userInput.equals("10")) {
+                quit = true;
+            }
+            else {
+                System.out.println("[ERROR] Invalid input.");
+            }
+        }
+
         bakeryCtrl.save("ordersSave.csv");
+    }
+
+    public void addNewCustomer() {
+        System.out.println("Please enter the following customer info:");
+
+        System.out.print("Last Name: ");
+        String lastName = inputScanner.next();
+        System.out.println();
+
+        System.out.print("Address: ");
+        String address = inputScanner.next();
+        System.out.println();
+
+        System.out.print("City: ");
+        String city = inputScanner.next();
+        System.out.println();
+
+        System.out.print("State: ");
+        String state = inputScanner.next();
+        System.out.println();
+
+        System.out.print("Zip Code: ");
+        String sZipCode = inputScanner.next();
+        Integer zipCode = Integer.valueOf(sZipCode);
+        System.out.println();
+
+        if (!isRegisteredCustomer(lastName, address, city, state, zipCode)) {
+            registerNewCustomer(lastName, address, city, state, zipCode);
+        }
     }
 }

@@ -3,7 +3,6 @@ package bakery.customer;
 import java.util.ArrayList;
 import java.util.Date;
 
-import bakery.Order;
 
 /**
  * @author Daniel Osborne
@@ -103,42 +102,16 @@ public class EmptyRoll extends CustomerRoll {
         return false;
     }
 
-	/*****************************************************************
-	 * Order Functions
-	 ****************************************************************/
-	boolean isExistingOrder(Integer lastUsedOrderID) {
-		return false;
-	}
-
-	
-	public CustomerRoll addOrder(Integer customerID, Order o) {
-		throw new RuntimeException("No user with that ID exists!");
-	}
-
-	
-	public CustomerRoll performTransaction(Integer orderID, Integer customerID,
-			Integer itemID, boolean paid, Date pickupDate) {
-		throw new RuntimeException("no user with that ID exists!");
-	}
-
     
     String toStringHelper() {
         return "";
     }
 
     
-    public ArrayList<Order> getAllOrders() {
-        return new ArrayList<Order>();
-    }
-
     
     public Customer getCustomer(Integer customerID) {
         throw new RuntimeException("Customer doesn't exist with that ID");
     }
 
-    @Override
-    public ArrayList<Order> getOrdersWithOrderId(Integer orderID) {
-      throw new RuntimeException("No order exists with that ID");
-    }
     
 }
