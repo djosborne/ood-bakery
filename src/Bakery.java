@@ -501,7 +501,7 @@ public class Bakery {
 
                 if (isRegisteredCustomer(customerID)) {
                     System.out.println(getCustomerRoll().getCustomer(customerID));
-                    // TODO: Print orders
+                    System.out.println(getOrderList().getOrdersByCustomerID(customerID));
                     quit = true;
                 }
                 else {
@@ -625,7 +625,7 @@ public class Bakery {
 
                 if (isRegisteredCustomer(customerID)) {
                     System.out.println(getCustomerRoll().getCustomer(customerID));
-                    // TODO: Print orders
+                    
                     quit = true;
                 }
                 else {
@@ -634,7 +634,8 @@ public class Bakery {
                 
             }
             else if (userInput.equals("3")) {
-                // TODO: Last name search
+                System.out.println("------------");
+                System.out.print("");
             }
             
             else {

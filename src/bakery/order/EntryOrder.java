@@ -119,14 +119,24 @@ public class EntryOrder extends OrderList {
     }
     
     
-    public OrderList getOrdersByID(Integer orderID) {
+    public OrderList getOrdersByOrderID(Integer orderID) {
     	if (order0.getOrderID() == orderID) {
-    		return new EntryOrder(order0, getRest().getOrdersByID(orderID));
+    		return new EntryOrder(order0, getRest().getOrdersByOrderID(orderID));
     	}
     	else {
-    		return getRest().getOrdersByID(orderID);
+    		return getRest().getOrdersByOrderID(orderID);
     	}
 	}
+    
+    
+    public OrderList getOrdersByCustomerID(Integer customerID) {
+        if (order0.getCustomerID() == customerID) {
+            return new EntryOrder(order0, getRest().getOrdersByCustomerID(customerID));
+        }
+        else {
+            return getRest().getOrdersByCustomerID(customerID);
+        }
+    }
 	
     
     /** Equal Operator.
@@ -201,4 +211,12 @@ public class EntryOrder extends OrderList {
             return getRest().getOrderTotal(orderID);
         }
     }
+
+
+
+//    @Override
+//    public ArrayList getArrayKeys(ArrayList<Order> x) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
 }
