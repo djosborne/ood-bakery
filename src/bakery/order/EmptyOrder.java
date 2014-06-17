@@ -66,6 +66,10 @@ public class EmptyOrder extends OrderList {
 		throw new RuntimeException("No item with such ID exists");
 	}
     
+    public OrderList getOrdersByID(Integer orderID) {
+		return this;
+	}
+	
     /** Equal Operator.
      * @return boolean whether they are equal or not
      * @param o 

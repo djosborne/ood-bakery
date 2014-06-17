@@ -118,14 +118,16 @@ public class EntryOrder extends OrderList {
         return this.order0;
     }
     
-    public Order getOrder(int ID) {
-    	if (getOrder().getOrderID() == ID) {
-    		return getOrder();
+    
+    public OrderList getOrdersByID(Integer orderID) {
+    	if (order0.getOrderID() == orderID) {
+    		return new EntryOrder(order0, getRest().getOrdersByID(orderID));
     	}
     	else {
-    		return getRest().getOrder(ID);
+    		return getRest().getOrdersByID(orderID);
     	}
-    }
+	}
+	
     
     /** Equal Operator.
      * @return boolean whether they are equal or not
@@ -188,4 +190,5 @@ public class EntryOrder extends OrderList {
 			return getRest().getOrder(ID);
 		}
 	}
+
 }

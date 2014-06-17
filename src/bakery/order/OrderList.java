@@ -59,6 +59,7 @@ public abstract class OrderList implements Iterable<Order> {
     
     public abstract boolean containsOrder(Integer orderID);
     
+    public abstract OrderList getOrdersByID(Integer orderID);
     
     // Dynamic Methods
     /** override toString method from object.
