@@ -89,13 +89,13 @@ public abstract class Inventory implements Iterable<Item> {
         return new MyIterator(this.getArrayKeys(new ArrayList<Item>()));
     }
     
-	private Integer lastUsedID = 0;
-	
-	protected Integer getNextAvailableID() {
-		while (containsItem(lastUsedID)) {
-			lastUsedID++;
-		}
-		return lastUsedID;
-	}
+    private Integer lastUsedID = 1;
+    
+    protected Integer getNextAvailableID() {
+        while (containsItem(lastUsedID)) {
+            lastUsedID++;
+        }
+        return lastUsedID;
+    }
 
 }

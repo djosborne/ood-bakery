@@ -13,7 +13,7 @@ import bakery.inventory.ItemInventory;
  */
 public abstract class CustomerRoll {
 	
-	private Integer lastUsedID = 0;
+	private Integer lastUsedID = 1;
 	
 	private Integer getNextAvailableID() {
 		while (isReturningCustomer(lastUsedID)) {

@@ -211,12 +211,4 @@ public class EntryOrder extends OrderList {
             return getRest().getOrderTotal(orderID);
         }
     }
-
-
-
-//    @Override
-//    public ArrayList getArrayKeys(ArrayList<Order> x) {
-//        // TODO Auto-generated method stub
-//        return null;
-//    }
 }
