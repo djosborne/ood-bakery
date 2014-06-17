@@ -11,7 +11,6 @@ import bakery.Order;
 public class Node extends CustomerRoll {
 
     private Customer c;
-    private ArrayList<Order> orders;
     
     private CustomerRoll rest;
     
@@ -30,13 +29,11 @@ public class Node extends CustomerRoll {
     public Node(Customer c, CustomerRoll rest) {
         this.c = c;
         this.rest = rest;
-        this.orders = new ArrayList<Order>();
     }
     
     private Node(Customer c, CustomerRoll rest, ArrayList<Order> orders) {
     	this.c = c;
     	this.rest = rest;
-    	this.orders = orders;
     }
 
     /**
@@ -113,40 +110,9 @@ public class Node extends CustomerRoll {
 	 * Order Functions
 	 **********************************************/
 	
-	ArrayList<Order> getOrders() {
-		return orders;
-	}
 	
-	boolean isExistingOrder(Integer orderID) {
-		for (Order o : getOrders()) {
-			if (o.getOrderDate().equals(orderID)) {
-				return true;
-			}
-		}
-		return getCustomerRoll().isExistingOrder(orderID);
-	}
-
-	
-	public CustomerRoll addOrder(Integer customerID, Order newOrder) {
-		if (getCustomer().getCustomerID().equals(customerID)) {
-			ArrayList<Order> retOrders = getOrders();
-			retOrders.add(newOrder);
-			return new Node(getCustomer(), getCustomerRoll(), retOrders);
-		}
-		else {
-			return new Node(getCustomer(), getCustomerRoll().addOrder(customerID, newOrder), getOrders());
-		}
-	}
-
     String toStringHelper() {
         return getCustomer().toString() + "\n" + getCustomerRoll().toStringHelper();
-    }
-
-    public ArrayList<Order> getAllOrders() {
-        ArrayList<Order> retAL = getOrders();
-        retAL.addAll(getCustomerRoll().getAllOrders());
-        
-        return retAL;
     }
 
     public Customer getCustomer(Integer customerID) {
@@ -155,25 +121,6 @@ public class Node extends CustomerRoll {
         }
         else {
             return getCustomerRoll().getCustomer(customerID);
-        }
-    }
-
-    
-    public ArrayList<Order> getOrdersWithOrderId(Integer orderID) {
-        ArrayList<Order> matchedOrders = new ArrayList<Order>();
-        
-        for (Order o : getOrders()) {
-            if (o.getOrderID().equals(orderID)) {
-                matchedOrders.add(o);
-            }
-        }
-        
-        if (matchedOrders.isEmpty()) {
-            return getCustomerRoll().getOrdersWithOrderId(orderID);
-        }
-        
-        else {
-            return matchedOrders;
         }
     }
 }

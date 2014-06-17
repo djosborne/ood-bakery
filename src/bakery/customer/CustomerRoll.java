@@ -13,7 +13,6 @@ import bakery.Order;
 public abstract class CustomerRoll {
 	
 	private Integer lastUsedID = 0;
-	private Integer lastUsedOrderID = 0;
 	
 	private Integer getNextAvailableID() {
 		while (isReturningCustomer(lastUsedID)) {
@@ -21,14 +20,6 @@ public abstract class CustomerRoll {
 		}
 		
 		return lastUsedID;
-	}
-	
-	private Integer getNextAvailableOrderID() {
-		while (isExistingOrder(lastUsedOrderID)) {
-			lastUsedOrderID++;
-		}
-		
-		return lastUsedOrderID;
 	}
 	
 	public abstract Customer getCustomer(Integer customerID);
@@ -186,21 +177,5 @@ public abstract class CustomerRoll {
             return CustomerRoll.numCustomers(this);
         }
     }
-    
-    
-    /******************************
-     * Order Functions
-     */
-    
-    abstract boolean isExistingOrder(Integer lastUsedOrderID);
-    
-    abstract public CustomerRoll addOrder(Integer customerID, Order o);
-    
-    abstract public ArrayList<Order> getAllOrders();
-    
-    abstract public ArrayList<Order> getOrdersWithOrderId(Integer orderID);
-   
-    
-//    abstract public CustomerRoll performTransaction(Integer orderID, Integer customerID, Integer itemID, boolean paid, Date pickupDate);
 }
 
