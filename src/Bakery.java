@@ -62,10 +62,10 @@ public class Bakery {
     }
 
     // provided ID
-    void registerNewCustomer(Integer ID, String lastName, String address,
+    Bakery registerNewCustomer(Integer ID, String lastName, String address,
         String city, String state, Integer zipCode) {
-        setCustomerRoll(getCustomerRoll().addNewCustomer(ID, lastName,
-            address, city, state, zipCode));
+        return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(ID, lastName,
+            address, city, state, zipCode), getOrderList());
     }
 
     // generate ID
@@ -81,16 +81,17 @@ public class Bakery {
             category, itemPrice), getCustomerRoll(), getOrderList());
     }
 
-    public Bakery addToInventory(String itemName,
-            String category, double itemPrice) {
-            return new Bakery(getInventory().addToStock(itemName,
-                category, itemPrice), getCustomerRoll(), getOrderList());
-        }
+    public Bakery addToInventory(String itemName, String category,
+        double itemPrice) {
+        return new Bakery(getInventory().addToStock(itemName, category,
+            itemPrice), getCustomerRoll(), getOrderList());
+    }
+
     public Bakery removeFromInventory(Integer itemID) {
-            return new Bakery(getInventory().removeFromStock(itemID),
-            	getCustomerRoll(), getOrderList());
-        }
-    
+        return new Bakery(getInventory().removeFromStock(itemID),
+            getCustomerRoll(), getOrderList());
+    }
+
     public Bakery performTransaction(Integer orderID, int customerID,
         int itemID, int quantity, double loyaltyAtTimeOfOrder,
         double discountUsedOnOrder, boolean paid, Date orderDate,
@@ -435,7 +436,7 @@ public class Bakery {
                 // addNewOrder();
             }
             else if (userInput.equals("2")) {
-                 bakeryCtrl.viewExistingOrders();
+                bakeryCtrl.viewExistingOrders();
             }
             else if (userInput.equals("3")) {
                 // updateExistingOrders();
@@ -453,10 +454,10 @@ public class Bakery {
                 bakeryCtrl = bakeryCtrl.addInventoryItem();
             }
             else if (userInput.equals("8")) {
-                 bakeryCtrl.viewExistingInventory();
+                bakeryCtrl.viewExistingInventory();
             }
             else if (userInput.equals("9")) {
-                 bakeryCtrl = bakeryCtrl.updateInventoryItems();
+                bakeryCtrl = bakeryCtrl.updateInventoryItems();
             }
             else if (userInput.equals("10")) {
                 quit = true;
@@ -490,7 +491,7 @@ public class Bakery {
                 System.out.print("User ID: ");
                 String idInput = inputScanner.next();
                 Integer customerID = 0;
-                
+
                 try {
                     customerID = Integer.valueOf(idInput);
                 }
@@ -500,21 +501,30 @@ public class Bakery {
                 }
 
                 if (isRegisteredCustomer(customerID)) {
-                    System.out.println(getCustomerRoll().getCustomer(customerID));
-                    System.out.println(getOrderList().getOrdersByCustomerID(customerID));
+                    System.out.println(getCustomerRoll().getCustomer(
+                        customerID));
+                    System.out.println(getOrderList().getOrdersByCustomerID(
+                        customerID));
                     quit = true;
                 }
                 else {
-                    System.out.println("[ERROR] No customer exists with that ID");
+                    System.out
+                        .println("[ERROR] No customer exists with that ID");
                 }
-                
+
             }
             else if (userInput.equals("3")) {
-                // TODO: Last name search
+                System.out.println("------------");
+                System.out.print("Last Name: ");
+                String lastName = inputScanner.next();
+                // TODO: search by last name
             }
-            
+            else if (userInput.equals("4")) {
+                quit = true;
+            }
+
             else {
-                // TODO: invalid entry
+                System.out.println("[ERROR] Invalid input.");
             }
         }
     }
@@ -563,24 +573,23 @@ public class Bakery {
         }
     }
 
-    
     // CHANGE addToInventory
     public Bakery addInventoryItem() {
-         System.out.println("Please enter the following Item info:");
+        System.out.println("Please enter the following Item info:");
 
-         System.out.print("Item Name: ");
-         String itemName = inputScanner.next();
-         System.out.println();
+        System.out.print("Item Name: ");
+        String itemName = inputScanner.next();
+        System.out.println();
 
-         System.out.print("Item Category: ");
-         String itemCategory = inputScanner.next();
-         System.out.println();
+        System.out.print("Item Category: ");
+        String itemCategory = inputScanner.next();
+        System.out.println();
 
-         System.out.print("Item Price: ");
-         String sItemPrice = inputScanner.next();
-         double itemPrice = Double.valueOf(sItemPrice);
-         System.out.println();
-        
+        System.out.print("Item Price: ");
+        String sItemPrice = inputScanner.next();
+        double itemPrice = Double.valueOf(sItemPrice);
+        System.out.println();
+
         if (!isInInventory(itemName, itemCategory)) {
             return addToInventory(itemName, itemCategory, itemPrice);
         }
@@ -588,17 +597,16 @@ public class Bakery {
             throw new RuntimeException("That inventory item already exists!");
         }
     }
-    
+
     void viewExistingInventory() {
-       System.out.println(getInventory().toString());
+        System.out.println(getInventory().toString());
     }
 
     void viewExistingOrders() {
         boolean quit = false;
         while (!quit) {
             System.out.println("------------");
-            System.out
-                .println("1.) Print All Orders");
+            System.out.println("1.) Print All Orders");
             System.out.println("2.) Print Orders by Specific Customer");
             System.out.println("3.) Print Orders with Specific Order Date");
             System.out.println("4.) Print Orders with Specific Pickup Date");
@@ -614,7 +622,7 @@ public class Bakery {
                 System.out.print("User ID: ");
                 String idInput = inputScanner.next();
                 Integer customerID = 0;
-                
+
                 try {
                     customerID = Integer.valueOf(idInput);
                 }
@@ -624,56 +632,82 @@ public class Bakery {
                 }
 
                 if (isRegisteredCustomer(customerID)) {
-                    System.out.println(getCustomerRoll().getCustomer(customerID));
-                    
+                    System.out.println(getCustomerRoll().getCustomer(
+                        customerID));
+
                     quit = true;
                 }
                 else {
-                    System.out.println("[ERROR] No customer exists with that ID");
+                    System.out
+                        .println("[ERROR] No customer exists with that ID");
                 }
-                
+
             }
             else if (userInput.equals("3")) {
                 System.out.println("------------");
                 System.out.print("");
             }
-            
+
             else {
                 // TODO: invalid entry
             }
         }
     }
-    
+
     public Bakery updateInventoryItems() {
+        // Print entire inventory
         System.out.println(getInventory().toString());
-        
-        System.out.println("Please input Item ID to be updated");
 
-        System.out.print("Item ID: ");
-        String sItemID = inputScanner.next();
-        Integer itemID = Integer.valueOf(sItemID);
-       
-       if (isInInventory(itemID)) {
-           System.out.println("Please enter the following Item info:");
+        // Get item ID to be updated - ensure its valid
+        boolean validInt = false;
+        Integer itemID = -1;
+        while (!validInt) {
+            System.out.println("Please input Item ID to be updated");
 
-         System.out.print("Item Name: ");
-         String itemName = inputScanner.next();
-         System.out.println();
+            System.out.print("Item ID: ");
+            String sItemID = inputScanner.next();
+            try {
+                itemID = Integer.valueOf(sItemID);
+            }
+            catch (Exception e) {
+                System.out.println("[ERROR] Not a valid input");
+                continue;
+            }
+            validInt = true;
+        }
 
-         System.out.print("Item Category: ");
-         String itemCategory = inputScanner.next();
-         System.out.println();
+        if (isInInventory(itemID)) {
+            System.out.println("Please enter the following Item info:");
 
-         System.out.print("Item Price: ");
-         String sItemPrice = inputScanner.next();
-         double itemPrice = Double.valueOf(sItemPrice);
-         System.out.println();
-           
-         
-         return removeFromInventory(itemID).addToInventory(itemID, itemName, itemCategory, itemPrice);
-       }
-       else {
-           throw new RuntimeException("That inventory item does not exist!");
-       }
+            System.out.print("Item Name: ");
+            String itemName = inputScanner.next();
+            System.out.println();
+
+            System.out.print("Item Category: ");
+            String itemCategory = inputScanner.next();
+            System.out.println();
+
+            boolean validDub = false;
+            double itemPrice  = 0.0;
+            while (!validDub) {
+                System.out.print("Item Price: ");
+                String sItemPrice = inputScanner.next();
+                try {
+                    itemPrice = Double.valueOf(sItemPrice);
+                }
+                catch (Exception e) {
+                    System.out.println("[ERROR] Not a valid input");
+                    continue;
+                }
+                validDub = true;
+            }
+            System.out.println();
+
+            return removeFromInventory(itemID).addToInventory(itemID,
+                itemName, itemCategory, itemPrice);
+        }
+        else {
+            throw new RuntimeException("That inventory item does not exist!");
+        }
     }
 }
