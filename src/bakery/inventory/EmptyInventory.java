@@ -15,6 +15,11 @@ public class EmptyInventory extends Inventory {
         return new ItemInventory(it, this);
     }
     
+    public Inventory addToStock(String itemName, String category, double itemPrice) {
+        Item it = new Item(getNextAvailableID(), itemName, category, itemPrice);
+        return new ItemInventory(it, this);
+    }
+    
     /** Creates an ItemInventory class.
      * @param item
      *         item in inventory
@@ -90,11 +95,17 @@ public class EmptyInventory extends Inventory {
      *             An array list
      * @return Array list with ks
      */
-    public ArrayList getArrayKeys(ArrayList x) {
+    public ArrayList getArrayKeys(ArrayList<Item> x) {
         return x;
     }
     
     public String toString() {
         return "";
     }
+
+	public boolean containsItem(String bakeryItemName, String bakeryItemCategory) {
+		return false;
+	}
+
+
 }

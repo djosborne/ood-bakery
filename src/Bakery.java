@@ -80,6 +80,12 @@ public class Bakery {
             category, itemPrice), getCustomerRoll(), getOrderList());
     }
 
+    public Bakery addToInventory(String itemName,
+            String category, double itemPrice) {
+            return new Bakery(getInventory().addToStock(itemName,
+                category, itemPrice), getCustomerRoll(), getOrderList());
+        }
+    
     public Bakery performTransaction(Integer orderID, int customerID,
         int itemID, int quantity, double loyaltyAtTimeOfOrder,
         double discountUsedOnOrder, boolean paid, Date orderDate,
@@ -438,7 +444,7 @@ public class Bakery {
                 // updateExistingCustomer();
             }
             else if (userInput.equals("7")) {
-                 addInventoryItem();
+            	bakeryCtrl.addInventoryItem();
             }
             else if (userInput.equals("8")) {
                 // viewInventoryItems();
@@ -486,13 +492,27 @@ public class Bakery {
         }
     }
     
+    // CHANGE addToInventory
     public void addInventoryItem() {
+    	 System.out.println("Please enter the following Item info:");
+
+         System.out.print("Item Name: ");
+         String itemName = inputScanner.next();
+         System.out.println();
+
+         System.out.print("Item Category: ");
+         String itemCategory = inputScanner.next();
+         System.out.println();
+
+         System.out.print("Item Price: ");
+         String sItemPrice = inputScanner.next();
+         double itemPrice = Integer.valueOf(sItemPrice);
+         System.out.println();
         
         
         
-        
-        if (!isInInventory(bakeryItemName, bakeryItemCategory)) {
-            addToInventory(bakeryItemName, bakeryItemCategory, price);
+        if (!isInInventory(itemName, itemCategory)) {
+            addToInventory(itemName, itemCategory, itemPrice);
         }
     }
     

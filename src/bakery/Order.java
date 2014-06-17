@@ -30,7 +30,7 @@ public class Order {
 	 * @param order
 	 *            Price Price for order
 	 */
-	public Order(Integer orderID, Item item, Integer quantity, int customerID,double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
+	public Order(Integer orderID, int itemID, Integer quantity, int customerID, double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
 		this.orderID = orderID;
 	    this.customerID = customerID;
 	    this.orderID = orderID; // TODO: generate

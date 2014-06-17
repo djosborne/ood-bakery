@@ -23,6 +23,7 @@ public abstract class Inventory implements Iterable<Item> {
      */
     public abstract Inventory addToStock(int itemID, String itemName, String category, double itemPrice);
     
+    public abstract Inventory addToStock(String itemName, String category, double itemPrice);
     /** Adds item to inventory
      * @param item
      *             item name
@@ -57,6 +58,7 @@ public abstract class Inventory implements Iterable<Item> {
     
     public abstract boolean containsItem(Integer ID);
     
+    public abstract boolean containsItem(String bakeryItemName, String bakeryItemCategory);
     
     // Dynamic Methods
     /** override toString method from object.
@@ -85,4 +87,14 @@ public abstract class Inventory implements Iterable<Item> {
     public MyIterator iterator() {
         return new MyIterator(this.getArrayKeys(new ArrayList<Item>()));
     }
+    
+	private Integer lastUsedID = 0;
+	
+	protected Integer getNextAvailableID() {
+		while (containsItem(lastUsedID)) {
+			lastUsedID++;
+		}
+		return lastUsedID;
+	}
+
 }

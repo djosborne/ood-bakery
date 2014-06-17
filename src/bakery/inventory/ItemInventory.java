@@ -35,6 +35,11 @@ public class ItemInventory extends Inventory {
         return this.addToStock(item);
     }
     
+    public Inventory addToStock(String itemName, String category, double itemPrice) {
+        Item item = new Item(getNextAvailableID(), itemName, category, itemPrice);
+        return this.addToStock(item);
+    }
+    
     /** Adds item to inventory
      * @param item
      *             item name
@@ -158,7 +163,7 @@ public class ItemInventory extends Inventory {
      *             Array List
      * @return An Array list
      */
-    public ArrayList getArrayKeys(ArrayList x) {
+    public ArrayList getArrayKeys(ArrayList<Item> x) {
         if (!m0.containsItem(item0)) {
             x.add(this.item0);
             return (m0.getArrayKeys(x));
@@ -177,7 +182,6 @@ public class ItemInventory extends Inventory {
         }
     }
 
-	@Override
 	public Item getItem(Integer ID) {
 		if (getItem().getItemID()== ID) {
 			return getItem();
@@ -186,4 +190,15 @@ public class ItemInventory extends Inventory {
 			return getRest().getItem(ID);
 		}
 	}
+	
+	public boolean containsItem(String bakeryItemName, String bakeryItemCategory) {
+		if (item0.getItemName().equals(bakeryItemName) && item0.getCategory().equals(bakeryItemCategory)) {
+			return true;
+		}
+		else {
+			return m0.containsItem(bakeryItemName, bakeryItemCategory);
+		}
+	}
+	
+
 }
