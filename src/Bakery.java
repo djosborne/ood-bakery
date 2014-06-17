@@ -431,7 +431,7 @@ public class Bakery {
                 // addNewOrder();
             }
             else if (userInput.equals("2")) {
-                // viewExistingOrders();
+                 bakeryCtrl.viewExistingOrders();
             }
             else if (userInput.equals("3")) {
                 // updateExistingOrders();
@@ -449,7 +449,7 @@ public class Bakery {
             	bakeryCtrl = bakeryCtrl.addInventoryItem();
             }
             else if (userInput.equals("8")) {
-                // viewInventoryItems();
+                 bakeryCtrl.viewExistingInventory();
             }
             else if (userInput.equals("9")) {
                 // updateInventoryItems();
@@ -504,18 +504,15 @@ public class Bakery {
                     System.out.println("[ERROR] No customer exists with that ID");
                 }
                 
-
+            }
+            else if (userInput.equals("3")) {
+                // TODO: Last name search
+            }
+            
+            else {
+                // TODO: invalid entry
             }
         }
-
-    }
-
-    void viewExistingCustomersById(Integer ID) {
-
-    }
-
-    void viewExistingCustomersByLastName(String lastName) {
-
     }
 
     public Bakery addNewCustomer() {
@@ -586,7 +583,59 @@ public class Bakery {
         else {
             throw new RuntimeException("That inventory item already exists!");
         }
-
+    }
+    
+    void viewExistingInventory() {
+       System.out.println(getInventory().toString());
     }
 
+    void viewExistingOrders() {
+        boolean quit = false;
+        while (!quit) {
+            System.out.println("------------");
+            System.out
+                .println("1.) Print All Orders");
+            System.out.println("2.) Print Orders by Specific Customer");
+            System.out.println("3.) Print Orders with Specific Order Date");
+            System.out.println("4.) Print Orders with Specific Pickup Date");
+            System.out.print("Select [1/2/3/4]: ");
+            String userInput = inputScanner.next();
+
+            if (userInput.equals("1")) {
+                System.out.println(getCustomerRoll().toString());
+                quit = true;
+            }
+            else if (userInput.equals("2")) {
+                System.out.println("------------");
+                System.out.print("User ID: ");
+                String idInput = inputScanner.next();
+                Integer customerID = 0;
+                
+                try {
+                    customerID = Integer.valueOf(idInput);
+                }
+                catch (Exception e) {
+                    System.out.println("[ERROR] Not a valid input");
+                    continue;
+                }
+
+                if (isRegisteredCustomer(customerID)) {
+                    System.out.println(getCustomerRoll().getCustomer(customerID));
+                    // TODO: Print orders
+                    quit = true;
+                }
+                else {
+                    System.out.println("[ERROR] No customer exists with that ID");
+                }
+                
+            }
+            else if (userInput.equals("3")) {
+                // TODO: Last name search
+            }
+            
+            else {
+                // TODO: invalid entry
+            }
+        }
+    }
 }
