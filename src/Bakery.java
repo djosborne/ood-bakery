@@ -78,7 +78,7 @@ public class Bakery {
     // generate ID
     Bakery removeCustomer(Integer customerID) {
         return new Bakery(getInventory(), getCustomerRoll().removeCustomer(customerID), 
-        	getOrderList());
+            getOrderList());
     }
     
     public Bakery addToInventory(int itemID, String itemName,
@@ -353,7 +353,6 @@ public class Bakery {
                 dOrderDate = dFormatter.parse(sOrderDate);
             }
             catch (Exception e) {
-
             }
 
             bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
@@ -558,6 +557,8 @@ public class Bakery {
         while (!validZip) {
             System.out.print("Zip Code: ");
             String sZipCode = inputScanner.next();
+            zipCode = Integer.valueOf(sZipCode);
+            validZip = true;
 
             try {
                 zipCode = Integer.valueOf(sZipCode);
@@ -750,6 +751,9 @@ public class Bakery {
             while (!validZip) {
                 System.out.print("Zip Code: ");
                 String sZipCode = inputScanner.next();
+                zipCode = Integer.valueOf(sZipCode);
+                validZip = true;
+
                 try {
                     zipCode = Integer.valueOf(sZipCode);
                 }
@@ -760,9 +764,7 @@ public class Bakery {
             System.out.println();
             
             return removeCustomer(customerID).registerNewCustomer(customerID, lastName, address, city, state, 
-            	zipCode);
-            
-            
+                zipCode);
         }
         else {
             throw new RuntimeException("That user does not exist!");
