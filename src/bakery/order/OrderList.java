@@ -74,6 +74,8 @@ public abstract class OrderList implements Iterable<Order> {
     
     public abstract Order getOrder(Integer orderID);
     
+    public abstract double getOrderTotal(Integer orderID);
+    
     
     /** Get all the keys from Inventory and put them into an array list.
      * @param x

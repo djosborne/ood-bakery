@@ -191,4 +191,14 @@ public class EntryOrder extends OrderList {
 		}
 	}
 
+    @Override
+    public double getOrderTotal(Integer orderID) {
+        if (getOrder().getOrderID().equals(orderID)) {
+            return getOrder().getTotal() + getRest().getOrderTotal(orderID);
+        }
+        
+        else {
+            return getRest().getOrderTotal(orderID);
+        }
+    }
 }

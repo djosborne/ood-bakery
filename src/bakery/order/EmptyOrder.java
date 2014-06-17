@@ -103,4 +103,8 @@ public class EmptyOrder extends OrderList {
     public String toString() {
         return "";
     }
+
+    public double getOrderTotal(Integer orderID) {
+        return 0;
+    }
 }
