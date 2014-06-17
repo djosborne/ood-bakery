@@ -134,7 +134,7 @@ public class ItemInventory extends Inventory {
 	}
 
 	public boolean containsItem(Integer ID) {
-		if (item0.getItemID() == ID) {
+		if (item0.getItemID().equals(ID)) {
 			return true;
 		} else {
 			return m0.containsItem(ID);

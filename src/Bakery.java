@@ -334,7 +334,7 @@ public class Bakery {
 
             // Register the customer if necessary
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
-                bakeryCtrl.registerNewCustomer(customerID, lastName, address,
+                bakeryCtrl = bakeryCtrl.registerNewCustomer(customerID, lastName, address,
                     city, state, zipCode);
             }
 
