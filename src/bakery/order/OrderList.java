@@ -31,9 +31,14 @@ public abstract class OrderList implements Iterable<Order> {
         return new EntryOrder(newOrder, this); 
     }
     
+    private Integer lastUsedID = 1;
     public Integer getAvailableOrderID() {
-        return 1;
+        while (containsOrder(lastUsedID)) {
+            lastUsedID++;
+        }
+        return lastUsedID;
     }
+    
     /** Adds item to inventory
      * @param item
      *             item name
@@ -41,6 +46,7 @@ public abstract class OrderList implements Iterable<Order> {
      */
     public abstract OrderList addToOrderList(Order order);
     
+    // TODO: FIX THIS OR REMOVE IT (IT OUTPUTS ONLY THE ORDER)
     /** remove item from inventory.
      * @param item
      *             item name

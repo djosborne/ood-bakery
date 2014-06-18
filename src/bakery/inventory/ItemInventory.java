@@ -14,7 +14,7 @@ public class ItemInventory extends Inventory {
     /** this is the previous inventory. */
     private Inventory m0;
 
-    /** this is the item to be added to the map. */
+    /** this is the item to be added to the inventory. */
     private Item item0;
 
     /** Constructor.
