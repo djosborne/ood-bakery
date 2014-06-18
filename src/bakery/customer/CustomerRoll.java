@@ -78,7 +78,6 @@ public abstract class CustomerRoll {
             Customer c = new Customer(getNextAvailableID(), lastName, address, city, state, zipCode);
             return new Node(c, this);
         }
-        
     }
     
     public abstract CustomerRoll removeCustomer(Integer customerID);
