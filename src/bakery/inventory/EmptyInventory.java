@@ -21,7 +21,8 @@ public class EmptyInventory extends Inventory {
      * @param itemPrice This is the item Prices
      * @return new Inventory with added item
      */
-    public Inventory addToStock(int itemID, String itemName, String category, double itemPrice) {
+    public Inventory addToStock(int itemID, String itemName, 
+        String category, double itemPrice) {
         Item it = new Item(itemID, itemName, category, itemPrice);
         return new ItemInventory(it, this);
     }
@@ -32,8 +33,10 @@ public class EmptyInventory extends Inventory {
      * @param itemPrice This is the item Prices
      * @return new Inventory with added item
      */
-    public Inventory addToStock(String itemName, String category, double itemPrice) {
-        Item it = new Item(getNextAvailableID(), itemName, category, itemPrice);
+    public Inventory addToStock(String itemName, 
+        String category, double itemPrice) {
+        Item it = new Item(getNextAvailableID(), itemName, 
+            category, itemPrice);
         return new ItemInventory(it, this);
     }
     
@@ -147,7 +150,8 @@ public class EmptyInventory extends Inventory {
      * @param bakeryItemCategory is the category of the item
      * @return true or false if it contains the item
      */
-    public boolean containsItem(String bakeryItemName, String bakeryItemCategory) {
+    public boolean containsItem(String bakeryItemName, 
+        String bakeryItemCategory) {
         return false;
     }
 }

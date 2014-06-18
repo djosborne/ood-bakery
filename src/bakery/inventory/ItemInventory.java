@@ -11,17 +11,15 @@ import bakery.order.EntryOrder;
  * @version 1.0
  */
 public class ItemInventory extends Inventory {
-    /** this is the previous map */
+    /** this is the previous inventory */
     private Inventory m0;
 
     /** this is the item to be added to the map */
     private Item item0;
 
-    /**
-     * Constructor
-     * 
+    /** Constructor
      * @param m0
-     *            the prev map
+     *            the prev inventory
      * @param item0
      *            this is item to be added
      */
@@ -85,11 +83,17 @@ public class ItemInventory extends Inventory {
         }
     }
 
+    /** remove item from inventory.
+     * @param itemID
+     *             item ID
+     * @return Inventory
+     */
     public Inventory removeFromStock(Integer itemID) {
         if (getItem().getItemID().equals(itemID)) {
             return getRest().removeFromStock(itemID);
         } else {
-            return new ItemInventory(getItem(), getRest().removeFromStock(itemID));
+            return new ItemInventory(getItem(), 
+                getRest().removeFromStock(itemID));
         }
     }
 
@@ -261,7 +265,8 @@ public class ItemInventory extends Inventory {
      * @param bakeryItemCategory is the category of the item
      * @return true or false if it contains the item
      */
-    public boolean containsItem(String bakeryItemName, String bakeryItemCategory) {
+    public boolean containsItem(String bakeryItemName, 
+        String bakeryItemCategory) {
         if (item0.getItemName().equals(bakeryItemName)
                 && item0.getCategory().equals(bakeryItemCategory)) {
             return true;
