@@ -30,16 +30,19 @@ public class OrderListTest {
     private final String melon = "Melon";
     private final String fruit = "Fruit";
     
+    
     private Item item1 = new Item(1, apple, fruit, 1);
     private Item item2 = new Item(2, pear, fruit, 2);
     private Item item3 = new Item(3, melon, fruit, 3);
     private Item item4 = new Item(4, orange, fruit, 4);
     
-    private Order order1 = new Order(1, item1, 1, 1, 1, 0, 0, true, date1, date1);
-    private Order order2 = new Order(2, item2, 2, 2, 2, 0, 0, true, date2, date2);
-    private Order order3 = new Order(3, item3, 3, 3, 3, 0, 0, true, date3, date3);
-    private Order order4 = new Order(4, item4, 4, 4, 4, 0, 0, true, date4, date4);
-    private Order order5 = new Order(4, item2, 4, 4, 4, 0, 0, true, date4, date4);
+
+    
+    private Order order1 = new Order(1, item1, item1.getPrice()*1, 1, 1, 1, 0, 0, true, date1, date1);
+    private Order order2 = new Order(2, item2, item2.getPrice()*2, 2, 2, 2, 0, 0, true, date2, date2);
+    private Order order3 = new Order(3, item3, item3.getPrice()*3, 3, 3, 3, 0, 0, true, date3, date3);
+    private Order order4 = new Order(4, item4, item4.getPrice()*4, 4, 4, 4, 0, 0, true, date4, date4);
+    private Order order5 = new Order(4, item2, item2.getPrice()*4, 4, 4, 4, 0, 0, true, date4, date4);
     
     @Before
     public void setUp() {
