@@ -1,5 +1,7 @@
 package bakery.order;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import bakery.Item;
@@ -90,12 +92,36 @@ public abstract class OrderList implements Iterable<Order> {
      *             Array List x
      * @return Array List
      */
-    public abstract ArrayList getArrayKeys(ArrayList<Order> x);
+    public abstract ArrayList<Order> getArrayKeys(ArrayList<Order> x);
 
     /** Iterator.
      * @return new MyIterator 
      */
     public MyIterator iterator() {
-        return new MyIterator(this.getArrayKeys(new ArrayList<Order>()));
+        ArrayList<Order> orders = this.getArrayKeys(new ArrayList<Order>());
+        Collections.sort(orders, new OrderComparator());
+        return new MyIterator(orders);
+    }
+    
+    
+    private class OrderComparator implements Comparator<Order> {
+        /**
+         * Standard string compare which complies with comparator
+         * 
+         * @param key1
+         *            Key1 to compare
+         * @param key2
+         *            Other key to compare
+         * @return 0 if equal, 1 for all else
+         */
+        public int compare(Order order1, Order order2) {
+            if (order1.getOrderDate().getTime() > order2.getOrderDate().getTime()) {
+                return 1;
+            }
+            else if (order1.getOrderDate().getTime() < order2.getOrderDate().getTime()) {
+                return -1;
+            }
+            else return 0;
+        }
     }
 }
