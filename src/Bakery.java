@@ -75,6 +75,15 @@ public class Bakery {
             lastName, address, city, state, zipCode), getOrderList());
     }
 
+//    Bakery getCustomerByLastName(String lastName) {
+//        return new Bakery(getInventory(), getCustomerRoll().getCustomersByLastName(lastName), 
+//            getOrderList());
+//    }
+    
+    CustomerRoll getCustomerByLastName(String lastName) {
+        return getCustomerRoll().getCustomersByLastName(lastName);
+    }
+    
     // generate ID
     Bakery removeCustomer(Integer customerID) {
         return new Bakery(getInventory(), getCustomerRoll().removeCustomer(customerID), 
@@ -521,7 +530,7 @@ public class Bakery {
                 System.out.println("------------");
                 System.out.print("Last Name: ");
                 String lastName = inputScanner.next();
-                // TODO: search by last name
+                System.out.println(getCustomerByLastName(lastName).toString());
             }
             else if (userInput.equals("4")) {
                 quit = true;
@@ -720,7 +729,6 @@ public class Bakery {
     public Bakery updateExistingCustomer() {
         System.out.println(getCustomerRoll().toString());
         
-        
         System.out.println("Please input User ID to be updated");
 
         System.out.print("User ID: ");
@@ -752,14 +760,15 @@ public class Bakery {
                 System.out.print("Zip Code: ");
                 String sZipCode = inputScanner.next();
                 zipCode = Integer.valueOf(sZipCode);
-                validZip = true;
-
+                
                 try {
                     zipCode = Integer.valueOf(sZipCode);
                 }
                 catch (Exception e) {
                     System.out.println("Invalid zip code.");
+                    continue;
                 }
+                validZip = true;
             }
             System.out.println();
             

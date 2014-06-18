@@ -115,4 +115,7 @@ public class EmptyRoll extends CustomerRoll {
         return this;
     }
     
+	public CustomerRoll getCustomersByLastName(String lname) {
+        return this;
+	}
 }

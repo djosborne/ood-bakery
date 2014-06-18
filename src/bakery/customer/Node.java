@@ -3,6 +3,7 @@ package bakery.customer;
 import java.util.ArrayList;
 
 import bakery.Order;
+import bakery.order.EntryOrder;
 
 /**
  * @author Daniel Osborne
@@ -14,9 +15,9 @@ public class Node extends CustomerRoll {
     
     private CustomerRoll rest;
     
-	/**************************************************************************
-	 * Getters, Setters, and Constructors
-	 *************************************************************************/
+    /**************************************************************************
+     * Getters, Setters, and Constructors
+     *************************************************************************/
 
     /**
      * Constructor
@@ -32,8 +33,8 @@ public class Node extends CustomerRoll {
     }
     
     private Node(Customer c, CustomerRoll rest, ArrayList<Order> orders) {
-    	this.c = c;
-    	this.rest = rest;
+        this.c = c;
+        this.rest = rest;
     }
 
     /**
@@ -58,7 +59,7 @@ public class Node extends CustomerRoll {
     }
 
     protected boolean isSubset(CustomerRoll crSuperSet) {
-    	return true;
+        return true;
 //        if (CustomerRoll.inCustomerRoll(crSuperSet, getCustomer())) {
 //            return getCustomerRoll().isSubset(crSuperSet);
 //        }
@@ -66,20 +67,20 @@ public class Node extends CustomerRoll {
 //            return false;
 //        }
     }
-	
+    
 
-	/**************************************************************************
-	 * Functions to search if customers already exist in the roll
-	 *************************************************************************/
-	public boolean isReturningCustomer(Integer ID) {
-		if (getCustomer().getCustomerID().equals(ID)) {
-			return true;
-		}
-		else {
-			return getCustomerRoll().isReturningCustomer(ID);
-		}
-	}
-	
+    /**************************************************************************
+     * Functions to search if customers already exist in the roll
+     *************************************************************************/
+    public boolean isReturningCustomer(Integer ID) {
+        if (getCustomer().getCustomerID().equals(ID)) {
+            return true;
+        }
+        else {
+            return getCustomerRoll().isReturningCustomer(ID);
+        }
+    }
+    
     /**
      * Dynamic method to check if student is in ClassRoll
      * 
@@ -102,15 +103,15 @@ public class Node extends CustomerRoll {
     
     
 
-	public int numCustomers() {
-		return 1 + getCustomerRoll().numCustomers();
-	}
+    public int numCustomers() {
+        return 1 + getCustomerRoll().numCustomers();
+    }
 
-	/*********************************************8
-	 * Order Functions
-	 **********************************************/
-	
-	
+    /*********************************************8
+     * Order Functions
+     **********************************************/
+    
+    
     String toStringHelper() {
         return getCustomer().toString() + "\n" + getCustomerRoll().toStringHelper();
     }
@@ -125,10 +126,19 @@ public class Node extends CustomerRoll {
     }
     
     public CustomerRoll removeCustomer(Integer customerID) {
-		if (getCustomer().getCustomerID().equals(customerID)) {
-			return rest.removeCustomer(customerID);
-		} else {
-			return new Node(getCustomer(), rest.removeCustomer(customerID));
-		}
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return rest.removeCustomer(customerID);
+        } else {
+            return new Node(getCustomer(), rest.removeCustomer(customerID));
+        }
+    }
+    
+    public CustomerRoll getCustomersByLastName(String lname) {
+        if (c.getLastName().equals(lname)) {
+            return new Node(c, rest.getCustomersByLastName(lname));
+        }
+        else {
+            return rest.getCustomersByLastName(lname);
+        }
     }
 }
