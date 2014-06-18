@@ -118,4 +118,15 @@ public class EmptyRoll extends CustomerRoll {
 	public CustomerRoll getCustomersByLastName(String lname) {
         return this;
 	}
+
+    
+    public Integer getCustomerID(String lastName, String address,
+        String city, String state, Integer zipCode) {
+        throw new RuntimeException("That user does not exist");
+    }
+
+    
+    public double getRewardsPoints(Integer customerID) {
+        throw new RuntimeException("That user does not exist");
+    }
 }

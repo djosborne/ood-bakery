@@ -12,10 +12,10 @@ public class EmptyOrder extends OrderList {
         /** Empty Constructor */
     }
     
-    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder) {
-        Order ord = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid, orderDate, pickUpDate);
-        return new EntryOrder(ord, this);
-    }
+//    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder) {
+//        Order ord = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid, orderDate, pickUpDate);
+//        return new EntryOrder(ord, this);
+//    }
     
     /** Creates an OrderInventory class.
      * @param item

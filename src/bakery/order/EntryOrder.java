@@ -25,17 +25,17 @@ public class EntryOrder extends OrderList {
     	return m0;
     }
     
-    /** Adds order to inventory
-     * @param orderID order ID
-     * @param orderName Name of the order
-     * @param category Order category
-     * @param orderPrice order price
-     * @return Inventory
-     */
-    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder) {
-    	Order ord = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid, orderDate, pickUpDate);
-        return this.addToOrderList(ord);
-    }
+//    /** Adds order to inventory
+//     * @param orderID order ID
+//     * @param orderName Name of the order
+//     * @param category Order category
+//     * @param orderPrice order price
+//     * @return Inventory
+//     */
+//    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder) {
+//    	Order ord = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid, orderDate, pickUpDate);
+//        return this.addToOrderList(ord);
+//    }
     
     /** Adds order to inventory
      * @param order

@@ -25,6 +25,10 @@ public abstract class CustomerRoll {
     
     public abstract Customer getCustomer(Integer customerID);
     
+    public abstract Integer getCustomerID(String lastName, String address, String city, String state, Integer zipCode);
+    
+    public abstract double getRewardsPoints(Integer customerID);
+    
     public abstract CustomerRoll getCustomersByLastName(String lname);
     
     /**

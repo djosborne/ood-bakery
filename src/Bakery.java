@@ -64,8 +64,8 @@ public class Bakery {
     // provided ID
     Bakery registerNewCustomer(Integer ID, String lastName, String address,
         String city, String state, Integer zipCode) {
-        return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(ID, lastName,
-            address, city, state, zipCode), getOrderList());
+        return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(
+            ID, lastName, address, city, state, zipCode), getOrderList());
     }
 
     // generate ID
@@ -75,22 +75,23 @@ public class Bakery {
             lastName, address, city, state, zipCode), getOrderList());
     }
 
-//    Bakery getCustomerByLastName(String lastName) {
-//        return new Bakery(getInventory(), getCustomerRoll().getCustomersByLastName(lastName), 
-//            getOrderList());
-//    }
-    
+    // Bakery getCustomerByLastName(String lastName) {
+    // return new Bakery(getInventory(),
+    // getCustomerRoll().getCustomersByLastName(lastName),
+    // getOrderList());
+    // }
+
     CustomerRoll getCustomerByLastName(String lastName) {
         return getCustomerRoll().getCustomersByLastName(lastName);
     }
-    
+
     // generate ID
     Bakery removeCustomer(Integer customerID) {
-        return new Bakery(getInventory(), getCustomerRoll().removeCustomer(customerID), 
-            getOrderList());
+        return new Bakery(getInventory(), getCustomerRoll().removeCustomer(
+            customerID), getOrderList());
     }
-    
-    public Bakery addToInventory(int itemID, String itemName,
+
+    public Bakery addToInventory(Integer itemID, String itemName,
         String category, double itemPrice) {
         return new Bakery(getInventory().addToStock(itemID, itemName,
             category, itemPrice), getCustomerRoll(), getOrderList());
@@ -106,8 +107,9 @@ public class Bakery {
         return new Bakery(getInventory().removeFromStock(itemID),
             getCustomerRoll(), getOrderList());
     }
-    public Bakery performTransaction(Integer orderID, int customerID,
-        int itemID, int quantity, double loyaltyAtTimeOfOrder,
+
+    public Bakery performTransaction(Integer orderID, Integer customerID,
+        Integer itemID, Integer quantity, double loyaltyAtTimeOfOrder,
         double discountUsedOnOrder, boolean paid, Date orderDate,
         Date pickupDate) {
 
@@ -343,8 +345,8 @@ public class Bakery {
 
             // Register the customer if necessary
             if (!bakeryCtrl.isRegisteredCustomer(customerID)) {
-                bakeryCtrl = bakeryCtrl.registerNewCustomer(customerID, lastName, address,
-                    city, state, zipCode);
+                bakeryCtrl = bakeryCtrl.registerNewCustomer(customerID,
+                    lastName, address, city, state, zipCode);
             }
 
             // Register the item if necessary
@@ -367,36 +369,6 @@ public class Bakery {
             bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
                 bakeryItemID, quantity, currentLoyalty, discountUsedOnOrder,
                 paid, dOrderDate, dPickupDate);
-
-            /**
-             * if (user doesn't exist) make user get the userID from (LastName
-             * Address City State ZipCode) get current rewards balance, save for
-             * later (preRewardsBalance)
-             * 
-             * 
-             * 
-             * generate a new order For each item scan ID prompt quantity end
-             * 
-             * getTotal()
-             * 
-             * print preRewardsBalance, available discount
-             * 
-             * if they have >0 available discount, ask how much they want to
-             * apply prompt for DiscountUsedOnOrder getTotalDue() = getttotal -
-             * discount
-             * 
-             * add points to customer's rewards (from totalDue)
-             * 
-             * 
-             * Pay now or bill you? Generate order date (today) Prompt for
-             * pickup date
-             * 
-             * 
-             * getBakeryItemID(BakeryItemName)
-             * 
-             * perform transaction (userID,
-             * 
-             */
         }
 
         inventoryScanner.close();
@@ -446,7 +418,7 @@ public class Bakery {
 
             userInput = bakeryCtrl.inputScanner.next();
             if (userInput.equals("1")) {
-                // addNewOrder();
+                bakeryCtrl = bakeryCtrl.addNewOrder();
             }
             else if (userInput.equals("2")) {
                 bakeryCtrl.viewExistingOrders();
@@ -481,6 +453,220 @@ public class Bakery {
         }
 
         bakeryCtrl.save("ordersSave.csv");
+    }
+
+    Bakery addNewOrder() {
+        /**
+         * if (user doesn't exist) make user get the userID from (LastName
+         * Address City State ZipCode) get current rewards balance, save for
+         * later (preRewardsBalance)
+         * 
+         * 
+         * 
+         * generate a new order For each item scan ID prompt quantity end
+         * 
+         * getTotal()
+         * 
+         * print preRewardsBalance, available discount
+         * 
+         * if they have >0 available discount, ask how much they want to apply
+         * prompt for DiscountUsedOnOrder getTotalDue() = getttotal - discount
+         * 
+         * add points to customer's rewards (from totalDue)
+         * 
+         * 
+         * Pay now or bill you? Generate order date (today) Prompt for pickup
+         * date
+         * 
+         * 
+         * getBakeryItemID(BakeryItemName)
+         * 
+         * perform transaction (userID,
+         * 
+         */
+        Bakery modifiedBakery = this;
+
+        System.out.println("Please enter the following customer info:");
+
+        System.out.print("Last Name: ");
+        String lastName = inputScanner.next();
+        System.out.println();
+
+        System.out.print("Address: ");
+        String address = inputScanner.next();
+        System.out.println();
+
+        System.out.print("City: ");
+        String city = inputScanner.next();
+        System.out.println();
+
+        System.out.print("State: ");
+        String state = inputScanner.next();
+        System.out.println();
+
+        Integer zipCode = 0;
+        boolean validZip = false;
+        while (!validZip) {
+            System.out.print("Zip Code: ");
+            String sZipCode = inputScanner.next();
+            zipCode = Integer.valueOf(sZipCode);
+            validZip = true;
+
+            try {
+                zipCode = Integer.valueOf(sZipCode);
+            }
+            catch (Exception e) {
+                System.out.println("Invalid zip code.");
+            }
+        }
+        System.out.println();
+
+        // Register Customer if need be
+        if (!modifiedBakery.isRegisteredCustomer(lastName, address, city,
+            state, zipCode)) {
+            modifiedBakery = modifiedBakery.registerNewCustomer(lastName,
+                address, city, state, zipCode);
+        }
+
+        // Get their customer ID
+        Integer customerID = modifiedBakery.getCustomerRoll().getCustomerID(
+            lastName, address, city, state, zipCode);
+
+        double preOrderRewardsBalance = modifiedBakery.getCustomerRoll()
+            .getRewardsPoints(customerID);
+
+        double total = 0;
+
+        boolean notDoneOrdering = true;
+        ArrayList<Integer> itemIDs = new ArrayList<Integer>();
+        ArrayList<Integer> itemQuantities = new ArrayList<Integer>();
+
+        while (notDoneOrdering) {
+            // Gather the items ordered
+            System.out.println("Enter an Item ID, or type 'DONE': ");
+            Integer itemID;
+            String userInput = inputScanner.next();
+
+            // check if they quit
+            if (userInput.equals("DONE")) {
+                notDoneOrdering = false;
+                continue;
+            }
+
+            try {
+                itemID = Integer.valueOf(userInput);
+                getInventory().getItem(itemID);
+            }
+            catch (Exception e) {
+                System.out.println("[ERROR] Invalid Item ID");
+                continue;
+            }
+
+            if (itemIDs.contains(itemID)) {
+                System.out.println("[ERROR] You already added that item.");
+                continue;
+            }
+
+            System.out.println("How many "
+                + getInventory().getItem(itemID).getItemName() + ": ");
+            userInput = inputScanner.next();
+            Integer itemQuantity = null;
+            try {
+                itemQuantity = Integer.valueOf(userInput);
+            }
+            catch (Exception e) {
+                System.out.println("[ERROR] Invalid Quantity");
+                continue;
+            }
+
+            itemIDs.add(itemID);
+            itemQuantities.add(itemQuantity);
+
+            total += getInventory().getPrice(itemID) * (double) itemQuantity;
+        }
+
+        System.out.println("The total for your order is: " + total);
+        System.out.println("Your current available rewards points is: "
+            + preOrderRewardsBalance);
+
+        // Get when they are paying
+        boolean paid = false;
+
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println("-------------");
+            System.out.println("1.) Pay Now");
+            System.out.println("2.) Pay Later");
+            System.out.print("Select [1/2]: ");
+            String userInput = inputScanner.next();
+            try {
+                Integer selection = Integer.valueOf(userInput);
+                if (selection.equals(1)) {
+                    paid = true;
+                    validInput = true;
+                }
+                else if (selection.equals(2)) {
+                    paid = false;
+                    validInput = true;
+                }
+                else {
+                    System.out.println("[ERROR] Invalid Input");
+                }
+            }
+            catch (Exception e) {
+                System.out.println("[ERROR] Invalid Input");
+            }
+        }
+
+        // Get the discountUsedOnOrder from customer input
+        double discountUsedOnOrder = 0;
+        if (preOrderRewardsBalance > 0) {
+            validInput = false;
+            while (!validInput) {
+                System.out
+                    .println("How many points would you like to apply to this order (or 0 if none): ");
+                String sPointsUsed = inputScanner.next();
+                try {
+                    discountUsedOnOrder = Double.valueOf(sPointsUsed);
+                    if (discountUsedOnOrder < preOrderRewardsBalance
+                        && discountUsedOnOrder >= 0) {
+                        validInput = true;
+                    }
+                }
+                catch (Exception e) {
+                    System.out.println("Not a valid number!");
+                }
+            }
+        }
+        discountUsedOnOrder *= -1;
+
+        // Get pickup date
+        validInput = false;
+        Date dOrderDate = new Date();
+        Date dPickupDate = null;
+        while (!validInput) {
+            // get user input
+            System.out.println("Please Submit a pickup date (mm/dd/yyyy): ");
+            String userInput = inputScanner.next();
+            
+            // convert to date object
+            SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+            try {
+                dPickupDate = dFormatter.parse(userInput);
+                validInput = true;
+            }
+            catch (Exception e) {
+                System.out.println("[ERROR] Invalid input.");
+            }
+        }
+
+        Integer thisOrderID = getOrderList().getAvailableOrderID();
+        for (int i = 0; i < itemIDs.size(); i++) {
+            modifiedBakery = modifiedBakery.performTransaction(thisOrderID, customerID, itemIDs.get(i), itemQuantities.get(i), 0.0, discountUsedOnOrder, paid, dOrderDate, dPickupDate);            
+        }
+        
+        return modifiedBakery;
+
     }
 
     void viewExistingCustomers() {
@@ -530,7 +716,8 @@ public class Bakery {
                 System.out.println("------------");
                 System.out.print("Last Name: ");
                 String lastName = inputScanner.next();
-                System.out.println(getCustomerByLastName(lastName).toString());
+                System.out
+                    .println(getCustomerByLastName(lastName).toString());
             }
             else if (userInput.equals("4")) {
                 quit = true;
@@ -704,7 +891,7 @@ public class Bakery {
             System.out.println();
 
             boolean validDub = false;
-            double itemPrice  = 0.0;
+            double itemPrice = 0.0;
             while (!validDub) {
                 System.out.print("Item Price: ");
                 String sItemPrice = inputScanner.next();
@@ -726,16 +913,16 @@ public class Bakery {
             throw new RuntimeException("That inventory item does not exist!");
         }
     }
-    
+
     public Bakery updateExistingCustomer() {
         System.out.println(getCustomerRoll().toString());
-        
+
         System.out.println("Please input User ID to be updated");
 
         System.out.print("User ID: ");
         String sCustomerID = inputScanner.next();
         Integer customerID = Integer.valueOf(sCustomerID);
-        
+
         if (isRegisteredCustomer(customerID)) {
             System.out.println("Please enter the following customer info:");
 
@@ -754,14 +941,14 @@ public class Bakery {
             System.out.print("State: ");
             String state = inputScanner.next();
             System.out.println();
-            
+
             Integer zipCode = 0;
             boolean validZip = false;
             while (!validZip) {
                 System.out.print("Zip Code: ");
                 String sZipCode = inputScanner.next();
                 zipCode = Integer.valueOf(sZipCode);
-                
+
                 try {
                     zipCode = Integer.valueOf(sZipCode);
                 }
@@ -772,9 +959,9 @@ public class Bakery {
                 validZip = true;
             }
             System.out.println();
-            
-            return removeCustomer(customerID).registerNewCustomer(customerID, lastName, address, city, state, 
-                zipCode);
+
+            return removeCustomer(customerID).registerNewCustomer(customerID,
+                lastName, address, city, state, zipCode);
         }
         else {
             throw new RuntimeException("That user does not exist!");

@@ -141,4 +141,29 @@ public class Node extends CustomerRoll {
             return rest.getCustomersByLastName(lname);
         }
     }
+
+    
+    public Integer getCustomerID(String lastName, String address,
+        String city, String state, Integer zipCode) {
+        Customer c = getCustomer();
+        if (c.getLastName().equals(lastName)
+            && c.getAddress().equals(address) && c.getCity().equals(city)
+            && c.getState().equals(state) && c.getZipCode().equals(zipCode)) {
+            return c.getCustomerID();
+        }
+        else {
+            return this.getCustomerRoll().getCustomerID(lastName, address, city, state, zipCode);
+        }
+    }
+    
+    
+    public double getRewardsPoints(Integer customerID) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return 0.0;
+        }
+        else {
+            return getCustomerRoll().getRewardsPoints(customerID);
+        }
+    }
+    
 }
