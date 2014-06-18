@@ -75,12 +75,6 @@ public class Bakery {
             lastName, address, city, state, zipCode), getOrderList());
     }
 
-    // Bakery getCustomerByLastName(String lastName) {
-    // return new Bakery(getInventory(),
-    // getCustomerRoll().getCustomersByLastName(lastName),
-    // getOrderList());
-    // }
-
     CustomerRoll getCustomerByLastName(String lastName) {
         return getCustomerRoll().getCustomersByLastName(lastName);
     }
