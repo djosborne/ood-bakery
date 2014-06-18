@@ -69,8 +69,8 @@ public class Bakery {
     }
 
     // generate ID
-    public Bakery registerNewCustomer(String lastName, String address, String city,
-        String state, Integer zipCode) {
+    public Bakery registerNewCustomer(String lastName, String address,
+        String city, String state, Integer zipCode) {
         return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(
             lastName, address, city, state, zipCode), getOrderList());
     }
@@ -85,8 +85,8 @@ public class Bakery {
             customerID), getOrderList());
     }
 
-    Bakery addToInventory(Integer itemID, String itemName,
-        String category, double itemPrice) {
+    Bakery addToInventory(Integer itemID, String itemName, String category,
+        double itemPrice) {
         return new Bakery(getInventory().addToStock(itemID, itemName,
             category, itemPrice), getCustomerRoll(), getOrderList());
     }
@@ -291,9 +291,19 @@ public class Bakery {
             }
         }
 
+        bakeryCtrl = bakeryCtrl.load(inventoryScanner, orderScanner);
+        bakeryCtrl = bakeryCtrl.RunGui();
+        bakeryCtrl.save("orderSave.txt");
+        inventoryScanner.close();
+        orderScanner.close();
+    }
+
+    public Bakery load(Scanner inventoryScanner, Scanner orderScanner) {
         /**********************************************************************
          * Move items from scanner into data objects.
          *********************************************************************/
+
+        Bakery bakeryCtrl = this;
         // skip the headers
         inventoryScanner.nextLine();
 
@@ -365,10 +375,11 @@ public class Bakery {
                 bakeryItemID, quantity, currentLoyalty, availableDiscount,
                 discountUsedOnOrder, paid, dOrderDate, dPickupDate);
         }
+        return bakeryCtrl;
+    }
 
-        inventoryScanner.close();
-        orderScanner.close();
-
+    private Bakery RunGui() {
+        Bakery bakeryCtrl = this;
         /**********************************************************************
          * Run remaining GUI
          *********************************************************************/
@@ -378,7 +389,7 @@ public class Bakery {
         System.out.println("1.) Cashier Interface");
         System.out.println("2.) Owner Interface");
         System.out.print("Enter [1/2]: ");
-        userInput = bakeryCtrl.inputScanner.next();
+        String userInput = bakeryCtrl.inputScanner.next();
         System.out.println();
 
         if (userInput.equals("2")) {
@@ -453,7 +464,7 @@ public class Bakery {
             }
         }
 
-        bakeryCtrl.save("ordersSave.csv");
+        return bakeryCtrl;
     }
 
     Bakery addNewOrder() {
