@@ -553,6 +553,10 @@ public class Bakery {
             catch (Exception e) {
                 System.out.println("Invalid zip code.");
             }
+            if (zipCode <= 0 || zipCode > 99999) {
+                System.out.println("Invalid zip code.");
+                continue;
+            }
         }
         System.out.println();
 
@@ -824,6 +828,10 @@ public class Bakery {
             catch (Exception e) {
                 System.out.println("Invalid zip code.");
             }
+            if (zipCode <= 0 || zipCode > 99999) {
+                System.out.println("Invalid zip code.");
+                continue;
+            }
         }
         System.out.println();
 
@@ -1073,6 +1081,10 @@ public class Bakery {
                     zipCode = Integer.valueOf(sZipCode);
                 }
                 catch (Exception e) {
+                    System.out.println("Invalid zip code.");
+                    continue;
+                }
+                if (zipCode <= 0 || zipCode > 99999) {
                     System.out.println("Invalid zip code.");
                     continue;
                 }
