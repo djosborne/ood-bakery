@@ -69,7 +69,7 @@ public class Bakery {
     }
 
     // generate ID
-    Bakery registerNewCustomer(String lastName, String address, String city,
+    public Bakery registerNewCustomer(String lastName, String address, String city,
         String state, Integer zipCode) {
         return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(
             lastName, address, city, state, zipCode), getOrderList());
@@ -85,7 +85,7 @@ public class Bakery {
             customerID), getOrderList());
     }
 
-    public Bakery addToInventory(Integer itemID, String itemName,
+    Bakery addToInventory(Integer itemID, String itemName,
         String category, double itemPrice) {
         return new Bakery(getInventory().addToStock(itemID, itemName,
             category, itemPrice), getCustomerRoll(), getOrderList());
