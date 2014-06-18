@@ -27,7 +27,7 @@ public class EmptyInventory extends Inventory {
         return new ItemInventory(it, this);
     }
     
-    /** Add item to the inventory
+    /** Add item to the inventory.
      * @param itemName This is the item Name
      * @param category This is the item category
      * @param itemPrice This is the item Prices
@@ -59,7 +59,7 @@ public class EmptyInventory extends Inventory {
     }
     
     /** Removes item from stock class.
-     * @param item
+     * @param itemID
      *         item ID in inventory
      * @return new Inventory
      */
@@ -67,7 +67,7 @@ public class EmptyInventory extends Inventory {
         return this;
     }
     
-    /** See whether a inventory is empty
+    /** See whether a inventory is empty.
      * @return true 
      */
     public boolean isEmpty() {
@@ -99,7 +99,7 @@ public class EmptyInventory extends Inventory {
         return false;
     }
     
-    /** Get Item from inventory using the item ID
+    /** Get Item from inventory using the item ID.
      * @param ID
      *         item ID in inventory
      * @return an exception because it is empty
@@ -108,7 +108,10 @@ public class EmptyInventory extends Inventory {
         throw new RuntimeException("No item with such ID exists");
     }
     
-    
+    /** Get price using item ID.
+     * @param itemID this is the item ID
+     * @return the price of the item
+     */
     public double getPrice(Integer itemID) {
         throw new RuntimeException("No item with such ID exists");
     }
@@ -144,7 +147,7 @@ public class EmptyInventory extends Inventory {
     }
     
     /**
-     * @return returns nothing because it is empty
+     * @return returns nothing because it is empty.
      */
     public String toString() {
         return "";

@@ -11,7 +11,7 @@ import bakery.Item;
  */
 public abstract class Inventory implements Iterable<Item> {
      // Static Methods
-    /** Returns a new Empty map.
+    /** Returns a new Empty inventory.
      * @return new EmptyInventory
      */
     public static Inventory emptyInventory() {
@@ -20,7 +20,7 @@ public abstract class Inventory implements Iterable<Item> {
     
     // Dynamic Methods
     
-    /** Adds item to inventory
+    /** Adds item to inventory.
      * @param itemID item ID
      * @param itemName Name of the item
      * @param category Item category
@@ -30,9 +30,16 @@ public abstract class Inventory implements Iterable<Item> {
     public abstract Inventory addToStock(int itemID, 
         String itemName, String category, double itemPrice);
     
+    /** Add to stock using item name, category and price.
+     * @param itemName this is the item name
+     * @param category this is the item category
+     * @param itemPrice this is the item price
+     * @return a new inventory
+     */
     public abstract Inventory addToStock(String itemName, 
         String category, double itemPrice);
-    /** Adds item to inventory
+    
+    /** Adds item to inventory.
      * @param item
      *             item name
      * @return Inventory
@@ -71,7 +78,7 @@ public abstract class Inventory implements Iterable<Item> {
     public abstract boolean containsItem(Item item);
     
     /** Checks if the inventory contains item.
-     * @param itemID
+     * @param ID
      *             item ID
      * @return true or false if it contains the item
      */
@@ -90,13 +97,16 @@ public abstract class Inventory implements Iterable<Item> {
      */
     public abstract String toString();
     
-    /** get the item in the inventory using the item ID
+    /** get the item in the inventory using the item ID.
      * @param ID is the item ID
      * @return an item from its ID
      */
     public abstract Item getItem(Integer ID);
     
-    
+    /** Get price using item ID.
+     * @param itemID this is the item ID
+     * @return the price of the item
+     */
     public abstract double getPrice(Integer itemID);
     
     /** Get all the keys from Inventory and put them into an array list.
@@ -115,7 +125,7 @@ public abstract class Inventory implements Iterable<Item> {
     
     private Integer lastUsedID = 1;
     
-    /** Get an available ID number
+    /** Get an available ID number.
      * @return available ID
      */
     protected Integer getNextAvailableID() {

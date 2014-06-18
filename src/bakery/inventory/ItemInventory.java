@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import bakery.Item;
 import bakery.order.EntryOrder;
 
-/** Item Inventory Class
+/** Item Inventory Class.
  * @author Jesus Cheng
  * @author Daniel Osborne
  * @version 1.0
  */
 public class ItemInventory extends Inventory {
-    /** this is the previous inventory */
+    /** this is the previous inventory. */
     private Inventory m0;
 
-    /** this is the item to be added to the map */
+    /** this is the item to be added to the map. */
     private Item item0;
 
-    /** Constructor
+    /** Constructor.
      * @param m0
      *            the prev inventory
      * @param item0
@@ -28,7 +28,7 @@ public class ItemInventory extends Inventory {
         this.m0 = m0;
     }
 
-    /** returns the rest of the inventory
+    /** returns the rest of the inventory.
      * @return return rest of the inventory
      */
     Inventory getRest() {
@@ -36,7 +36,7 @@ public class ItemInventory extends Inventory {
     }
 
     /**
-     * Adds item to inventory
+     * Adds item to inventory.
      * 
      * @param itemID
      *            item ID
@@ -54,7 +54,7 @@ public class ItemInventory extends Inventory {
         return this.addToStock(item);
     }
 
-    /** Add item to the inventory
+    /** Add item to the inventory.
      * @param itemName This is the item Name
      * @param category This is the item category
      * @param itemPrice This is the item Prices
@@ -68,7 +68,7 @@ public class ItemInventory extends Inventory {
     }
 
     /**
-     * Adds item to inventory
+     * Adds item to inventory.
      * 
      * @param item
      *            item name
@@ -102,8 +102,6 @@ public class ItemInventory extends Inventory {
      * 
      * @param item
      *            item name
-     * @param quantity
-     *            quantity of item
      * @return new Inventory
      */
     public Inventory removeFromStock(Item item) {
@@ -115,7 +113,7 @@ public class ItemInventory extends Inventory {
     }
 
     /**
-     * Checks if map is empty.
+     * Checks if inventory is empty.
      * 
      * @return whether a map is empty
      */
@@ -124,7 +122,7 @@ public class ItemInventory extends Inventory {
     }
 
     /**
-     * Returns the size of the map
+     * Returns the size of the inventory.
      * 
      * @return the size of map
      */
@@ -137,7 +135,7 @@ public class ItemInventory extends Inventory {
     }
 
     /**
-     * Checks if contains key.
+     * Checks if contains item.
      * 
      * @param item
      *            item name
@@ -152,7 +150,7 @@ public class ItemInventory extends Inventory {
     }
 
     /** Checks if the inventory contains item.
-     * @param itemID
+     * @param ID
      *             item ID
      * @return true or false if it contains the item
      */
@@ -165,10 +163,7 @@ public class ItemInventory extends Inventory {
     }
 
     /**
-     * Get the value from key.
-     * 
-     * @param k
-     *            get Value from K
+     * Get the value from item.
      * @return the value from the key
      */
     private Item getItem() {
@@ -236,7 +231,7 @@ public class ItemInventory extends Inventory {
         }
     }
 
-    /** Overriding to string method
+    /** Overriding to string method.
      * @return the list of items
      */
     public String toString() {
@@ -247,7 +242,7 @@ public class ItemInventory extends Inventory {
         }
     }
 
-    /** Get Item from inventory using the item ID
+    /** Get Item from inventory using the item ID.
      * @param ID
      *         item ID in inventory
      * @return get item with item ID
@@ -260,7 +255,10 @@ public class ItemInventory extends Inventory {
         }
     }
     
-    
+    /** Get price using item ID.
+     * @param itemID this is the item ID
+     * @return the price of the item
+     */
     public double getPrice(Integer itemID) {
         if (getItem().getItemID().equals(itemID)) {
             return getItem().getPrice();
