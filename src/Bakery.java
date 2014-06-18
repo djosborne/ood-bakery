@@ -389,6 +389,12 @@ public class Bakery {
         if (userInput.equals("2")) {
             admin = true;
         }
+        
+        if (!admin) {
+            while (true) {
+                bakeryCtrl = bakeryCtrl.addNewOrder();
+            }
+        }
 
         boolean quit = false;
         while (!quit) {
