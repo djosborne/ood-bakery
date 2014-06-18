@@ -97,6 +97,8 @@ public abstract class Inventory implements Iterable<Item> {
     public abstract Item getItem(Integer ID);
     
     
+    public abstract double getPrice(Integer itemID);
+    
     /** Get all the keys from Inventory and put them into an array list.
      * @param x
      *             Array List x

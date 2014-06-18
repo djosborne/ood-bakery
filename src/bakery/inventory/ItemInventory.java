@@ -259,7 +259,17 @@ public class ItemInventory extends Inventory {
             return getRest().getItem(ID);
         }
     }
-
+    
+    
+    public double getPrice(Integer itemID) {
+        if (getItem().getItemID().equals(itemID)) {
+            return getItem().getPrice();
+        }
+        else {
+            return getRest().getPrice(itemID);
+        }
+    }
+    
     /** Checks if the inventory contains item.
      * @param bakeryItemName is the item name
      * @param bakeryItemCategory is the category of the item

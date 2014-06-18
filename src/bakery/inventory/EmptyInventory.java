@@ -108,6 +108,11 @@ public class EmptyInventory extends Inventory {
         throw new RuntimeException("No item with such ID exists");
     }
     
+    
+    public double getPrice(Integer itemID) {
+        throw new RuntimeException("No item with such ID exists");
+    }
+    
     /** Equal Operator.
      * @return boolean whether they are equal or not
      * @param o 
