@@ -130,7 +130,7 @@ public class EntryOrder extends OrderList {
     
     
     public OrderList getOrdersByCustomerID(Integer customerID) {
-        if (order0.getCustomerID() == customerID) {
+        if (order0.getCustomerID().equals(customerID)) {
             return new EntryOrder(order0, getRest().getOrdersByCustomerID(customerID));
         }
         else {

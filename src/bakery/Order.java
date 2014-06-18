@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Order {
-    private int customerID;
+    private Integer customerID;
 	private Integer orderID;
 	private boolean paid;
 	private Date orderDate;
@@ -30,7 +30,7 @@ public class Order {
 	 * @param order
 	 *            Price Price for order
 	 */
-	public Order(Integer orderID, int itemID, Integer quantity, int customerID, double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
+	public Order(Integer orderID, int itemID, Integer quantity, Integer customerID, double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
 		this.orderID = orderID;
 	    this.customerID = customerID;
 	    this.orderID = orderID; // TODO: generate
@@ -75,7 +75,7 @@ public class Order {
 		return getQuantity() * getItem().getPrice();
 	}
 	
-	public int getCustomerID() {
+	public Integer getCustomerID() {
 	    return customerID;
 	}
 	
