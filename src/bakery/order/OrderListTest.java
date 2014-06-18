@@ -37,7 +37,6 @@ public class OrderListTest {
     private Item item4 = new Item(4, orange, fruit, 4);
     
 
-    
     private Order order1 = new Order(1, item1, item1.getPrice()*1, 1, 1, 1, 0, 0, true, date1, date1);
     private Order order2 = new Order(2, item2, item2.getPrice()*2, 2, 2, 2, 0, 0, true, date2, date2);
     private Order order3 = new Order(3, item3, item3.getPrice()*3, 3, 3, 3, 0, 0, true, date3, date3);
