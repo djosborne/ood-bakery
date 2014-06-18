@@ -1,10 +1,7 @@
 package bakery;
 
-import bakery.inventory.Inventory;
 import java.util.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class Order {
     private Integer customerID;
@@ -18,32 +15,6 @@ public class Order {
 	private double availableDiscount;
 	private double discountUsedOnOrder;
     private double total;
-
-	/**
-	 * Construct a new order with given parameters
-	 * 
-	 * @param orderID
-	 *            order ID
-	 * @param orderName
-	 *            order name
-	 * @param category
-	 *            order category
-	 * @param order
-	 *            Price Price for order
-	 */
-	public Order(Integer orderID, int itemID, double total, Integer quantity, Integer customerID, double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
-		this.orderID = orderID;
-	    this.customerID = customerID;
-	    this.orderID = orderID; // TODO: generate
-		this.paid = paid;
-		this.orderDate = new Date();
-		this.pickUpDate = pickUpDate;
-		this.item = item;
-		this.quantity = quantity;
-		this.discountUsedOnOrder = discountUsedOnOrder;
-		this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
-		this.total = total;
-	}
 	
 	   public Order(Integer orderID, Item item, double total, Integer quantity, int customerID, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickUpDate) {
 	       this.orderID = orderID;

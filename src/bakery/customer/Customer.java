@@ -25,9 +25,6 @@ public class Customer {
     
     /** customer's zipCode */
     private Integer zipCode;
-
-    /** reward membership status */
-    private boolean isRewardsMember;
     
     private double loyaltyPoints;
     
@@ -49,8 +46,6 @@ public class Customer {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-
-        this.isRewardsMember = false;
         
         this.availableDiscountPoints = 0;
         this.loyaltyPoints = 0;
@@ -64,8 +59,6 @@ public class Customer {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
-
-        this.isRewardsMember = false;
         
         this.availableDiscountPoints = discountPts;
         this.loyaltyPoints = loyaltyPts;

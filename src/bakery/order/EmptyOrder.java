@@ -2,8 +2,6 @@ package bakery.order;
 import java.util.ArrayList;
 import java.util.Date;
 
-import bakery.Item;
-import bakery.Order;
 import bakery.Order;
 
 public class EmptyOrder extends OrderList {
@@ -79,7 +77,6 @@ public class EmptyOrder extends OrderList {
      * @param o 
      *             is the object that we want to compare
      */
-    @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         if (o instanceof OrderList) {
             OrderList m1 = (OrderList) o;
@@ -100,7 +97,7 @@ public class EmptyOrder extends OrderList {
      *             An array list
      * @return Array list with ks
      */
-    public ArrayList getAllOrders(ArrayList x) {
+    public ArrayList<Order> getAllOrders(ArrayList<Order> x) {
         return x;
     }
     

@@ -114,13 +114,13 @@ public abstract class Inventory implements Iterable<Item> {
      *             Array List x
      * @return Array List
      */
-    public abstract ArrayList getArrayKeys(ArrayList<Item> x);
+    public abstract ArrayList <Item> getArrayKeys(ArrayList<Item> x);
 
     /** Iterator.
      * @return new MyIterator 
      */
-    public MyIterator iterator() {
-        return new MyIterator(this.getArrayKeys(new ArrayList<Item>()));
+    public MyIterator <Item> iterator() {
+        return new MyIterator<Item>(this.getArrayKeys(new ArrayList<Item>()));
     }
     
     private Integer lastUsedID = 1;

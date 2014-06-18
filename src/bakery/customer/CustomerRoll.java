@@ -1,12 +1,5 @@
 package bakery.customer;
 
-
-import java.util.ArrayList;
-import java.util.Date;
-
-import bakery.Order;
-import bakery.inventory.ItemInventory;
-
 /**
  * @author Daniel Osborne
  * @version 1.0
@@ -15,7 +8,6 @@ public abstract class CustomerRoll {
     
     private Integer lastUsedID = 1;
     
-    private double currentLoyalty = 0;
     
     private Integer getNextAvailableID() {
         while (isReturningCustomer(lastUsedID)) {

@@ -121,7 +121,6 @@ public class EmptyInventory extends Inventory {
      * @param o 
      *             is the object that we want to compare
      */
-    @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         if (o instanceof Inventory) {
             Inventory m1 = (Inventory) o;
@@ -142,7 +141,7 @@ public class EmptyInventory extends Inventory {
      *             An array list
      * @return Array list with items
      */
-    public ArrayList getArrayKeys(ArrayList<Item> x) {
+    public ArrayList<Item> getArrayKeys(ArrayList<Item> x) {
         return x;
     }
     

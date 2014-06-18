@@ -108,10 +108,10 @@ public abstract class OrderList implements Iterable<Order> {
     /** Iterator.
      * @return new MyIterator 
      */
-    public MyIterator iterator() {
+    public MyIterator<Order> iterator() {
         ArrayList<Order> orders = this.getAllOrders(new ArrayList<Order>());
         Collections.sort(orders, new OrderComparator());
-        return new MyIterator(orders);
+        return new MyIterator <Order> (orders);
     }
     
     

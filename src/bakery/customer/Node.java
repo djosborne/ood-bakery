@@ -1,10 +1,5 @@
 package bakery.customer;
 
-import java.util.ArrayList;
-
-import bakery.Order;
-import bakery.order.EntryOrder;
-
 /**
  * @author Daniel Osborne
  * @version 1.0

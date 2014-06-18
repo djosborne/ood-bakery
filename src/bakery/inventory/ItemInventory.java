@@ -3,7 +3,6 @@ package bakery.inventory;
 import java.util.ArrayList;
 
 import bakery.Item;
-import bakery.order.EntryOrder;
 
 /** Item Inventory Class.
  * @author Jesus Cheng
@@ -190,7 +189,6 @@ public class ItemInventory extends Inventory {
      * @param o
      *            is the object that we want to compare
      */
-    @SuppressWarnings("unchecked")
     public boolean equals(Object o) {
         if (o instanceof Inventory) {
             Inventory m2 = ((Inventory) o);
@@ -222,7 +220,7 @@ public class ItemInventory extends Inventory {
      *            Array List
      * @return An Array list
      */
-    public ArrayList getArrayKeys(ArrayList<Item> x) {
+    public ArrayList<Item> getArrayKeys(ArrayList<Item> x) {
         if (!m0.containsItem(item0)) {
             x.add(this.item0);
             return (m0.getArrayKeys(x));

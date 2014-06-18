@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import bakery.Item;
 import bakery.Order;
-import bakery.inventory.Inventory;
 
 public class OrderListTest {
 

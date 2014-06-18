@@ -137,7 +137,7 @@ public class Bakery {
         // point for dollar, they're the same
         double loyaltyEarnedThisOrder = total - discountUsedOnOrder;
         
-        double totalDue = total - discountUsedOnOrder;
+        // double totalDue = total - discountUsedOnOrder;
 
         // To be stored in Order and Customer as discountPoints
         double newAvailableDiscount = previousDiscountPoints - discountUsedOnOrder + loyaltyToDiscountHelper(loyaltyEarnedThisOrder + previousLoyaltyPoints); 
@@ -236,7 +236,6 @@ public class Bakery {
         }
     }
 
-    @SuppressWarnings("unused")
     public static void main(String[] args) {
         Bakery bakeryCtrl = new Bakery(Inventory.emptyInventory(),
             CustomerRoll.emptyRoll(), OrderList.emptyOrder());
@@ -391,7 +390,7 @@ public class Bakery {
             double price = Double.valueOf(entries[14]);
             double total = Double.valueOf(entries[15]);
             double discountUsedOnOrder = Double.valueOf(entries[16]);
-            double totalDue = Double.valueOf(entries[17]);
+            // double totalDue = Double.valueOf(entries[17]);
             double availableDiscount = Double.valueOf(entries[18]);
             double currentLoyalty = Double.valueOf(entries[19]);
 
@@ -636,7 +635,7 @@ public class Bakery {
 
 
         // Get the discountUsedOnOrder from customer input
-        double loyaltyEarnedThisOrder = total;
+        // double loyaltyEarnedThisOrder = total;
         double discountUsedOnOrder = 0;
         
         if (availableDiscount > 0) {
@@ -691,7 +690,6 @@ public class Bakery {
 
         // Get pickup date
         validInput = false;
-        Date dOrderDate = new Date();
         Date dPickupDate = null;
         while (!validInput) {
             // get user input
@@ -709,30 +707,9 @@ public class Bakery {
             }
         }
 
-  
         modifiedBakery = modifiedBakery.performTransaction(customerID, itemIDs, itemQuantities, discountUsedOnOrder, paid, dPickupDate);
-        
-//        double discountAvailable = (availableDiscount + discountUsedOnOrder);
-//        double tempTotal = total;
-//        while (tempTotal >= 100) {
-//            discountAvailable += 10;
-//            tempTotal -= 100;
-//        }
-//
-//        Integer thisOrderID = getOrderList().getAvailableOrderID();
-//        for (int i = 0; i < itemIDs.size(); i++) {
-//            modifiedBakery = modifiedBakery.performTransaction(thisOrderID,
-//                customerID, itemIDs.get(i), itemQuantities.get(i), 15,
-//                discountAvailable, discountUsedOnOrder, paid, dOrderDate,
-//                dPickupDate);
-//            // modifiedBakery = modifiedBakery.performTransaction(orderID,
-//            // customerID, itemID, quantity, loyaltyAtTimeOfOrder,
-//            // availableDiscount, discountUsedOnOrder, paid, orderDate,
-//            // pickupDate)
-//        }
 
         return modifiedBakery;
-
     }
 
     void viewExistingCustomers() {
