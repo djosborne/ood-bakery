@@ -7,7 +7,6 @@ import bakery.Item;
  * @author Jesus Cheng
  * @author Daniel Osborne
  * @version 1.0
- * @param <Item> the inventory takes an Item object
  */
 public abstract class Inventory implements Iterable<Item> {
      // Static Methods
@@ -78,11 +77,11 @@ public abstract class Inventory implements Iterable<Item> {
     public abstract boolean containsItem(Item item);
     
     /** Checks if the inventory contains item.
-     * @param ID
+     * @param iD
      *             item ID
      * @return true or false if it contains the item
      */
-    public abstract boolean containsItem(Integer ID);
+    public abstract boolean containsItem(Integer iD);
     
     /** Checks if the inventory contains item.
      * @param bakeryItemName is the item name
@@ -98,10 +97,10 @@ public abstract class Inventory implements Iterable<Item> {
     public abstract String toString();
     
     /** get the item in the inventory using the item ID.
-     * @param ID is the item ID
+     * @param iD is the item ID
      * @return an item from its ID
      */
-    public abstract Item getItem(Integer ID);
+    public abstract Item getItem(Integer iD);
     
     /** Get price using item ID.
      * @param itemID this is the item ID
@@ -114,12 +113,12 @@ public abstract class Inventory implements Iterable<Item> {
      *             Array List x
      * @return Array List
      */
-    public abstract ArrayList <Item> getArrayKeys(ArrayList<Item> x);
+    public abstract ArrayList<Item> getArrayKeys(ArrayList<Item> x);
 
     /** Iterator.
-     * @return new MyIterator 
+     * @return new MyIterator
      */
-    public MyIterator <Item> iterator() {
+    public MyIterator<Item> iterator() {
         return new MyIterator<Item>(this.getArrayKeys(new ArrayList<Item>()));
     }
     

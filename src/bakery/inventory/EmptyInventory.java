@@ -91,20 +91,20 @@ public class EmptyInventory extends Inventory {
     }
     
     /** Whether the inventory contains item.
-     * @param ID
+     * @param iD
      *         item ID in inventory
      * @return false
      */
-    public boolean containsItem(Integer ID) {
+    public boolean containsItem(Integer iD) {
         return false;
     }
     
     /** Get Item from inventory using the item ID.
-     * @param ID
+     * @param iD
      *         item ID in inventory
      * @return an exception because it is empty
      */
-    public Item getItem(Integer ID) {
+    public Item getItem(Integer iD) {
         throw new RuntimeException("No item with such ID exists");
     }
     

@@ -77,7 +77,8 @@ public class ItemInventory extends Inventory {
         if (this.item0.equals(item)
                 || this.item0.getItemID().equals(item.getItemID())) {
             throw new RuntimeException("That item already exists!");
-        } else {
+        } 
+        else {
             return new ItemInventory(getItem(), getRest().addToStock(item));
         }
     }
@@ -90,7 +91,8 @@ public class ItemInventory extends Inventory {
     public Inventory removeFromStock(Integer itemID) {
         if (getItem().getItemID().equals(itemID)) {
             return getRest().removeFromStock(itemID);
-        } else {
+        } 
+        else {
             return new ItemInventory(getItem(), 
                 getRest().removeFromStock(itemID));
         }
@@ -106,7 +108,8 @@ public class ItemInventory extends Inventory {
     public Inventory removeFromStock(Item item) {
         if (this.item0.equals(item)) {
             return new ItemInventory(item, m0);
-        } else {
+        } 
+        else {
             return this.m0.removeFromStock(item);
         }
     }
@@ -128,7 +131,8 @@ public class ItemInventory extends Inventory {
     public int size() {
         if (m0.containsItem(item0)) {
             return m0.size();
-        } else {
+        } 
+        else {
             return (1 + m0.size());
         }
     }
@@ -143,21 +147,23 @@ public class ItemInventory extends Inventory {
     public boolean containsItem(Item item) {
         if (item.equals(item0)) {
             return true;
-        } else {
+        } 
+        else {
             return m0.containsItem(item);
         }
     }
 
     /** Checks if the inventory contains item.
-     * @param ID
+     * @param iD
      *             item ID
      * @return true or false if it contains the item
      */
-    public boolean containsItem(Integer ID) {
-        if (item0.getItemID().equals(ID)) {
+    public boolean containsItem(Integer iD) {
+        if (item0.getItemID().equals(iD)) {
             return true;
-        } else {
-            return m0.containsItem(ID);
+        } 
+        else {
+            return m0.containsItem(iD);
         }
     }
 
@@ -170,15 +176,16 @@ public class ItemInventory extends Inventory {
     }
 
     /** Get Item from inventory using the item ID
-     * @param ID
+     * @param iD
      *         item ID in inventory
      * @return an exception because it is empty
      */
-    public Item getItem(int ID) {
-        if (getItem().getItemID() == ID) {
+    public Item getItem(int iD) {
+        if (getItem().getItemID() == iD) {
             return getItem();
-        } else {
-            return getRest().getItem(ID);
+        } 
+        else {
+            return getRest().getItem(iD);
         }
     }
 
@@ -224,7 +231,8 @@ public class ItemInventory extends Inventory {
         if (!m0.containsItem(item0)) {
             x.add(this.item0);
             return (m0.getArrayKeys(x));
-        } else {
+        } 
+        else {
             return (m0.getArrayKeys(x));
         }
     }
@@ -235,21 +243,22 @@ public class ItemInventory extends Inventory {
     public String toString() {
         if (this.isEmpty()) {
             return "[]";
-        } else {
+        } 
+        else {
             return this.getItem().toString() + "\n" + m0.toString();
         }
     }
 
     /** Get Item from inventory using the item ID.
-     * @param ID
+     * @param iD
      *         item ID in inventory
      * @return get item with item ID
      */
-    public Item getItem(Integer ID) {
-        if (getItem().getItemID().equals(ID)) {
+    public Item getItem(Integer iD) {
+        if (getItem().getItemID().equals(iD)) {
             return getItem();
         } else {
-            return getRest().getItem(ID);
+            return getRest().getItem(iD);
         }
     }
     
@@ -276,7 +285,8 @@ public class ItemInventory extends Inventory {
         if (item0.getItemName().equals(bakeryItemName)
                 && item0.getCategory().equals(bakeryItemCategory)) {
             return true;
-        } else {
+        } 
+        else {
             return m0.containsItem(bakeryItemName, bakeryItemCategory);
         }
     }
