@@ -17,7 +17,7 @@ public class Order {
 	private double loyaltyAtTimeOfOrder;
 	private double availableDiscount;
 	private double discountUsedOnOrder;
-//	private double totalDue;
+    private double total;
 
 	/**
 	 * Construct a new order with given parameters
@@ -31,7 +31,7 @@ public class Order {
 	 * @param order
 	 *            Price Price for order
 	 */
-	public Order(Integer orderID, int itemID, Integer quantity, Integer customerID, double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
+	public Order(Integer orderID, int itemID, double total, Integer quantity, Integer customerID, double loyaltyAtTimeOfOrder,  double discountUsedOnOrder, boolean paid, Date pickUpDate) {
 		this.orderID = orderID;
 	    this.customerID = customerID;
 	    this.orderID = orderID; // TODO: generate
@@ -42,21 +42,23 @@ public class Order {
 		this.quantity = quantity;
 		this.discountUsedOnOrder = discountUsedOnOrder;
 		this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
+		this.total = total;
 	}
 	
-	   public Order(Integer orderID, Item item, Integer quantity, int customerID, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickUpDate) {
+	   public Order(Integer orderID, Item item, double total, Integer quantity, int customerID, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickUpDate) {
 	       this.orderID = orderID;
 	       this.customerID = customerID; 
 	       this.orderID = orderID; // TODO: generate
-	        this.paid = paid;
-	        this.orderDate = orderDate;
-	        this.pickUpDate = pickUpDate;
-	        this.item = item;
-	        this.quantity = quantity;
-	        this.availableDiscount = availableDiscount;
-	        this.discountUsedOnOrder = discountUsedOnOrder;
+	       this.paid = paid;
+	       this.orderDate = orderDate;
+	       this.pickUpDate = pickUpDate;
+	       this.item = item;
+	       this.quantity = quantity;
+	       this.availableDiscount = availableDiscount;
+	       this.discountUsedOnOrder = discountUsedOnOrder;
 	        
-	        this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
+	       this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
+	       this.total = total;
 	        
 	    }
 	   
@@ -80,7 +82,7 @@ public class Order {
 	}
 	
 	public double getTotal() {
-		return getQuantity() * getItem().getPrice();
+		return total;
 	}
 	
 	public Integer getCustomerID() {

@@ -173,14 +173,9 @@ public class EntryOrder extends OrderList {
      *             Array List
      * @return An Array list
      */
-    public ArrayList getArrayKeys(ArrayList x) {
-        if (!m0.containsOrder(order0)) {
-            x.add(this.order0);
-            return (m0.getArrayKeys(x));
-        }
-        else {
-            return (m0.getArrayKeys(x));
-        }
+    public ArrayList getAllOrders(ArrayList x) {
+        x.add(getOrder());    
+        return getRest().getAllOrders(x);
     }
    
     public String toString() {

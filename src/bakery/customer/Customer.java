@@ -28,6 +28,10 @@ public class Customer {
 
     /** reward membership status */
     private boolean isRewardsMember;
+    
+    private double loyaltyPoints;
+    
+    private double availableDiscountPoints;
 
     /**
      * Construct a new customer with given parameters
@@ -47,6 +51,24 @@ public class Customer {
         this.zipCode = zipCode;
 
         this.isRewardsMember = false;
+        
+        this.availableDiscountPoints = 0;
+        this.loyaltyPoints = 0;
+    }
+    
+    public Customer(Integer customerID, String lastName, String address,
+        String city, String state, int zipCode, double discountPts, double loyaltyPts) {
+        this.customerID = customerID;
+        this.lastName = lastName;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+
+        this.isRewardsMember = false;
+        
+        this.availableDiscountPoints = discountPts;
+        this.loyaltyPoints = loyaltyPts;
     }
     
     public Integer getCustomerID() {
@@ -72,6 +94,19 @@ public class Customer {
     public Integer getZipCode() {
         return zipCode;
     }
+    
+    public double getDiscountPoints() {
+        return availableDiscountPoints;
+    }
+    
+    public double getLoyaltyPoints() {
+        return loyaltyPoints;
+    }
+    
+    public Customer setPoints(double discountPts, double loyaltyPts) {
+        return new Customer(getCustomerID(), getLastName(), getAddress(), getCity(), getState(), getZipCode(), discountPts, loyaltyPts);
+    }
+  
 
     /**
      * String representation of this customer

@@ -15,6 +15,8 @@ public abstract class CustomerRoll {
     
     private Integer lastUsedID = 1;
     
+    private double currentLoyalty = 0;
+    
     private Integer getNextAvailableID() {
         while (isReturningCustomer(lastUsedID)) {
             lastUsedID++;
@@ -27,13 +29,13 @@ public abstract class CustomerRoll {
     
     public abstract Integer getCustomerID(String lastName, String address, String city, String state, Integer zipCode);
     
-    public abstract double getRewardsPoints(Integer customerID);
+//    public abstract double getDiscountPoints(Integer customerID);
     
     public abstract CustomerRoll getCustomersByLastName(String lname);
     
-    public abstract CustomerRoll setLoyalty(Integer customerID, double loyaltyAmt);
+    public abstract CustomerRoll setPoints(Integer customerID, double newAvailableDiscount, double loyaltyAmt);
     
-    public abstract CustomerRoll addLoyalty(Integer customerID, double loyaltyAmt);
+    
     
     /**
      * Return True or False if ClassRoll has students

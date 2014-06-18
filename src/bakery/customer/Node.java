@@ -12,7 +12,6 @@ import bakery.order.EntryOrder;
 public class Node extends CustomerRoll {
 
     private Customer c;
-    private double loyaltyBalance = 0;
     
     private CustomerRoll rest;
     
@@ -30,15 +29,9 @@ public class Node extends CustomerRoll {
      * @param rest
      *            ClassRoll to be passed into rest
      */
-    public Node(Customer c, CustomerRoll rest) {
+    Node(Customer c, CustomerRoll rest) {
         this.c = c;
         this.rest = rest;
-    }
-    
-    private Node(Customer c, CustomerRoll rest, double loyaltyEarned) {
-        this.c = c;
-        this.rest = rest;
-        this.loyaltyBalance = loyaltyEarned;
     }
 
     /**
@@ -159,39 +152,14 @@ public class Node extends CustomerRoll {
             return this.getCustomerRoll().getCustomerID(lastName, address, city, state, zipCode);
         }
     }
-    
-    
-    public double getRewardsPoints(Integer customerID) {
-        if (getCustomer().getCustomerID().equals(customerID)) {
-            return loyaltyBalance;
-        }
-        else {
-            return getCustomerRoll().getRewardsPoints(customerID);
-        }
-    }
 
     
-    public CustomerRoll setLoyalty(Integer customerID, double loyaltyAmt) {
+    public CustomerRoll setPoints(Integer customerID, double newAvailableDiscount, double newLoyaltyAmt) {
         if (getCustomer().getCustomerID().equals(customerID)) {
-            return new Node(getCustomer(), getCustomerRoll(),loyaltyAmt);
+            return new Node(getCustomer().setPoints(newAvailableDiscount, newLoyaltyAmt), getCustomerRoll());
         }
         else {
-            return new Node(getCustomer(), rest.setLoyalty(customerID, loyaltyAmt), getCurrentLoyalty());
+            return new Node(getCustomer(), rest.setPoints(customerID, newAvailableDiscount, newLoyaltyAmt));
         }
     }
-    
-    public CustomerRoll addLoyalty(Integer customerID, double loyaltyAmt) {
-        if (getCustomer().getCustomerID().equals(customerID)) {
-            return new Node(getCustomer(), getCustomerRoll(),getCurrentLoyalty() + loyaltyAmt);
-        }
-        else {
-            return new Node(getCustomer(), rest.setLoyalty(customerID, loyaltyAmt), getCurrentLoyalty());
-        }
-    }
-    
-    
-    private double getCurrentLoyalty() {
-        return loyaltyBalance;
-    }
-    
 }

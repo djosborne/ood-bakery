@@ -25,8 +25,9 @@ public abstract class OrderList implements Iterable<Order> {
      * @param itemPrice item price
      * @return Inventory
      */
-    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder) {
-        Order newOrder = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder,  availableDiscount, discountUsedOnOrder, paid, orderDate, pickUpDate);
+    public OrderList addToOrderList(Integer customerID, Integer orderID, double total, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder) {
+        Order newOrder = new Order(orderID, item, total, quantity, customerID, loyaltyAtTimeOfOrder,  availableDiscount, discountUsedOnOrder, paid, orderDate, pickUpDate);
+        
         return new EntryOrder(newOrder, this); 
     }
     
@@ -96,13 +97,13 @@ public abstract class OrderList implements Iterable<Order> {
      *             Array List x
      * @return Array List
      */
-    public abstract ArrayList<Order> getArrayKeys(ArrayList<Order> x);
+    public abstract ArrayList<Order> getAllOrders(ArrayList<Order> x);
 
     /** Iterator.
      * @return new MyIterator 
      */
     public MyIterator iterator() {
-        ArrayList<Order> orders = this.getArrayKeys(new ArrayList<Order>());
+        ArrayList<Order> orders = this.getAllOrders(new ArrayList<Order>());
         Collections.sort(orders, new OrderComparator());
         return new MyIterator(orders);
     }

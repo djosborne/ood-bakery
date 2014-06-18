@@ -100,7 +100,7 @@ public class EmptyOrder extends OrderList {
      *             An array list
      * @return Array list with ks
      */
-    public ArrayList getArrayKeys(ArrayList x) {
+    public ArrayList getAllOrders(ArrayList x) {
         return x;
     }
     
