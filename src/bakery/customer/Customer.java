@@ -114,7 +114,8 @@ public class Customer {
      * @return String representation of this customer
      */
     public String toString() {
-        return "[" + customerID + "] \t[" + lastName + "]\t[" + address + "]\t[" + city + "]\t[" + zipCode + "]";
+        String sZipCode = String.format("%05d", zipCode);
+        return "[" + customerID + "] \t[" + lastName + "]\t[" + address + "]\t[" + city + "]\t[" + sZipCode + "]";
     }
 
     /**
