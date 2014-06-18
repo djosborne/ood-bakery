@@ -259,7 +259,7 @@ public class Bakery {
         boolean allSet = false;
 
         while (!allSet) {
-            userInput = bakeryCtrl.inputScanner.next();
+            userInput = bakeryCtrl.inputScanner.nextLine();
             System.out.println();
             if (userInput.equals("1")) {
                 try {
@@ -311,12 +311,12 @@ public class Bakery {
                 System.out.println("------------------------------");
                 try {
                     System.out.print("Orders Filename: ");
-                    userInput = bakeryCtrl.inputScanner.next();
+                    userInput = bakeryCtrl.inputScanner.nextLine();
                     File ordersFile = new File(userInput);
                     orderScanner = new Scanner(ordersFile);
 
                     System.out.print("Bakery Inventory Filename: ");
-                    userInput = bakeryCtrl.inputScanner.next();
+                    userInput = bakeryCtrl.inputScanner.nextLine();
                     File inventoryFile = new File(userInput);
                     inventoryScanner = new Scanner(inventoryFile);
                     allSet = true;
@@ -436,7 +436,7 @@ public class Bakery {
         System.out.println("1.) Cashier Interface");
         System.out.println("2.) Owner Interface");
         System.out.print("Enter [1/2]: ");
-        String userInput = bakeryCtrl.inputScanner.next();
+        String userInput = bakeryCtrl.inputScanner.nextLine();
         System.out.println();
 
         if (userInput.equals("2")) {
@@ -475,7 +475,7 @@ public class Bakery {
             System.out.println("10.) Save and Quit");
             System.out.print("Enter [1/2/3/4/5/6/7/8/9/10]: ");
 
-            userInput = bakeryCtrl.inputScanner.next();
+            userInput = bakeryCtrl.inputScanner.nextLine();
             if (userInput.equals("1")) {
                 bakeryCtrl = bakeryCtrl.addNewOrder();
             }
@@ -523,7 +523,7 @@ public class Bakery {
         System.out.println("Please enter the following customer info:");
 
         System.out.print("Last Name: ");
-        String lastName = inputScanner.next();
+        String lastName = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("Address: ");
@@ -532,18 +532,18 @@ public class Bakery {
         System.out.println();
 
         System.out.print("City: ");
-        String city = inputScanner.next();
+        String city = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("State: ");
-        String state = inputScanner.next();
+        String state = inputScanner.nextLine();
         System.out.println();
 
         Integer zipCode = 0;
         boolean validZip = false;
         while (!validZip) {
             System.out.print("Zip Code: ");
-            String sZipCode = inputScanner.next();
+            String sZipCode = inputScanner.nextLine();
             zipCode = Integer.valueOf(sZipCode);
             validZip = true;
 
@@ -585,7 +585,7 @@ public class Bakery {
             // Gather the items ordered
             System.out.println("Enter an Item ID, or type 'DONE': ");
             Integer itemID;
-            String userInput = inputScanner.next();
+            String userInput = inputScanner.nextLine();
 
             // check if they quit
             if (userInput.equals("DONE")) {
@@ -609,7 +609,7 @@ public class Bakery {
 
             System.out.println("How many "
                 + getInventory().getItem(itemID).getItemName() + ": ");
-            userInput = inputScanner.next();
+            userInput = inputScanner.nextLine();
             Integer itemQuantity = null;
             try {
                 itemQuantity = Integer.valueOf(userInput);
@@ -640,7 +640,7 @@ public class Bakery {
             while (!validInput) {
                 System.out
                     .println("How many points would you like to apply to this order (or 0 if none): ");
-                String sPointsUsed = inputScanner.next();
+                String sPointsUsed = inputScanner.nextLine();
                 try {
                     discountUsedOnOrder = Double.valueOf(sPointsUsed);
                     if (discountUsedOnOrder <= availableDiscount
@@ -665,7 +665,7 @@ public class Bakery {
             System.out.println("1.) Pay Now");
             System.out.println("2.) Pay Later");
             System.out.print("Select [1/2]: ");
-            String userInput = inputScanner.next();
+            String userInput = inputScanner.nextLine();
             try {
                 Integer selection = Integer.valueOf(userInput);
                 if (selection.equals(1)) {
@@ -692,7 +692,7 @@ public class Bakery {
         while (!validInput) {
             // get user input
             System.out.println("Please Submit a pickup date (mm/dd/yyyy): ");
-            String userInput = inputScanner.next();
+            String userInput = inputScanner.nextLine();
 
             // convert to date object
             SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
@@ -741,7 +741,7 @@ public class Bakery {
             System.out.println("3.) Print All Customers by Last Name");
             System.out.println("4.) Go Back");
             System.out.print("Select [1/2/3/4]: ");
-            String userInput = inputScanner.next();
+            String userInput = inputScanner.nextLine();
 
             if (userInput.equals("1")) {
                 System.out.println(getCustomerRoll().toString());
@@ -750,7 +750,7 @@ public class Bakery {
             else if (userInput.equals("2")) {
                 System.out.println("------------");
                 System.out.print("User ID: ");
-                String idInput = inputScanner.next();
+                String idInput = inputScanner.nextLine();
                 Integer customerID = 0;
 
                 try {
@@ -777,7 +777,7 @@ public class Bakery {
             else if (userInput.equals("3")) {
                 System.out.println("------------");
                 System.out.print("Last Name: ");
-                String lastName = inputScanner.next();
+                String lastName = inputScanner.nextLine();
                 System.out
                     .println(getCustomerByLastName(lastName).toString());
             }
@@ -795,7 +795,7 @@ public class Bakery {
         System.out.println("Please enter the following customer info:");
 
         System.out.print("Last Name: ");
-        String lastName = inputScanner.next();
+        String lastName = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("Address: ");
@@ -803,18 +803,18 @@ public class Bakery {
         System.out.println();
 
         System.out.print("City: ");
-        String city = inputScanner.next();
+        String city = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("State: ");
-        String state = inputScanner.next();
+        String state = inputScanner.nextLine();
         System.out.println();
 
         Integer zipCode = 0;
         boolean validZip = false;
         while (!validZip) {
             System.out.print("Zip Code: ");
-            String sZipCode = inputScanner.next();
+            String sZipCode = inputScanner.nextLine();
             zipCode = Integer.valueOf(sZipCode);
             validZip = true;
 
@@ -842,15 +842,15 @@ public class Bakery {
         System.out.println("Please enter the following Item info:");
 
         System.out.print("Item Name: ");
-        String itemName = inputScanner.next();
+        String itemName = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("Item Category: ");
-        String itemCategory = inputScanner.next();
+        String itemCategory = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("Item Price: ");
-        String sItemPrice = inputScanner.next();
+        String sItemPrice = inputScanner.nextLine();
         double itemPrice = Double.valueOf(sItemPrice);
         System.out.println();
 
@@ -876,7 +876,7 @@ public class Bakery {
             System.out.println("4.) Print Orders with Specific Pickup Date");
             System.out.println("5.) Go Back");
             System.out.print("Select [1/2/3/4/5]: ");
-            String userInput = inputScanner.next();
+            String userInput = inputScanner.nextLine();
 
             if (userInput.equals("1")) {
                 System.out.println(getOrderList().toString());
@@ -887,7 +887,7 @@ public class Bakery {
                 System.out.println(getCustomerRoll());
                 System.out.println("------------");
                 System.out.print("User ID: ");
-                String idInput = inputScanner.next();
+                String idInput = inputScanner.nextLine();
                 Integer customerID = 0;
 
                 try {
@@ -921,7 +921,7 @@ public class Bakery {
                     // get user input
                     System.out
                         .println("Please Submit a Order Date date (mm/dd/yyyy): ");
-                    String dateInput = inputScanner.next();
+                    String dateInput = inputScanner.nextLine();
 
                     // convert to date object
                     SimpleDateFormat dFormatter = new SimpleDateFormat(
@@ -950,7 +950,7 @@ public class Bakery {
                     // get user input
                     System.out
                         .println("Please Submit a pickup date (mm/dd/yyyy): ");
-                    String dateInput = inputScanner.next();
+                    String dateInput = inputScanner.nextLine();
 
                     // convert to date object
                     SimpleDateFormat dFormatter = new SimpleDateFormat(
@@ -988,7 +988,7 @@ public class Bakery {
             System.out.println("Please input Item ID to be updated");
 
             System.out.print("Item ID: ");
-            String sItemID = inputScanner.next();
+            String sItemID = inputScanner.nextLine();
             try {
                 itemID = Integer.valueOf(sItemID);
             }
@@ -1003,18 +1003,18 @@ public class Bakery {
             System.out.println("Please enter the following Item info:");
 
             System.out.print("Item Name: ");
-            String itemName = inputScanner.next();
+            String itemName = inputScanner.nextLine();
             System.out.println();
 
             System.out.print("Item Category: ");
-            String itemCategory = inputScanner.next();
+            String itemCategory = inputScanner.nextLine();
             System.out.println();
 
             boolean validDub = false;
             double itemPrice = 0.0;
             while (!validDub) {
                 System.out.print("Item Price: ");
-                String sItemPrice = inputScanner.next();
+                String sItemPrice = inputScanner.nextLine();
                 try {
                     itemPrice = Double.valueOf(sItemPrice);
                 }
@@ -1040,14 +1040,14 @@ public class Bakery {
         System.out.println("Please input User ID to be updated");
 
         System.out.print("User ID: ");
-        String sCustomerID = inputScanner.next();
+        String sCustomerID = inputScanner.nextLine();
         Integer customerID = Integer.valueOf(sCustomerID);
 
         if (isRegisteredCustomer(customerID)) {
             System.out.println("Please enter the following customer info:");
 
             System.out.print("Last Name: ");
-            String lastName = inputScanner.next();
+            String lastName = inputScanner.nextLine();
             System.out.println();
 
             System.out.print("Address: ");
@@ -1055,18 +1055,18 @@ public class Bakery {
             System.out.println();
 
             System.out.print("City: ");
-            String city = inputScanner.next();
+            String city = inputScanner.nextLine();
             System.out.println();
 
             System.out.print("State: ");
-            String state = inputScanner.next();
+            String state = inputScanner.nextLine();
             System.out.println();
 
             Integer zipCode = 0;
             boolean validZip = false;
             while (!validZip) {
                 System.out.print("Zip Code: ");
-                String sZipCode = inputScanner.next();
+                String sZipCode = inputScanner.nextLine();
                 zipCode = Integer.valueOf(sZipCode);
 
                 try {
