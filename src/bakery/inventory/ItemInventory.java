@@ -30,6 +30,9 @@ public class ItemInventory extends Inventory {
         this.m0 = m0;
     }
 
+    /** returns the rest of the inventory
+     * @return return rest of the inventory
+     */
     Inventory getRest() {
         return m0;
     }
