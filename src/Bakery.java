@@ -816,6 +816,8 @@ public class Bakery {
             }
             else if (userInput.equals("2")) {
                 System.out.println("------------");
+                System.out.println(getCustomerRoll());
+                System.out.println("------------");
                 System.out.print("User ID: ");
                 String idInput = inputScanner.next();
                 Integer customerID = 0;
