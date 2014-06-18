@@ -128,9 +128,13 @@ public class Order {
 	 * Overriding toString() method
 	 */
 	public String toString() {
-		
-		return "[" + orderID + ", " + paid + ", " + orderDate + ", "
-				+ pickUpDate + ", " + item + ", " + getTotal() + ", " + discountUsedOnOrder
+	    
+	    SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+	    String sOrderDate = dFormatter.format(getOrderDate());
+	    String sPickupDate = dFormatter.format(getPickUpDate());
+	    
+		return "[" + orderID + ", " + paid + ", " + sOrderDate + ", "
+				+ sPickupDate + ", " + item + ", " + getTotal() + ", " + discountUsedOnOrder
 				+ ", " + getTotalDue() + " ]";
 	}
 
