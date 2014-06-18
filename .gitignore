@@ -1,3 +1,4 @@
+*.zip
 bin
 *ordersSave.csv
 *.~lock*

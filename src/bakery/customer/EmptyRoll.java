@@ -85,6 +85,10 @@ public class EmptyRoll extends CustomerRoll {
 
 
 
+    /**
+     * Checks if a customer exists with the provided ID
+     * @return false
+     */
 	public boolean isReturningCustomer(Integer ID) {
 		return false;
 	}
@@ -100,39 +104,59 @@ public class EmptyRoll extends CustomerRoll {
     }
 
     
+    /**
+     * toString helper
+     * 
+     * @return empty string
+     */
     String toStringHelper() {
         return "";
     }
     
+    /**
+     * @return exception since customer doesn't exist
+     */
     public Customer getCustomer(Integer customerID) {
         throw new RuntimeException("Customer doesn't exist with that ID");
     }
 
+    /**
+     * @return empty node since the customer has been removed
+     */
     public CustomerRoll removeCustomer(Integer customerID) {
         return this;
     }
     
+    /**
+     * @return empty node since no more customers with that last name exist
+     */
 	public CustomerRoll getCustomersByLastName(String lname) {
         return this;
 	}
 
-    
+    /**
+     * @return exception since no customer matches the provided information
+     */
     public Integer getCustomerID(String lastName, String address,
         String city, String state, Integer zipCode) {
         throw new RuntimeException("That user does not exist");
     }
 
-    
+    /**
+     * @param customerID ID of the target customer
+     * @return runtime exception since that user doesn't exist
+     */
     public double getDiscountPoints(Integer customerID) {
         throw new RuntimeException("That user does not exist");
     }
 
-    
+    /**
+     * @param customerID id of the target customer
+     * @param loyaltyAmt number of loyalty points awarded to the customer
+     * @param newAvailableDiscount number of discount points awarded to the customer
+     * @return runtimeexception since that user doesn't exist
+     */
     public CustomerRoll setPoints(Integer customerID, double loyaltyAmt, double newAvailableDiscount) {
-        throw new RuntimeException("That user does not exist!");
-    }
-    
-    public CustomerRoll addLoyalty(Integer customerID, double loyaltyAmt) {
         throw new RuntimeException("That user does not exist!");
     }
 }

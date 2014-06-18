@@ -10,11 +10,10 @@ public class Node extends CustomerRoll {
 
     /** holds details of the current customer */
     private Customer c;
-    
+
     /** Remaining customers */
     private CustomerRoll rest;
-    
-    
+
     /**************************************************************************
      * Getters, Setters, and Constructors
      *************************************************************************/
@@ -62,23 +61,38 @@ public class Node extends CustomerRoll {
     /**************************************************************************
      * Functions to search if customers already exist in the roll
      *************************************************************************/
-    
-    
-    public boolean isReturningCustomer(Integer ID) {
-        if (getCustomer().getCustomerID().equals(ID)) {
+
+    /**
+     * Searches if customer exists with the provided ID
+     * 
+     * @param customerID
+     *            ID to search for a matching customer of
+     * @return true if customer exists with that ID, false otherwise
+     */
+    public boolean isReturningCustomer(Integer customerID) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
             return true;
         }
         else {
-            return getCustomerRoll().isReturningCustomer(ID);
+            return getCustomerRoll().isReturningCustomer(customerID);
         }
     }
-    
+
     /**
-     * Dynamic method to check if student is in CustomerRoll
+     * Searches if customer exists with the provided information
      * 
-     * @param s1
-     *            Student to be checked if in CustomerRoll
-     * @return T/F if student is in CustomerRoll
+     * @param lastName
+     *            Last Name of the customer
+     * @param address
+     *            Address of the customer
+     * @param city
+     *            City of the customer
+     * @param state
+     *            State of the customer
+     * @param zipCode
+     *            Integer representation of the customer's zip code
+     * 
+     * @return true if customer exists with that ID, false otherwise
      */
     public boolean isReturningCustomer(String lastName, String address,
         String city, String state, Integer zipCode) {
@@ -89,25 +103,45 @@ public class Node extends CustomerRoll {
             return true;
         }
         else {
-            return this.getCustomerRoll().isReturningCustomer(lastName, address, city, state, zipCode);
+            return this.getCustomerRoll().isReturningCustomer(lastName,
+                address, city, state, zipCode);
         }
     }
-    
-    
 
+    /**
+     * Checks the number of customers stored in this customer roll
+     * 
+     * @return number of customeres
+     */
     public int numCustomers() {
         return 1 + getCustomerRoll().numCustomers();
     }
 
-    /*********************************************8
-     * Order Functions
+    /*********************************************
+     * 8 Order Functions
      **********************************************/
-    
-    
+
+    /**
+     * Helper function for toString so the original can print header information
+     * above all customer info. This function prints a row for each customer and
+     * dumps their information in that row
+     * 
+     * @return String containing all customer information
+     */
     String toStringHelper() {
-        return getCustomer().toString() + "\n" + getCustomerRoll().toStringHelper();
+        return getCustomer().toString() + "\n"
+            + getCustomerRoll().toStringHelper();
     }
 
+    /**
+     * Getter method for a customer with the given ID. PRECONDITION: User with
+     * the given ID must exist!
+     * 
+     * @param customerID
+     *            ID of the customer to return
+     * 
+     * @return customer, assuming it exists in the roll
+     */
     public Customer getCustomer(Integer customerID) {
         if (getCustomer().getCustomerID().equals(customerID)) {
             return getCustomer();
@@ -116,15 +150,17 @@ public class Node extends CustomerRoll {
             return getCustomerRoll().getCustomer(customerID);
         }
     }
-    
-    public CustomerRoll removeCustomer(Integer customerID) {
-        if (getCustomer().getCustomerID().equals(customerID)) {
-            return rest.removeCustomer(customerID);
-        } else {
-            return new Node(getCustomer(), rest.removeCustomer(customerID));
-        }
-    }
-    
+
+    /**
+     * Getter method for all customers with the given last name. PRECONDITION:
+     * At least 1 user with the last name must exist!
+     * 
+     * @param lname
+     *            Last Name to search for
+     * 
+     * @return customerRoll containing all customers with provided last name,
+     *         assuming at least 1 exists
+     */
     public CustomerRoll getCustomersByLastName(String lname) {
         if (c.getLastName().equals(lname)) {
             return new Node(c, rest.getCustomersByLastName(lname));
@@ -135,9 +171,39 @@ public class Node extends CustomerRoll {
     }
 
     /**
-     * Searches for the ID of a customer who matches the provided information
+     * Removes the customer with the input ID from the customerRoll
+     * PRECONDITION: User with provided customerID must exist in the
+     * customerRoll
+     * 
+     * @param customerID
+     *            ID of the customer to remove
+     * @return a new customer roll without that customer in it
      */
-    
+    public CustomerRoll removeCustomer(Integer customerID) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return rest.removeCustomer(customerID);
+        }
+        else {
+            return new Node(getCustomer(), rest.removeCustomer(customerID));
+        }
+    }
+
+    /**
+     * Searches for the ID of a customer who matches the provided information
+     * PRECONDITION: A user must already exist in the CR who matches this
+     * information
+     * 
+     * @param lastName
+     *            Last Name of the customer
+     * @param address
+     *            Address of the customer
+     * @param city
+     *            City of the customer
+     * @param zipCode
+     *            Integer representation of the zip code of the customer
+     * 
+     * @return the ID of a customer who matches the information exactly.
+     */
     public Integer getCustomerID(String lastName, String address,
         String city, String state, Integer zipCode) {
         Customer c = getCustomer();
@@ -147,17 +213,29 @@ public class Node extends CustomerRoll {
             return c.getCustomerID();
         }
         else {
-            return this.getCustomerRoll().getCustomerID(lastName, address, city, state, zipCode);
+            return this.getCustomerRoll().getCustomerID(lastName, address,
+                city, state, zipCode);
         }
     }
 
-    
-    public CustomerRoll setPoints(Integer customerID, double newAvailableDiscount, double newLoyaltyAmt) {
+    /**
+     * Function which returns a new, identical CustomerRoll except the customer with the provided ID has had its point numbers modified
+     * PRECONDITION: A customer must exist with the provided customerID
+     * 
+     * @param customerID ID of the customer to modify
+     * @param newAvailableDiscount new amoutn of discountpoints for the customer
+     * @param newLoyaltyAmt the new amount of loyaltypoints for the customer
+     * 
+     */
+    public CustomerRoll setPoints(Integer customerID,
+        double newAvailableDiscount, double newLoyaltyAmt) {
         if (getCustomer().getCustomerID().equals(customerID)) {
-            return new Node(getCustomer().setPoints(newAvailableDiscount, newLoyaltyAmt), getCustomerRoll());
+            return new Node(getCustomer().setPoints(newAvailableDiscount,
+                newLoyaltyAmt), getCustomerRoll());
         }
         else {
-            return new Node(getCustomer(), rest.setPoints(customerID, newAvailableDiscount, newLoyaltyAmt));
+            return new Node(getCustomer(), rest.setPoints(customerID,
+                newAvailableDiscount, newLoyaltyAmt));
         }
     }
 }
