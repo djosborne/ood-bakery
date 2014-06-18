@@ -71,6 +71,10 @@ public abstract class OrderList implements Iterable<Order> {
     
     public abstract OrderList getOrdersByCustomerID(Integer customerID);
     
+    public abstract OrderList getOrdersPlacedOn(Date dPickupDate);
+    
+    public abstract OrderList getOrdersWithPickupDate(Date dPickupDate);
+    
     // Dynamic Methods
     /** override toString method from object.
      * @return a string 

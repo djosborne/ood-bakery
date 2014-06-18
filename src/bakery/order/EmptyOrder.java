@@ -112,5 +112,12 @@ public class EmptyOrder extends OrderList {
         return 0;
     }
 
+    public OrderList getOrdersPlacedOn(Date dPickupDate) {
+        return this;
+    }
+
+    public OrderList getOrdersWithPickupDate(Date dPickupDate) {
+        return this;
+    }
     
 }

@@ -848,11 +848,58 @@ public class Bakery {
             }
             else if (userInput.equals("3")) {
                 System.out.println("------------");
-                System.out.print("");
+                Date dPickupDate = null;
+                boolean validInput = false;
+                while (!validInput) {
+                    // get user input
+                    
+                 // get user input
+                    System.out.println("Please Submit a Order Date date (mm/dd/yyyy): ");
+                    String dateInput = inputScanner.next();
+
+                    // convert to date object
+                    SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+                    try {
+                        dPickupDate = dFormatter.parse(dateInput);
+                        validInput = true;
+                    }
+                    catch (Exception e) {
+                        System.out.println("[ERROR] Invalid input.");
+                    }
+                }
+                
+                System.out.println(getOrderList().getOrdersPlacedOn(dPickupDate));
+                quit = true;
+            }
+            
+            else if (userInput.equals("4")) {
+                System.out.println("------------");
+                Date dOrderDate = null;
+                boolean validInput = false;
+                while (!validInput) {
+                    // get user input
+                    
+                 // get user input
+                    System.out.println("Please Submit a pickup date (mm/dd/yyyy): ");
+                    String dateInput = inputScanner.next();
+
+                    // convert to date object
+                    SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+                    try {
+                        dOrderDate = dFormatter.parse(dateInput);
+                        validInput = true;
+                    }
+                    catch (Exception e) {
+                        System.out.println("[ERROR] Invalid input.");
+                    }
+                }
+                
+                System.out.println(getOrderList().getOrdersWithPickupDate(dOrderDate));
+                quit = true;
             }
 
             else {
-                // TODO: invalid entry
+                System.out.println("[ERROR] Invalid input.");
             }
         }
     }

@@ -1,5 +1,6 @@
 package bakery.order;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import bakery.Item;
@@ -191,7 +192,7 @@ public class EntryOrder extends OrderList {
         }
     }
 
-	@Override
+	
 	public Order getOrder(Integer ID) {
 		if (getOrder().getOrderID()== ID) {
 			return getOrder();
@@ -201,7 +202,7 @@ public class EntryOrder extends OrderList {
 		}
 	}
 
-    @Override
+    
     public double getOrderTotal(Integer orderID) {
         if (getOrder().getOrderID().equals(orderID)) {
             return getOrder().getTotal() + getRest().getOrderTotal(orderID);
@@ -210,5 +211,25 @@ public class EntryOrder extends OrderList {
         else {
             return getRest().getOrderTotal(orderID);
         }
+    }
+    
+    public OrderList getOrdersPlacedOn(Date dPickupDate) {
+        if ((getOrder().getOrderDate().getTime() - dPickupDate.getTime()) <= (1000* 60* 60 * 24) && 
+            (getOrder().getOrderDate().getTime() - dPickupDate.getTime()) >= 0) {
+            return new EntryOrder(order0, getRest().getOrdersPlacedOn(dPickupDate));
+        }
+        else {
+            return getRest().getOrdersPlacedOn(dPickupDate);
+        }       
+    }
+    
+    public OrderList getOrdersWithPickupDate(Date dPickupDate) {
+        if ((getOrder().getPickUpDate().getTime() - dPickupDate.getTime()) <= (1000* 60* 60 * 24) && 
+            (getOrder().getPickUpDate().getTime() - dPickupDate.getTime()) >= 0) {
+            return new EntryOrder(order0, getRest().getOrdersWithPickupDate(dPickupDate));
+        }
+        else {
+            return getRest().getOrdersWithPickupDate(dPickupDate);
+        }       
     }
 }
