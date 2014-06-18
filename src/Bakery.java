@@ -629,7 +629,7 @@ public class Bakery {
             String userInput = inputScanner.next();
 
             if (userInput.equals("1")) {
-                System.out.println(getCustomerRoll().toString());
+                System.out.println(getOrderList().toString());
                 quit = true;
             }
             else if (userInput.equals("2")) {
