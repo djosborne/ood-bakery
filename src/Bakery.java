@@ -135,12 +135,12 @@ public class Bakery {
         double total = calculateOrderTotal(itemIDs, itemQuantities);
         
         // point for dollar, they're the same
-        double loyaltyEarnedThisOrder = total;
+        double loyaltyEarnedThisOrder = total - discountUsedOnOrder;
         
         double totalDue = total - discountUsedOnOrder;
 
         // To be stored in Order and Customer as discountPoints
-        double newAvailableDiscount = previousDiscountPoints - discountUsedOnOrder + loyaltyToDiscountHelper(loyaltyEarnedThisOrder); 
+        double newAvailableDiscount = previousDiscountPoints - discountUsedOnOrder + loyaltyToDiscountHelper(loyaltyEarnedThisOrder + previousLoyaltyPoints); 
         
         // also referred to as availableDiscount for this order
         double newLoyaltyAmount = loyaltyToLoyalty(previousLoyaltyPoints + loyaltyEarnedThisOrder);
@@ -149,7 +149,6 @@ public class Bakery {
         OrderList newOrderList = getOrderList();
         
         Integer orderID = newOrderList.getAvailableOrderID();
-        
         
         for (int i = 0; i < itemIDs.size(); i++) {
             newOrderList = newOrderList.addToOrderList(customerID, orderID, total, paid, new Date(), pickupDate, getInventory().getItem(itemIDs.get(i)), itemQuantities.get(i), newLoyaltyAmount, newAvailableDiscount, discountUsedOnOrder * -1);
