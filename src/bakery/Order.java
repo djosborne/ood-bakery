@@ -15,6 +15,7 @@ public class Order {
 	private Item item;
 	private Integer quantity;
 	private double loyaltyAtTimeOfOrder;
+	private double availableDiscount;
 	private double discountUsedOnOrder;
 //	private double totalDue;
 
@@ -43,7 +44,7 @@ public class Order {
 		this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
 	}
 	
-	   public Order(Integer orderID, Item item, Integer quantity, int customerID, double loyaltyAtTimeOfOrder, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickUpDate) {
+	   public Order(Integer orderID, Item item, Integer quantity, int customerID, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder, boolean paid, Date orderDate, Date pickUpDate) {
 	       this.orderID = orderID;
 	       this.customerID = customerID; 
 	       this.orderID = orderID; // TODO: generate
@@ -52,8 +53,11 @@ public class Order {
 	        this.pickUpDate = pickUpDate;
 	        this.item = item;
 	        this.quantity = quantity;
+	        this.availableDiscount = availableDiscount;
 	        this.discountUsedOnOrder = discountUsedOnOrder;
+	        
 	        this.loyaltyAtTimeOfOrder = loyaltyAtTimeOfOrder;
+	        
 	    }
 	   
 	   public double getLoyaltyAtTimeOfOrder() {
@@ -61,6 +65,10 @@ public class Order {
 	   }
 	   public double getDiscountUsedOnOrder() {
 	       return discountUsedOnOrder;
+	   }
+	   
+	   public double getAvailableDiscount() {
+	       return availableDiscount;
 	   }
 	
 	public Item getItem() {

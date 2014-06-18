@@ -12,8 +12,11 @@ import bakery.order.EntryOrder;
 public class Node extends CustomerRoll {
 
     private Customer c;
+    private double loyaltyBalance = 0;
     
     private CustomerRoll rest;
+    
+    
     
     /**************************************************************************
      * Getters, Setters, and Constructors
@@ -32,9 +35,10 @@ public class Node extends CustomerRoll {
         this.rest = rest;
     }
     
-    private Node(Customer c, CustomerRoll rest, ArrayList<Order> orders) {
+    private Node(Customer c, CustomerRoll rest, double loyaltyEarned) {
         this.c = c;
         this.rest = rest;
+        this.loyaltyBalance = loyaltyEarned;
     }
 
     /**
@@ -159,11 +163,35 @@ public class Node extends CustomerRoll {
     
     public double getRewardsPoints(Integer customerID) {
         if (getCustomer().getCustomerID().equals(customerID)) {
-            return 0.0;
+            return loyaltyBalance;
         }
         else {
             return getCustomerRoll().getRewardsPoints(customerID);
         }
+    }
+
+    
+    public CustomerRoll setLoyalty(Integer customerID, double loyaltyAmt) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return new Node(getCustomer(), getCustomerRoll(),loyaltyAmt);
+        }
+        else {
+            return new Node(getCustomer(), rest.setLoyalty(customerID, loyaltyAmt), getCurrentLoyalty());
+        }
+    }
+    
+    public CustomerRoll addLoyalty(Integer customerID, double loyaltyAmt) {
+        if (getCustomer().getCustomerID().equals(customerID)) {
+            return new Node(getCustomer(), getCustomerRoll(),getCurrentLoyalty() + loyaltyAmt);
+        }
+        else {
+            return new Node(getCustomer(), rest.setLoyalty(customerID, loyaltyAmt), getCurrentLoyalty());
+        }
+    }
+    
+    
+    private double getCurrentLoyalty() {
+        return loyaltyBalance;
     }
     
 }

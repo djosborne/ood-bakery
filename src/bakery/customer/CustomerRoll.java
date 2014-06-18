@@ -31,6 +31,10 @@ public abstract class CustomerRoll {
     
     public abstract CustomerRoll getCustomersByLastName(String lname);
     
+    public abstract CustomerRoll setLoyalty(Integer customerID, double loyaltyAmt);
+    
+    public abstract CustomerRoll addLoyalty(Integer customerID, double loyaltyAmt);
+    
     /**
      * Return True or False if ClassRoll has students
      * 

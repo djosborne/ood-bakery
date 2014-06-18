@@ -110,14 +110,15 @@ public class Bakery {
 
     public Bakery performTransaction(Integer orderID, Integer customerID,
         Integer itemID, Integer quantity, double loyaltyAtTimeOfOrder,
-        double discountUsedOnOrder, boolean paid, Date orderDate,
-        Date pickupDate) {
+        double availableDiscount, double discountUsedOnOrder, boolean paid,
+        Date orderDate, Date pickupDate) {
 
         Item item = getInventory().getItem(itemID);
 
-        return new Bakery(getInventory(), getCustomerRoll(), getOrderList()
-            .addToOrderList(customerID, orderID, paid, orderDate, pickupDate,
-                item, quantity, loyaltyAtTimeOfOrder, discountUsedOnOrder));
+        return new Bakery(getInventory(), getCustomerRoll().setLoyalty(
+            customerID, loyaltyAtTimeOfOrder), getOrderList().addToOrderList(
+            customerID, orderID, paid, orderDate, pickupDate, item, quantity,
+            loyaltyAtTimeOfOrder, availableDiscount, discountUsedOnOrder));
     }
 
     public void save(String filename) {
@@ -179,7 +180,7 @@ public class Bakery {
                     o.getOrderID())
                     + o.getDiscountUsedOnOrder()));
                 fw.write("\t");
-                fw.write("0");
+                fw.write(Double.toString(o.getAvailableDiscount()));
                 fw.write("\t");
                 fw.write(Double.toString(o.getLoyaltyAtTimeOfOrder()));
                 fw.write("\n");
@@ -367,8 +368,8 @@ public class Bakery {
             }
 
             bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
-                bakeryItemID, quantity, currentLoyalty, discountUsedOnOrder,
-                paid, dOrderDate, dPickupDate);
+                bakeryItemID, quantity, currentLoyalty, availableDiscount,
+                discountUsedOnOrder, paid, dOrderDate, dPickupDate);
         }
 
         inventoryScanner.close();
@@ -389,7 +390,7 @@ public class Bakery {
         if (userInput.equals("2")) {
             admin = true;
         }
-        
+
         if (!admin) {
             while (true) {
                 bakeryCtrl = bakeryCtrl.addNewOrder();
@@ -462,36 +463,11 @@ public class Bakery {
     }
 
     Bakery addNewOrder() {
-        /**
-         * if (user doesn't exist) make user get the userID from (LastName
-         * Address City State ZipCode) get current rewards balance, save for
-         * later (preRewardsBalance)
-         * 
-         * 
-         * 
-         * generate a new order For each item scan ID prompt quantity end
-         * 
-         * getTotal()
-         * 
-         * print preRewardsBalance, available discount
-         * 
-         * if they have >0 available discount, ask how much they want to apply
-         * prompt for DiscountUsedOnOrder getTotalDue() = getttotal - discount
-         * 
-         * add points to customer's rewards (from totalDue)
-         * 
-         * 
-         * Pay now or bill you? Generate order date (today) Prompt for pickup
-         * date
-         * 
-         * 
-         * getBakeryItemID(BakeryItemName)
-         * 
-         * perform transaction (userID,
-         * 
-         */
         Bakery modifiedBakery = this;
 
+        /*************************************
+         * Get Customer Info, create if necessary
+         **************************************/
         System.out.println("Please enter the following customer info:");
 
         System.out.print("Last Name: ");
@@ -499,7 +475,8 @@ public class Bakery {
         System.out.println();
 
         System.out.print("Address: ");
-        String address = inputScanner.next();
+        String address = inputScanner.nextLine();
+        address = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("City: ");
@@ -538,7 +515,10 @@ public class Bakery {
         Integer customerID = modifiedBakery.getCustomerRoll().getCustomerID(
             lastName, address, city, state, zipCode);
 
-        double preOrderRewardsBalance = modifiedBakery.getCustomerRoll()
+        /**************************************
+         * Begin Order Total Processing
+         **************************************/
+        double applicableDiscount = modifiedBakery.getCustomerRoll()
             .getRewardsPoints(customerID);
 
         double total = 0;
@@ -593,7 +573,7 @@ public class Bakery {
 
         System.out.println("The total for your order is: " + total);
         System.out.println("Your current available rewards points is: "
-            + preOrderRewardsBalance);
+            + applicableDiscount);
 
         // Get when they are paying
         boolean paid = false;
@@ -626,7 +606,7 @@ public class Bakery {
 
         // Get the discountUsedOnOrder from customer input
         double discountUsedOnOrder = 0;
-        if (preOrderRewardsBalance > 0) {
+        if (applicableDiscount > 0) {
             validInput = false;
             while (!validInput) {
                 System.out
@@ -634,7 +614,7 @@ public class Bakery {
                 String sPointsUsed = inputScanner.next();
                 try {
                     discountUsedOnOrder = Double.valueOf(sPointsUsed);
-                    if (discountUsedOnOrder < preOrderRewardsBalance
+                    if (discountUsedOnOrder <= applicableDiscount
                         && discountUsedOnOrder >= 0) {
                         validInput = true;
                     }
@@ -654,7 +634,7 @@ public class Bakery {
             // get user input
             System.out.println("Please Submit a pickup date (mm/dd/yyyy): ");
             String userInput = inputScanner.next();
-            
+
             // convert to date object
             SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
             try {
@@ -666,11 +646,25 @@ public class Bakery {
             }
         }
 
+        double discountAvailable = (applicableDiscount + discountUsedOnOrder);
+        double tempTotal = total;
+        while (tempTotal >= 100) {
+         discountAvailable += 10;
+         tempTotal -= 100;
+        }
+
         Integer thisOrderID = getOrderList().getAvailableOrderID();
         for (int i = 0; i < itemIDs.size(); i++) {
-            modifiedBakery = modifiedBakery.performTransaction(thisOrderID, customerID, itemIDs.get(i), itemQuantities.get(i), 0.0, discountUsedOnOrder, paid, dOrderDate, dPickupDate);            
+            modifiedBakery = modifiedBakery.performTransaction(thisOrderID,
+                customerID, itemIDs.get(i), itemQuantities.get(i), 15,
+                discountAvailable, discountUsedOnOrder, paid, dOrderDate,
+                dPickupDate);
+            // modifiedBakery = modifiedBakery.performTransaction(orderID,
+            // customerID, itemID, quantity, loyaltyAtTimeOfOrder,
+            // availableDiscount, discountUsedOnOrder, paid, orderDate,
+            // pickupDate)
         }
-        
+
         return modifiedBakery;
 
     }
@@ -743,7 +737,7 @@ public class Bakery {
         System.out.println();
 
         System.out.print("Address: ");
-        String address = inputScanner.next();
+        String address = inputScanner.nextLine();
         System.out.println();
 
         System.out.print("City: ");
@@ -937,7 +931,7 @@ public class Bakery {
             System.out.println();
 
             System.out.print("Address: ");
-            String address = inputScanner.next();
+            String address = inputScanner.nextLine();
             System.out.println();
 
             System.out.print("City: ");

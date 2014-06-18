@@ -129,4 +129,13 @@ public class EmptyRoll extends CustomerRoll {
     public double getRewardsPoints(Integer customerID) {
         throw new RuntimeException("That user does not exist");
     }
+
+    
+    public CustomerRoll setLoyalty(Integer customerID, double loyaltyAmt) {
+        throw new RuntimeException("That user does not exist!");
+    }
+    
+    public CustomerRoll addLoyalty(Integer customerID, double loyaltyAmt) {
+        throw new RuntimeException("That user does not exist!");
+    }
 }

@@ -23,8 +23,8 @@ public abstract class OrderList implements Iterable<Order> {
      * @param itemPrice item price
      * @return Inventory
      */
-    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder) {
-        Order newOrder = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid, orderDate, pickUpDate);
+    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double  availableDiscount, double discountUsedOnOrder) {
+        Order newOrder = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder,  availableDiscount, discountUsedOnOrder, paid, orderDate, pickUpDate);
         return new EntryOrder(newOrder, this); 
     }
     
