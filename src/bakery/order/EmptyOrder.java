@@ -24,12 +24,16 @@ public class EmptyOrder extends OrderList {
         return new EntryOrder(ord, this);
     }
     
+    public OrderList addToOrderList(OrderList orders) {
+        return orders;
+    }
+    
     /** Removes item from stock class.
      * @param item
      *         item in inventory
      * @return new Inventory
      */
-    public OrderList removeFromOrderList(Order item) {
+    public OrderList removeOrdersWithID(Integer orderID) {
         return this;
     }
     
@@ -59,10 +63,6 @@ public class EmptyOrder extends OrderList {
     public boolean containsOrder(Integer ID) {
     	return false;
     }
-    
-	public Order getOrder(Integer orderID) {
-		throw new RuntimeException("No item with such ID exists");
-	}
     
     public OrderList getOrdersByOrderID(Integer orderID) {
 		return this;
@@ -115,6 +115,15 @@ public class EmptyOrder extends OrderList {
 
     public OrderList getOrdersWithPickupDate(Date dPickupDate) {
         return this;
+    }
+
+    public OrderList withNewStatus(boolean newPaidStatus, Date newPickupDate) {
+        return this;
+    }
+
+    
+    public Order getOneOrderWithID(Integer orderID) {
+        throw new RuntimeException("No order exists with that order ID!");
     }
     
 }

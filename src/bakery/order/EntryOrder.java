@@ -50,19 +50,24 @@ public class EntryOrder extends OrderList {
         }
     }
     
+    public OrderList addToOrderList(OrderList orders) {
+            return new EntryOrder(getOrder(), getRest().addToOrderList(orders));
+    }
+    
     /** Removes order from stock class.
+     * Assumes
      * @param order
      *             order name
      * @param quantity
      *             quantity of order
      * @return new Inventory
      */
-    public OrderList removeFromOrderList(Order order) {
-        if (this.order0.equals(order)) {
-            return new EntryOrder(order, m0);
+    public OrderList removeOrdersWithID(Integer orderID) {
+        if (getOrder().getOrderID().equals(orderID)) {
+            return getRest().removeOrdersWithID(orderID);
         }
         else {
-            return this.m0.removeFromOrderList(order);
+            return new EntryOrder(getOrder(), getRest().removeOrdersWithID(orderID));
         }
     }
     
@@ -100,7 +105,7 @@ public class EntryOrder extends OrderList {
     }
     
     public boolean containsOrder(Integer ID) {
-    	if (order0.getOrderID() == ID) {
+    	if (order0.getOrderID().equals(ID)) {
     		return true;
     	}
     	else {
@@ -184,16 +189,6 @@ public class EntryOrder extends OrderList {
         }
     }
 
-	
-	public Order getOrder(Integer ID) {
-		if (getOrder().getOrderID()== ID) {
-			return getOrder();
-		}
-		else {
-			return getRest().getOrder(ID);
-		}
-	}
-
     
     public double getOrderTotal(Integer orderID) {
         if (getOrder().getOrderID().equals(orderID)) {
@@ -223,5 +218,19 @@ public class EntryOrder extends OrderList {
         else {
             return getRest().getOrdersWithPickupDate(dPickupDate);
         }       
+    }
+    
+    public OrderList withNewStatus(boolean newPaidStatus, Date newPickupDate) {
+        Order o = getOrder();
+        return new EntryOrder(new Order(o.getOrderID(), o.getItem(), o.getTotal(), o.getQuantity(), o.getCustomerID(), o.getLoyaltyAtTimeOfOrder(), o.getAvailableDiscount(), o.getDiscountUsedOnOrder(), newPaidStatus, o.getOrderDate(), newPickupDate), getRest().withNewStatus(newPaidStatus, newPickupDate));
+    }
+
+    public Order getOneOrderWithID(Integer orderID) {
+        if (getOrder().getOrderID().equals(orderID)) {
+            return getOrder();
+        }
+        else {
+            return getRest().getOneOrderWithID(orderID);
+        }
     }
 }

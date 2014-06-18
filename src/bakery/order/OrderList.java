@@ -31,6 +31,8 @@ public abstract class OrderList implements Iterable<Order> {
         return new EntryOrder(newOrder, this); 
     }
     
+    public abstract OrderList addToOrderList(OrderList orders);
+    
     private Integer lastUsedID = 1;
     public Integer getAvailableOrderID() {
         while (containsOrder(lastUsedID)) {
@@ -52,7 +54,7 @@ public abstract class OrderList implements Iterable<Order> {
      *             item name
      * @return Inventory
      */
-    public abstract OrderList removeFromOrderList(Order order);
+    public abstract OrderList removeOrdersWithID(Integer orderID);
     
     
     /** Checks if a inventory is empty.
@@ -76,6 +78,8 @@ public abstract class OrderList implements Iterable<Order> {
     
     public abstract OrderList getOrdersByOrderID(Integer orderID);
     
+    public abstract Order getOneOrderWithID(Integer orderID);
+    
     public abstract OrderList getOrdersByCustomerID(Integer customerID);
     
     public abstract OrderList getOrdersPlacedOn(Date dPickupDate);
@@ -93,7 +97,7 @@ public abstract class OrderList implements Iterable<Order> {
     public abstract String toString();
     
     
-    public abstract Order getOrder(Integer orderID);
+    
     
     public abstract double getOrderTotal(Integer orderID);
     
@@ -135,4 +139,6 @@ public abstract class OrderList implements Iterable<Order> {
             else return 0;
         }
     }
+    
+    public abstract OrderList withNewStatus(boolean newPaidStatus, Date newPickupDate);
 }

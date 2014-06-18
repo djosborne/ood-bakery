@@ -482,7 +482,7 @@ public class Bakery {
                 bakeryCtrl.viewExistingOrders();
             }
             else if (userInput.equals("3")) {
-                // updateExistingOrders();
+                 bakeryCtrl = bakeryCtrl.updateExistingOrders();
             }
             else if (userInput.equals("4")) {
                 bakeryCtrl = bakeryCtrl.addNewCustomer();
@@ -511,6 +511,108 @@ public class Bakery {
         }
 
         return bakeryCtrl;
+    }
+
+    private Bakery updateExistingOrders() {
+        // print existing orders
+        System.out.println(getOrderList().toString());
+
+        // Get item ID to be updated - ensure its valid
+        boolean validInt = false;
+        Integer orderID = -1;
+        while (!validInt) {
+            System.out.println("Please input Order ID to be updated");
+
+            System.out.print("Order ID: ");
+            String sItemID = inputScanner.nextLine();
+            try {
+                orderID = Integer.valueOf(sItemID);
+            }
+            catch (Exception e) {
+                System.out.println("[ERROR] Not a valid input");
+                continue;
+            }
+            validInt = true;
+        }
+
+        if (getOrderList().containsOrder(orderID)) {
+            System.out.println(getOrderList().getOneOrderWithID(orderID));
+            System.out.print("Please enter the following information: ");
+
+            boolean validInput = false;
+            boolean newPaidStatus = false;
+            while (!validInput) {
+                System.out.print("Paid [YES/NO]: ");
+                String sPaidStatus = inputScanner.nextLine();
+                if (sPaidStatus.equals("YES")) {
+                    newPaidStatus = true;
+                    validInput = true;
+                    continue;
+                }
+                else if (sPaidStatus.equals("NO")) {
+                    newPaidStatus = false;
+                    validInput = true;
+                    continue;
+                }
+                else {
+                    System.out.println("[ERROR] Not a valid input");
+                    continue;
+                }
+            }
+            
+            
+            Date newPickupDate = null;
+            validInput = false;
+            while (!validInput) {
+                System.out.println("------------");
+                System.out.println("1.) Keep Same Pickup date");
+                System.out.println("2.) Use Current date as Pickup Date");
+                System.out.println("3.) Set New Pickup Date");
+                
+                String sUserInput = inputScanner.nextLine();
+                if (sUserInput.equals("1")) {
+                    newPickupDate = getOrderList().getOneOrderWithID(orderID).getPickUpDate();
+                    validInput = true;
+                }
+                else if (sUserInput.equals("2")) {
+                    newPickupDate = new Date();
+                    validInput = true;
+                }
+                else if (sUserInput.equals("3")) {
+                    
+                    boolean validDate = false;
+                    while (!validDate) {
+                        // get user input
+                        System.out.println("Enter a new Pickup Date (mm/dd/yyyy): ");
+                        String userInput = inputScanner.nextLine();
+
+                        // convert to date object
+                        SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+                        try {
+                            newPickupDate = dFormatter.parse(userInput);
+                            validDate = true;
+                            continue;
+                        }
+                        catch (Exception e) {
+                            System.out.println("[ERROR] Invalid input.");
+                        }
+                    }
+                    validInput = true;
+                }
+                else {
+                    System.out.println("[ERROR] Invalid Input");
+                }
+            }
+            
+
+            OrderList updatedOrders = getOrderList().getOrdersByOrderID(orderID).withNewStatus(newPaidStatus, newPickupDate);
+            
+            return new Bakery(getInventory(), getCustomerRoll(), getOrderList().removeOrdersWithID(orderID).addToOrderList(updatedOrders));
+        }
+        else {
+            System.out.println("That inventory item does not exist!");
+            return this;
+        }
     }
 
     Bakery addNewOrder() {
