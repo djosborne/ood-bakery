@@ -649,8 +649,8 @@ public class Bakery {
         double discountAvailable = (applicableDiscount + discountUsedOnOrder);
         double tempTotal = total;
         while (tempTotal >= 100) {
-         discountAvailable += 10;
-         tempTotal -= 100;
+            discountAvailable += 10;
+            tempTotal -= 100;
         }
 
         Integer thisOrderID = getOrderList().getAvailableOrderID();
@@ -812,7 +812,8 @@ public class Bakery {
             System.out.println("2.) Print Orders by Specific Customer");
             System.out.println("3.) Print Orders with Specific Order Date");
             System.out.println("4.) Print Orders with Specific Pickup Date");
-            System.out.print("Select [1/2/3/4]: ");
+            System.out.println("5.) Go Back");
+            System.out.print("Select [1/2/3/4/5]: ");
             String userInput = inputScanner.next();
 
             if (userInput.equals("1")) {
@@ -852,13 +853,15 @@ public class Bakery {
                 boolean validInput = false;
                 while (!validInput) {
                     // get user input
-                    
-                 // get user input
-                    System.out.println("Please Submit a Order Date date (mm/dd/yyyy): ");
+
+                    // get user input
+                    System.out
+                        .println("Please Submit a Order Date date (mm/dd/yyyy): ");
                     String dateInput = inputScanner.next();
 
                     // convert to date object
-                    SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+                    SimpleDateFormat dFormatter = new SimpleDateFormat(
+                        "MM/dd/yy");
                     try {
                         dPickupDate = dFormatter.parse(dateInput);
                         validInput = true;
@@ -867,24 +870,27 @@ public class Bakery {
                         System.out.println("[ERROR] Invalid input.");
                     }
                 }
-                
-                System.out.println(getOrderList().getOrdersPlacedOn(dPickupDate));
+
+                System.out.println(getOrderList().getOrdersPlacedOn(
+                    dPickupDate));
                 quit = true;
             }
-            
+
             else if (userInput.equals("4")) {
                 System.out.println("------------");
                 Date dOrderDate = null;
                 boolean validInput = false;
                 while (!validInput) {
                     // get user input
-                    
-                 // get user input
-                    System.out.println("Please Submit a pickup date (mm/dd/yyyy): ");
+
+                    // get user input
+                    System.out
+                        .println("Please Submit a pickup date (mm/dd/yyyy): ");
                     String dateInput = inputScanner.next();
 
                     // convert to date object
-                    SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+                    SimpleDateFormat dFormatter = new SimpleDateFormat(
+                        "MM/dd/yy");
                     try {
                         dOrderDate = dFormatter.parse(dateInput);
                         validInput = true;
@@ -893,11 +899,14 @@ public class Bakery {
                         System.out.println("[ERROR] Invalid input.");
                     }
                 }
-                
-                System.out.println(getOrderList().getOrdersWithPickupDate(dOrderDate));
+
+                System.out.println(getOrderList().getOrdersWithPickupDate(
+                    dOrderDate));
                 quit = true;
             }
-
+            else if (userInput.equals("5")) {
+                quit = true;
+            }
             else {
                 System.out.println("[ERROR] Invalid input.");
             }
