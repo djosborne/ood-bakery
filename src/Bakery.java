@@ -649,7 +649,8 @@ public class Bakery {
                 if (isRegisteredCustomer(customerID)) {
                     System.out.println(getCustomerRoll().getCustomer(
                         customerID));
-
+                    System.out.println(getOrderList().getOrdersByCustomerID(
+                        customerID));
                     quit = true;
                 }
                 else {

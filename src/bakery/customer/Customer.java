@@ -37,7 +37,7 @@ public class Customer {
      * @param lastName
      *            customer's last name
      */
-    public Customer(int customerID, String lastName, String address,
+    public Customer(Integer customerID, String lastName, String address,
         String city, String state, int zipCode) {
         this.customerID = customerID;
         this.lastName = lastName;
