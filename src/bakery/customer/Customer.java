@@ -108,10 +108,12 @@ public class Customer {
      */
     public String toString() {
         String sZipCode = String.format("%05d", zipCode);
-        return "[" + customerID + "] \t[" + lastName + "]\t[" + address + "]\t[" + city + "]\t[" + sZipCode + "]";
+        return "[" + customerID + "] \t[" + lastName + "]\t[" + address + "]\t[" + city + "]\t[" + sZipCode + "] [" + getDiscountPoints() + "] [" + getLoyaltyPoints() + "]";
     }
 
     /**
+     * Equals method for customer
+     * 
      * @param o
      *            comparison Object
      * @return whether this and o are equivalent
@@ -127,6 +129,8 @@ public class Customer {
     }
 
     /**
+     * Hashcode generator for customer
+     * 
      * @return hashCode for this
      */
     public int hashCode() {

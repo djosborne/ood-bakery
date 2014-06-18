@@ -1,15 +1,18 @@
 package bakery.customer;
 
 /**
+ * Node Entry which extends the CustomerRoll and contains a Customer's data.
+ * 
  * @author Daniel Osborne
  * @version 1.0
  */
 public class Node extends CustomerRoll {
 
+    /** holds details of the current customer */
     private Customer c;
     
+    /** Remaining customers */
     private CustomerRoll rest;
-    
     
     
     /**************************************************************************
@@ -20,9 +23,9 @@ public class Node extends CustomerRoll {
      * Constructor
      * 
      * @param c
-     *            Student to be initialized in the classroll
+     *            Customer to be initialized in the CustomerRoll
      * @param rest
-     *            ClassRoll to be passed into rest
+     *            CustomerRoll to be passed into rest
      */
     Node(Customer c, CustomerRoll rest) {
         this.c = c;
@@ -30,6 +33,8 @@ public class Node extends CustomerRoll {
     }
 
     /**
+     * Checks if the customer roll is empty
+     * 
      * @return false
      */
     protected boolean isEmpty() {
@@ -37,6 +42,8 @@ public class Node extends CustomerRoll {
     }
 
     /**
+     * Getter method for the customer stored in this node
+     * 
      * @return this node's customer
      */
     protected Customer getCustomer() {
@@ -44,26 +51,19 @@ public class Node extends CustomerRoll {
     }
 
     /**
+     * Getter method for the remaining customers stored in the roll
+     * 
      * @return this node's rest
      */
     protected CustomerRoll getCustomerRoll() {
         return rest;
     }
 
-    protected boolean isSubset(CustomerRoll crSuperSet) {
-        return true;
-//        if (CustomerRoll.inCustomerRoll(crSuperSet, getCustomer())) {
-//            return getCustomerRoll().isSubset(crSuperSet);
-//        }
-//        else {
-//            return false;
-//        }
-    }
-    
-
     /**************************************************************************
      * Functions to search if customers already exist in the roll
      *************************************************************************/
+    
+    
     public boolean isReturningCustomer(Integer ID) {
         if (getCustomer().getCustomerID().equals(ID)) {
             return true;
@@ -74,11 +74,11 @@ public class Node extends CustomerRoll {
     }
     
     /**
-     * Dynamic method to check if student is in ClassRoll
+     * Dynamic method to check if student is in CustomerRoll
      * 
      * @param s1
-     *            Student to be checked if in class
-     * @return T/F if student is in class
+     *            Student to be checked if in CustomerRoll
+     * @return T/F if student is in CustomerRoll
      */
     public boolean isReturningCustomer(String lastName, String address,
         String city, String state, Integer zipCode) {
@@ -134,6 +134,9 @@ public class Node extends CustomerRoll {
         }
     }
 
+    /**
+     * Searches for the ID of a customer who matches the provided information
+     */
     
     public Integer getCustomerID(String lastName, String address,
         String city, String state, Integer zipCode) {
