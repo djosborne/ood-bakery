@@ -369,8 +369,8 @@ public class Bakery {
         System.out.println("--------------------------");
         System.out.println("--------RECIEPT-----------");
         System.out.println("--------------------------");
-        System.out.println("Thank you, " + 
-        getCustomerRoll().getCustomer(customerID).getLastName());
+        System.out.println("Thank you, "
+            + getCustomerRoll().getCustomer(customerID).getLastName());
         System.out.println("Order Date: " + new Date());
         System.out.println("Scheduled Pickup Date: " + pickupDate);
         for (int i = 0; i < itemIDs.size(); i++) {
@@ -558,8 +558,6 @@ public class Bakery {
          * Gather user input to load the Scanners for inventory/customers
          *********************************************************************/
 
-
-
         String userInput = "";
 
         Scanner inventoryScanner = new Scanner("");
@@ -571,10 +569,11 @@ public class Bakery {
             System.out.println("Welcome to Schmiddty's Bakery!");
             System.out.println("------------------------------");
             System.out.println("1.) to use CCS provided data.");
-            System.out.println("2.) to use resulting data from last runthrough");
+            System.out
+                .println("2.) to use resulting data from last runthrough");
             System.out.println("3.) Provide a new dataset");
             System.out.print("Enter [1/2/3/4]: ");
-            
+
             userInput = bakeryCtrl.inputScanner.nextLine();
             System.out.println();
             if (userInput.equals("1")) {
@@ -686,7 +685,7 @@ public class Bakery {
         // read the actual data
         while (orderScanner.hasNext()) {
             String line = orderScanner.nextLine();
-            String entries[] = line.split("\t");
+            String [] entries = line.split("\t");
 
             Integer customerID = Integer.valueOf(entries[0]);
             String lastName = entries[1];

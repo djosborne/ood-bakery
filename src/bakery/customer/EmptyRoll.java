@@ -1,5 +1,7 @@
 package bakery.customer;
 
+import java.util.ArrayList;
+
 /** EmptyRoll Class
  * @author Jesus Cheng
  * @author Daniel Osborne
@@ -171,5 +173,13 @@ public class EmptyRoll extends CustomerRoll {
     public CustomerRoll setPoints(Integer customerID, 
         double loyaltyAmt, double newAvailableDiscount) {
         throw new RuntimeException("That user does not exist!");
+    }
+    
+    /**
+     * Gathers all customers into an arrayList
+     * @param customers Arraylist to add to
+     */
+    ArrayList<Customer> getAllCustomers(ArrayList<Customer> customers) {
+        return customers;
     }
 }

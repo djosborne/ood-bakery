@@ -1,7 +1,10 @@
 package bakery.customer;
 
+import java.util.ArrayList;
+
 /**
  * Node Entry which extends the CustomerRoll and contains a Customer's data.
+ * 
  * @author Jesus Cheng
  * @author Daniel Osborne
  * @version 1.0
@@ -99,8 +102,8 @@ public class Node extends CustomerRoll {
         Customer cus = getCustomer();
         if (cus.getLastName().equals(lastName)
             && cus.getAddress().equals(address) && cus.getCity().equals(city)
-                && cus.getState().equals(state) && 
-                    cus.getZipCode().equals(zipCode)) {
+            && cus.getState().equals(state)
+            && cus.getZipCode().equals(zipCode)) {
             return true;
         }
         else {
@@ -202,7 +205,8 @@ public class Node extends CustomerRoll {
      *            City of the customer
      * @param zipCode
      *            Integer representation of the zip code of the customer
-     * @param state customer state
+     * @param state
+     *            customer state
      * 
      * @return the ID of a customer who matches the information exactly.
      */
@@ -211,8 +215,8 @@ public class Node extends CustomerRoll {
         Customer cus = getCustomer();
         if (cus.getLastName().equals(lastName)
             && cus.getAddress().equals(address) && cus.getCity().equals(city)
-                && cus.getState().equals(state) && 
-                    cus.getZipCode().equals(zipCode)) {
+            && cus.getState().equals(state)
+            && cus.getZipCode().equals(zipCode)) {
             return cus.getCustomerID();
         }
         else {
@@ -222,16 +226,16 @@ public class Node extends CustomerRoll {
     }
 
     /**
-     * Function which returns a new, 
-     * identical CustomerRoll except the customer with the 
-     * provided ID has had its point numbers modified
-     * PRECONDITION: A customer must exist with the provided customerID
+     * Function which returns a new, identical CustomerRoll except the customer
+     * with the provided ID has had its point numbers modified PRECONDITION: A
+     * customer must exist with the provided customerID
      * 
-     * @param customerID ID of the customer to modify
-     * @param newAvailableDiscount new amoutn of 
-     *             discountpoints for the customer
-     * @param newLoyaltyAmt the new amount of 
-     *             loyaltypoints for the customer
+     * @param customerID
+     *            ID of the customer to modify
+     * @param newAvailableDiscount
+     *            new amoutn of discountpoints for the customer
+     * @param newLoyaltyAmt
+     *            the new amount of loyaltypoints for the customer
      * @return customer roll
      */
     public CustomerRoll setPoints(Integer customerID,
@@ -244,5 +248,16 @@ public class Node extends CustomerRoll {
             return new Node(getCustomer(), rest.setPoints(customerID,
                 newAvailableDiscount, newLoyaltyAmt));
         }
+    }
+
+    /**
+     * Adds all customers into an arraylist
+     * 
+     * @param customers
+     *            Arraylist to add to
+     */
+    ArrayList<Customer> getAllCustomers(ArrayList<Customer> customers) {
+        customers.add(getCustomer());
+        return getCustomerRoll().getAllCustomers(customers);
     }
 }

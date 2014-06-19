@@ -101,6 +101,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's ID
+     * 
      * @return Customer's ID
      */
     public Integer getCustomerID() {
@@ -109,6 +110,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's last name
+     * 
      * @return Customer's last name
      */
     public String getLastName() {
@@ -117,6 +119,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's address
+     * 
      * @return Customer's address
      */
     public String getAddress() {
@@ -125,6 +128,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's city
+     * 
      * @return Customer's city
      */
     public String getCity() {
@@ -133,6 +137,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's State
+     * 
      * @return Customer's state
      */
     public String getState() {
@@ -141,6 +146,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's zip code
+     * 
      * @return customer's zip code
      */
     public Integer getZipCode() {
@@ -149,6 +155,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's discount points
+     * 
      * @return Customer's discount points
      */
     public double getDiscountPoints() {
@@ -157,6 +164,7 @@ public class Customer {
 
     /**
      * Getter method for the customer's loyalty points
+     * 
      * @return Customer's loyalty points
      */
     public double getLoyaltyPoints() {
@@ -164,10 +172,13 @@ public class Customer {
     }
 
     /**
-     * Customer Factory Creator which returns 
-     * the same customer with new point values
-     * @param discountPts Number of discount pts the new customer should have
-     * @param loyaltyPts number of loyalty pts the new customer should have
+     * Customer Factory Creator which returns the same customer with new point
+     * values
+     * 
+     * @param discountPts
+     *            Number of discount pts the new customer should have
+     * @param loyaltyPts
+     *            number of loyalty pts the new customer should have
      * @return New customer w same params as old, but with new point values
      */
     public Customer setPoints(double discountPts, double loyaltyPts) {
@@ -197,11 +208,17 @@ public class Customer {
     public boolean equals(Object o) {
         if (o instanceof Customer) {
             Customer that = (Customer) o;
-            return this.getCustomerID() == that.getCustomerID();
+            if (getCustomerID().equals(that.getCustomerID())
+                && getAddress().equals(that.getAddress())
+                && getCity().equals(that.getCity())
+                && getLastName().equals(that.getLastName())
+                && getState().equals(that.getState())
+                && getZipCode().equals(that.getZipCode())) {
+                return true;
+            }
         }
-        else {
-            return false;
-        }
+
+        return false;
     }
 
     /**

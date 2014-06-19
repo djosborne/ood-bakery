@@ -1,5 +1,7 @@
 package bakery.customer;
 
+import java.util.ArrayList;
+
 /**
  * @author Daniel Osborne
  * @version 1.0
@@ -129,11 +131,17 @@ public abstract class CustomerRoll {
 
     /**
      * Adds new customer to roll if they are not already enrolled
-     * @param lastName Last name of the new customer
-     * @param address Address of the new customer
-     * @param city City of the new customer 
-     * @param state State of the new customer
-     * @param zipCode Zip code of the new customer
+     * 
+     * @param lastName
+     *            Last name of the new customer
+     * @param address
+     *            Address of the new customer
+     * @param city
+     *            City of the new customer
+     * @param state
+     *            State of the new customer
+     * @param zipCode
+     *            Zip code of the new customer
      * @return CustomerRoll with the customer added
      */
     public CustomerRoll addNewCustomer(String lastName, String address,
@@ -151,18 +159,28 @@ public abstract class CustomerRoll {
 
     /**
      * Removes the customer with the given ID from the customerRoll
-     * @param customerID ID of the customer to be removed
+     * 
+     * @param customerID
+     *            ID of the customer to be removed
      * @return New Customerroll without the specified customer in it
      */
     public abstract CustomerRoll removeCustomer(Integer customerID);
 
-    /** adds new customer to roll
-     * @param iD the customer Id
-     * @param lastName last name of customer
-     * @param address address of customer
-     * @param city city of customer
-     * @param state state of customer
-     * @param zipCode zip code of customer
+    /**
+     * adds new customer to roll
+     * 
+     * @param iD
+     *            the customer Id
+     * @param lastName
+     *            last name of customer
+     * @param address
+     *            address of customer
+     * @param city
+     *            city of customer
+     * @param state
+     *            state of customer
+     * @param zipCode
+     *            zip code of customer
      * @return a new customer roll
      */
     public CustomerRoll addNewCustomer(Integer iD, String lastName,
@@ -230,6 +248,15 @@ public abstract class CustomerRoll {
     abstract String toStringHelper();
 
     /**
+     * Function which moves all customer objects into an arraylist
+     * 
+     * @param customers
+     *            (Empty) Array List of customers
+     * @return full array list of customers
+     */
+    abstract ArrayList<Customer> getAllCustomers(ArrayList<Customer> customers);
+
+    /**
      * Tests input to see if it equals the current CustomerRoll
      * 
      * TODO: Need to fix this
@@ -241,7 +268,19 @@ public abstract class CustomerRoll {
     public boolean equals(Object o) {
         if (o instanceof CustomerRoll) {
             CustomerRoll that = (CustomerRoll) o;
+            if (!(numCustomers() == that.numCustomers())) {
+                return false;
+            }
 
+            ArrayList<Customer> allCustomers;
+            allCustomers = getAllCustomers(new ArrayList<Customer>());
+            for (int i = 0; i < allCustomers.size(); i++) {
+                Customer c = allCustomers.get(i);
+                if (!isReturningCustomer(c.getCustomerID())
+                    || !c.equals(getCustomer(c.getCustomerID()))) {
+                    return false;
+                }
+            }
         }
         return false;
     }

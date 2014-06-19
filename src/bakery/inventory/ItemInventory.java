@@ -228,13 +228,8 @@ public class ItemInventory extends Inventory {
      * @return An Array list
      */
     public ArrayList<Item> getArrayKeys(ArrayList<Item> x) {
-        if (!m0.containsItem(item0)) {
-            x.add(this.item0);
-            return (m0.getArrayKeys(x));
-        } 
-        else {
-            return (m0.getArrayKeys(x));
-        }
+        x.add(getItem());    
+        return getRest().getArrayKeys(x);
     }
 
     /** Overriding to string method.
