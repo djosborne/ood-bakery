@@ -7,10 +7,15 @@ import org.junit.Test;
 
 import bakery.Item;
 
+/**
+ * @author Jesus Cheng
+ * @author Dan Osborne
+ * @version 1.0
+ * Test for inventory
+ */
 public class InventoryTest {
     private final String apple = "Apple";
     private final String pear = "Pear";
-    private final String peach = "Peach";
     private final String orange = "Orange";
     private final String melon = "Melon";
     private final String fruit = "Fruit";
@@ -24,16 +29,21 @@ public class InventoryTest {
     private Inventory inv1;
     private Inventory inv2;
 
-    
     @Before
+    /**
+     * SetUp
+     */
     public void setUp() {
         inv0 = Inventory.emptyInventory();
         inv1 = Inventory.emptyInventory();
-        inv1 = inv1.addToStock(item1).addToStock(item2).
-            addToStock(item3).addToStock(item4);
+        inv1 = inv1.addToStock(item1).addToStock(item2).addToStock(
+            item3).addToStock(item4);
         inv2 = inv0.addToStock(item1).addToStock(item2);
     }
     
+    /**
+     * test for printing
+     */
     @Test
     public void testPrint() {
         System.out.println(inv1.size());
@@ -41,6 +51,9 @@ public class InventoryTest {
         System.out.println(inv1.toString());
     }
     
+    /**
+     * Test for size
+     */
     @Test
     public void testSize() {
         assertSame(inv0.size(), 0);
@@ -50,6 +63,9 @@ public class InventoryTest {
         assertFalse(inv1.isEmpty());
     }
 
+    /**
+     * test for contains item
+     */
     @Test
     public void testContainsItem() {
         assertFalse(inv0.containsItem(item1));
@@ -59,10 +75,13 @@ public class InventoryTest {
         assertTrue(inv2.containsItem(pear, fruit));
     }
 
+    /**
+     * test for get item
+     */
     @Test
     public void testGetItem() {
-    	assertEquals(inv1.getItem(1), item1);
-    	assertEquals(inv1.getItem(2), item2);
-    	assertEquals(inv1.getItem(3), item3);
+        assertEquals(inv1.getItem(1), item1);
+        assertEquals(inv1.getItem(2), item2);
+        assertEquals(inv1.getItem(3), item3);
     }
 }

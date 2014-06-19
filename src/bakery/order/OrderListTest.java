@@ -10,6 +10,12 @@ import org.junit.Test;
 import bakery.Item;
 import bakery.Order;
 
+/**
+ * @author Jesus Cheng
+ * @author Dan Osborne
+ * @version 1.0
+ * Test for Order List
+ */
 public class OrderListTest {
 
     private OrderList ord0;
@@ -18,10 +24,10 @@ public class OrderListTest {
     private OrderList ord3;
     private OrderList ord4;
     
-    Date date1 = new Date(01/01/2014);
-    Date date2 = new Date(02/02/2014);
-    Date date3 = new Date(03/03/2014);
-    Date date4 = new Date(04/04/2014);
+    Date date1 = new Date(01 / 01 / 2014);
+    Date date2 = new Date(02 / 02 / 2014);
+    Date date3 = new Date(03 / 03 / 2014);
+    Date date4 = new Date(04 / 04 / 2014);
     
     private final String apple = "Apple";
     private final String pear = "Pear";
@@ -36,12 +42,20 @@ public class OrderListTest {
     private Item item4 = new Item(4, orange, fruit, 4);
     
 
-    private Order order1 = new Order(1, item1, item1.getPrice()*1, 1, 1, 1, 0, 0, true, date1, date1);
-    private Order order2 = new Order(2, item2, item2.getPrice()*2, 2, 2, 2, 0, 0, true, date2, date2);
-    private Order order3 = new Order(3, item3, item3.getPrice()*3, 3, 3, 3, 0, 0, true, date3, date3);
-    private Order order4 = new Order(4, item4, item4.getPrice()*4, 4, 4, 4, 0, 0, true, date4, date4);
-    private Order order5 = new Order(4, item2, item2.getPrice()*4, 4, 4, 4, 0, 0, true, date4, date4);
+    private Order order1 = new Order(1, item1, 
+    	item1.getPrice() * 1, 1, 1, 1, 0, 0, true, date1, date1);
+    private Order order2 = new Order(2, item2, 
+    	item2.getPrice() * 2, 2, 2, 2, 0, 0, true, date2, date2);
+    private Order order3 = new Order(3, item3, 
+    	item3.getPrice() * 3, 3, 3, 3, 0, 0, true, date3, date3);
+    private Order order4 = new Order(4, item4, 
+    	item4.getPrice() * 4, 4, 4, 4, 0, 0, true, date4, date4);
+    private Order order5 = new Order(4, item2, 
+    	item2.getPrice() * 4, 4, 4, 4, 0, 0, true, date4, date4);
     
+    /**
+     * Set up the test
+     */
     @Before
     public void setUp() {
         ord0 = OrderList.emptyOrder();
@@ -53,16 +67,22 @@ public class OrderListTest {
     }
 
     
+    /**
+     * Test Print out
+     */
     @Test
     public void testPrint() {
         System.out.println(ord0.size());
         System.out.println(ord4.toString());
-        
+        assertTrue(true);
+        assertSame(ord0.size(), 0);
         // CHECK THIS
         //System.out.println(ord3.removeFromOrderList(order1).toString());
-        
     }
     
+    /**
+     * Test is empty
+     */
     @Test
     public void testIsEmpty() {
         assertTrue(ord0.isEmpty());

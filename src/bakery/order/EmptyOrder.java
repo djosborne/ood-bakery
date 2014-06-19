@@ -4,40 +4,44 @@ import java.util.Date;
 
 import bakery.Order;
 
+/** Empty Order List Class
+ * @author Jesus Cheng
+ * @author Daniel Osborne
+ * @version 1.0
+ */
 public class EmptyOrder extends OrderList {
     /** Empty Constructor */
     EmptyOrder() {
         /** Empty Constructor */
     }
-    
-//    public OrderList addToOrderList(int customerID, Integer orderID, boolean paid, Date orderDate, Date pickUpDate, Item item, Integer quantity, double loyaltyAtTimeOfOrder, double discountUsedOnOrder) {
-//        Order ord = new Order(orderID, item, quantity, customerID, loyaltyAtTimeOfOrder, discountUsedOnOrder, paid, orderDate, pickUpDate);
-//        return new EntryOrder(ord, this);
-//    }
-    
+   
     /** Creates an OrderInventory class.
-     * @param item
-     *         item in inventory
-     * @return new Inventory
+     * @param ord
+     *         order
+     * @return new order entry
      */
     public OrderList addToOrderList(Order ord) {
         return new EntryOrder(ord, this);
     }
     
+    /** add to order list
+     * @param orders the order list
+     * @return returns new order list with new order
+     */
     public OrderList addToOrderList(OrderList orders) {
         return orders;
     }
     
-    /** Removes item from stock class.
-     * @param item
-     *         item in inventory
-     * @return new Inventory
+    /** remove item from list.
+     * @param orderID
+     *             the order ID
+     * @return Order List
      */
     public OrderList removeOrdersWithID(Integer orderID) {
         return this;
     }
     
-    /** See whether a map is empty
+    /** See whether the list is empty
      * @return true 
      */
     public boolean isEmpty() {
@@ -60,18 +64,33 @@ public class EmptyOrder extends OrderList {
         return false;
     }
     
-    public boolean containsOrder(Integer ID) {
-    	return false;
+    /** Checks if the list contains order.
+     * @param iD
+     *             order ID
+     * @return true or false if it contains the order
+     */
+    public boolean containsOrder(Integer iD) {
+        return false;
     }
     
+    /** Get the orders by order ID
+     * @param orderID
+     *             order ID
+     * @return all orders with the same order ID
+     */
     public OrderList getOrdersByOrderID(Integer orderID) {
-		return this;
-	}
+        return this;
+    }
     
+    /** Get the orders by customer ID
+     * @param customerID
+     *             order ID
+     * @return all orders with the same customer ID
+     */
     public OrderList getOrdersByCustomerID(Integer customerID) {
         return this;
     }
-	
+    
     /** Equal Operator.
      * @return boolean whether they are equal or not
      * @param o 
@@ -101,27 +120,53 @@ public class EmptyOrder extends OrderList {
         return x;
     }
     
+    /** Overriding toString method
+     * @return string
+     */
     public String toString() {
         return "";
     }
 
+    /** Get the total of the order
+     * @param orderID the order ID
+     * @return return the total
+     */
     public double getOrderTotal(Integer orderID) {
         return 0;
     }
 
+    /** Get the orders by date
+     * @param dPickUpDate
+     *             the pick up date
+     * @return all orders with the same pick up date ID
+     */
     public OrderList getOrdersPlacedOn(Date dPickupDate) {
         return this;
     }
 
+    /** Get the orders by date
+     * @param dPickUpDate
+     *             the pick up date
+     * @return all orders with the same pick up date ID
+     */
     public OrderList getOrdersWithPickupDate(Date dPickupDate) {
         return this;
     }
 
+    /** Order List with new status
+     * @param newPaidStatus change the paid status
+     * @param newPickupDate change the pick up date
+     * @return order list
+     */
     public OrderList withNewStatus(boolean newPaidStatus, Date newPickupDate) {
         return this;
     }
 
-    
+    /** Get one order by order ID
+     * @param orderID
+     *             order ID
+     * @return one order with the order ID
+     */
     public Order getOneOrderWithID(Integer orderID) {
         throw new RuntimeException("No order exists with that order ID!");
     }
