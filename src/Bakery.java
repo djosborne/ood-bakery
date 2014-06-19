@@ -387,7 +387,7 @@ public class Bakery {
             System.out.println("-----PAID-----");
         }
         else {
-            System.out.println("--HAS-NOT-PAID--")
+            System.out.println("--HAS-NOT-PAID--");
         }
 
         return new Bakery(getInventory(), newCustomerRoll, newOrderList);
