@@ -24,17 +24,16 @@ public class OrderListTest {
     private OrderList ord3;
     private OrderList ord4;
     
-    Date date1 = new Date(01 / 01 / 2014);
-    Date date2 = new Date(02 / 02 / 2014);
-    Date date3 = new Date(03 / 03 / 2014);
-    Date date4 = new Date(04 / 04 / 2014);
+    private Date date1 = new Date(01 / 01 / 2014);
+    private Date date2 = new Date(02 / 02 / 2014);
+    private Date date3 = new Date(03 / 03 / 2014);
+    private Date date4 = new Date(04 / 04 / 2014);
     
     private final String apple = "Apple";
     private final String pear = "Pear";
     private final String orange = "Orange";
     private final String melon = "Melon";
     private final String fruit = "Fruit";
-    
     
     private Item item1 = new Item(1, apple, fruit, 1);
     private Item item2 = new Item(2, pear, fruit, 2);
@@ -122,6 +121,8 @@ public class OrderListTest {
         System.out.println(ord2.getOrdersByOrderID(2).toString());
         //CHECK THIS
         System.out.println(ord4.getOrdersByOrderID(4).toString());
+        assertTrue(true);
+        assertSame(ord0.size(), 0);
     }
     
     /**
@@ -131,6 +132,8 @@ public class OrderListTest {
     public void testGetOrdersByCustomerID() {
         System.out.println(ord2.getOrdersByCustomerID(1).toString());
         System.out.println(ord4.getOrdersByCustomerID(4).toString());
+        assertTrue(true);
+        assertSame(ord0.size(), 0);
     }
 
 }

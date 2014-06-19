@@ -19,16 +19,9 @@ public class CustomerRollTest {
     private CustomerRoll custR3;
     private CustomerRoll custR4;
     
-    private Customer cust1 = new Customer(1, 
-        "one", "street1", "city1", "st1", 12345);
-    private Customer cust2 = new Customer(2, 
-        "two", "street2", "city2", "st2", 54321);
-    private Customer cust3 = new Customer(3, 
-        "three", "street3", "city3", "st3", 34251);
-    private Customer cust4 = new Customer(4, 
-        "four", "street4", "city4", "st4", 34214);
-    
-    
+    /**
+     * Set up for test
+     */
     @Before
     public void setUp() {
         custR0 = CustomerRoll.emptyRoll();
