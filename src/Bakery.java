@@ -558,12 +558,7 @@ public class Bakery {
          * Gather user input to load the Scanners for inventory/customers
          *********************************************************************/
 
-        System.out.println("Welcome to Schmiddty's Bakery!");
-        System.out.println("------------------------------");
-        System.out.println("1.) to use CCS provided data.");
-        System.out.println("2.) to use resulting data from last runthrough");
-        System.out.println("3.) Provide a new dataset");
-        System.out.print("Enter [1/2/3]: ");
+
 
         String userInput = "";
 
@@ -573,6 +568,13 @@ public class Bakery {
         boolean skipLoad = false;
 
         while (!allSet) {
+            System.out.println("Welcome to Schmiddty's Bakery!");
+            System.out.println("------------------------------");
+            System.out.println("1.) to use CCS provided data.");
+            System.out.println("2.) to use resulting data from last runthrough");
+            System.out.println("3.) Provide a new dataset");
+            System.out.print("Enter [1/2/3/4]: ");
+            
             userInput = bakeryCtrl.inputScanner.nextLine();
             System.out.println();
             if (userInput.equals("1")) {
@@ -587,14 +589,6 @@ public class Bakery {
                 catch (Exception e) {
                     System.out.println("[ERROR] Failed to open "
                         + "orders.txt or bakeryItems.txt.");
-                    System.out.println("Please ensure both files are in "
-                        + "the correct location before trying again.");
-                    System.out.println("------------------------------");
-                    System.out.println("1.) Use CCS provided data.");
-                    System.out.println("2.) Use resulting data from last"
-                        + "runthrough");
-                    System.out.println("3.) Provide a new dataset");
-                    System.out.print("Enter [1/2/3]: ");
                 }
             }
             else if (userInput.equals("2")) {
@@ -612,12 +606,6 @@ public class Bakery {
                     System.out.println("Please do not select this "
                         + "option if a previous session has"
                         + " not been run.");
-                    System.out.println("------------------------------");
-                    System.out.println("1.) Use CCS provided data.");
-                    System.out.println("2.) Use resulting data from "
-                        + "last runthrough");
-                    System.out.println("3.) Provide a new dataset");
-                    System.out.print("Enter [1/2/3]: ");
                 }
 
             }
@@ -638,13 +626,6 @@ public class Bakery {
                 }
                 catch (Exception e) {
                     System.out.println("Failed to open " + userInput);
-                    System.out.println("------------------------------");
-                    System.out.println("1.) Use CCS provided data.");
-                    System.out.println("2.) Use resulting data from "
-                        + "last runthrough");
-                    System.out.println("3.) Provide a new dataset");
-                    System.out.println("4.) Initialize a blank Bakery");
-                    System.out.print("Enter [1/2/3/4]: ");
                 }
             }
             else if (userInput.equals("4")) {
@@ -653,7 +634,7 @@ public class Bakery {
             else {
                 System.out.println("------------------------------");
                 System.out.println("Invalid Selection.");
-                System.out.print("Please choose 1, 2, or 3: ");
+                System.out.print("Please choose 1, 2, 3, or 4: ");
             }
         }
         if (!skipLoad) {
