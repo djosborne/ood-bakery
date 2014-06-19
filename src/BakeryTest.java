@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -31,9 +33,10 @@ public class BakeryTest {
         emptyBakery = new Bakery(Inventory.emptyInventory(), CustomerRoll
             .emptyRoll(), OrderList.emptyOrder());
 
+        CustomerRoll test = CustomerRoll.emptyRoll().addNewCustomer("TEST",
+            "TEST", "TEST", "TEST", 11111);
         fullBakery = new Bakery(Inventory.emptyInventory().addToStock(
-            new Item(0, "Apples", "Fruit", 1.00)), CustomerRoll.emptyRoll()
-            .addNewCustomer("TEST", "TEST", "TEST", "TEST", 11111), OrderList
+            new Item(0, "Apples", "Fruit", 1.00)), test, OrderList
             .emptyOrder());
 
         ArrayList<Integer> itemIds = new ArrayList<Integer>();
@@ -43,8 +46,15 @@ public class BakeryTest {
         fullBakery = fullBakery.performTransaction(1, itemIds,
             itemQuantities, 0, true, new Date());
 
-        Scanner inventoryScanner = new Scanner("bakeryItems.txt");
-        Scanner orderScanner = new Scanner("orders.txt");
+        Scanner inventoryScanner = null;
+        Scanner orderScanner = null;
+        try {
+            inventoryScanner = new Scanner(new File("bakeryItems.txt"));
+            orderScanner = new Scanner(new File("orders.txt"));
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         loadBakery = emptyBakery.load(inventoryScanner, orderScanner);
 
@@ -59,6 +69,8 @@ public class BakeryTest {
             .isRegisteredCustomer(0));
         assertTrue("Full bakery has person", fullBakery
             .isRegisteredCustomer(1));
+        assertTrue("Load bakery has person", loadBakery
+            .isRegisteredCustomer(2));
     }
 
     /**
