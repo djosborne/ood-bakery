@@ -341,7 +341,7 @@ public class Bakery {
         // point for dollar, they're the same
         double loyaltyEarnedThisOrder = total - discountUsedOnOrder;
 
-        // double totalDue = total - discountUsedOnOrder;
+        double totalDue = total - discountUsedOnOrder;
 
         // To be stored in Order and Customer as discountPoints
         double newAvailableDiscount = previousDiscountPoints
@@ -364,6 +364,30 @@ public class Bakery {
                 total, paid, new Date(), pickupDate, getInventory().getItem(
                     itemIDs.get(i)), itemQuantities.get(i), newLoyaltyAmount,
                 newAvailableDiscount, discountUsedOnOrder * -1);
+        }
+
+        System.out.println("--------------------------");
+        System.out.println("--------RECIEPT-----------");
+        System.out.println("--------------------------");
+        System.out.println("Thank you, " + 
+        getCustomerRoll().getCustomer(customerID).getLastName());
+        System.out.println("Order Date: " + new Date());
+        System.out.println("Scheduled Pickup Date: " + pickupDate);
+        for (int i = 0; i < itemIDs.size(); i++) {
+            Item item = getInventory().getItem(itemIDs.get(i));
+            System.out.println(itemQuantities.get(i) + " "
+                + item.getItemName() + " - " + item.getCategory() + " :: $"
+                + item.getPrice() * itemQuantities.get(i));
+        }
+
+        System.out.println("Total: $" + total);
+        System.out.println("Discount Used: $" + discountUsedOnOrder);
+        System.out.println("Final Cost: $" + totalDue);
+        if (paid) {
+            System.out.println("-----PAID-----");
+        }
+        else {
+            System.out.println("--HAS-NOT-PAID--")
         }
 
         return new Bakery(getInventory(), newCustomerRoll, newOrderList);
