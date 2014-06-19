@@ -1,7 +1,7 @@
 package bakery.customer;
 
-
-/**
+/** EmptyRoll Class
+ * @author Jesus Cheng
  * @author Daniel Osborne
  * @version 1.0
  */
@@ -87,16 +87,20 @@ public class EmptyRoll extends CustomerRoll {
 
     /**
      * Checks if a customer exists with the provided ID
+     * @param iD customer ID
      * @return false
      */
-	public boolean isReturningCustomer(Integer ID) {
-		return false;
-	}
-	
+    public boolean isReturningCustomer(Integer iD) {
+        return false;
+    }
+    
     /**
-     * @param s
-     *            student to be tested if in class
-     * @return false since there are no students in Empty's class
+     * @param lastName customer last name
+     * @param address address of customer
+     * @param city city of customer
+     * @param state state of customer
+     * @param zipCode zip code of customer
+     * @return false 
      */
     public boolean isReturningCustomer(String lastName, String address,
         String city, String state, Integer zipCode) {
@@ -113,29 +117,37 @@ public class EmptyRoll extends CustomerRoll {
         return "";
     }
     
-    /**
+    /** get customer with ID
+     * @param customerID get customer with ID
      * @return exception since customer doesn't exist
      */
     public Customer getCustomer(Integer customerID) {
         throw new RuntimeException("Customer doesn't exist with that ID");
     }
 
-    /**
+    /** remove customer with ID.
+     * @param customerID customer ID
      * @return empty node since the customer has been removed
      */
     public CustomerRoll removeCustomer(Integer customerID) {
         return this;
     }
     
-    /**
+    /** get customer by last name
+     * @param lname customer last name
      * @return empty node since no more customers with that last name exist
      */
-	public CustomerRoll getCustomersByLastName(String lname) {
+    public CustomerRoll getCustomersByLastName(String lname) {
         return this;
-	}
+    }
 
-    /**
-     * @return exception since no customer matches the provided information
+    /** get customer ID
+     * @param lastName customer last name
+     * @param address address of customer
+     * @param city city of customer
+     * @param state state of customer
+     * @param zipCode zip code of customer
+     * @return false 
      */
     public Integer getCustomerID(String lastName, String address,
         String city, String state, Integer zipCode) {
@@ -153,10 +165,11 @@ public class EmptyRoll extends CustomerRoll {
     /**
      * @param customerID id of the target customer
      * @param loyaltyAmt number of loyalty points awarded to the customer
-     * @param newAvailableDiscount number of discount points awarded to the customer
+     * @param newAvailableDiscount nnum of discount pts to the customer
      * @return runtimeexception since that user doesn't exist
      */
-    public CustomerRoll setPoints(Integer customerID, double loyaltyAmt, double newAvailableDiscount) {
+    public CustomerRoll setPoints(Integer customerID, 
+        double loyaltyAmt, double newAvailableDiscount) {
         throw new RuntimeException("That user does not exist!");
     }
 }

@@ -121,14 +121,14 @@ public abstract class CustomerRoll {
     /**
      * Function to check if the customer exists in the customerRoll
      * 
-     * @param ID
+     * @param iD
      *            ID of the customer to search for
      * @return True if they already exist, False otherwise
      */
-    abstract public boolean isReturningCustomer(Integer ID);
+    abstract public boolean isReturningCustomer(Integer iD);
 
     /**
-     * Adds new customer to the customer roll, provided they are not already enrolled
+     * Adds new customer to roll if they are not already enrolled
      * @param lastName Last name of the new customer
      * @param address Address of the new customer
      * @param city City of the new customer 
@@ -156,14 +156,23 @@ public abstract class CustomerRoll {
      */
     public abstract CustomerRoll removeCustomer(Integer customerID);
 
-    public CustomerRoll addNewCustomer(Integer ID, String lastName,
+    /** adds new customer to roll
+     * @param iD the customer Id
+     * @param lastName last name of customer
+     * @param address address of customer
+     * @param city city of customer
+     * @param state state of customer
+     * @param zipCode zip code of customer
+     * @return a new customer roll
+     */
+    public CustomerRoll addNewCustomer(Integer iD, String lastName,
         String address, String city, String state, Integer zipCode) {
-        if (isReturningCustomer(ID)) {
+        if (isReturningCustomer(iD)) {
             throw new RuntimeException(
                 "That ID is already used by a customer!");
         }
         else {
-            Customer c = new Customer(ID, lastName, address, city, state,
+            Customer c = new Customer(iD, lastName, address, city, state,
                 zipCode);
             return new Node(c, this);
         }
@@ -206,7 +215,8 @@ public abstract class CustomerRoll {
     public String toString() {
         String str1 = "There are " + CustomerRoll.numCustomers(this);
         str1 += " registered customers." + "\n";
-        str1 += "[CustomerID] [Last Name] [Address] [City] [Zip Code] [Loyalty Points] [Discount Points] \n";
+        str1 += "[CustomerID] [Last Name] [Address] [City] "
+            + "[Zip Code] [Loyalty Points] [Discount Points] \n";
         str1 += toStringHelper();
         return str1;
     }

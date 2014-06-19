@@ -89,7 +89,7 @@ public class EntryOrder extends OrderList {
     }
     
     /** Whether the map contains order.
-     * @param Order
+     * @param order
      *         order in list
      * @return true or false
      */

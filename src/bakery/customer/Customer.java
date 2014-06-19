@@ -164,10 +164,11 @@ public class Customer {
     }
 
     /**
-     * Customer Factory Creator which returns the same customer with new point values
-     * @param discountPts Number of discount points the new customer should have
-     * @param loyaltyPts number of loyalty points the new customer should have
-     * @return New customer with same params as old, but with new point values
+     * Customer Factory Creator which returns 
+     * the same customer with new point values
+     * @param discountPts Number of discount pts the new customer should have
+     * @param loyaltyPts number of loyalty pts the new customer should have
+     * @return New customer w same params as old, but with new point values
      */
     public Customer setPoints(double discountPts, double loyaltyPts) {
         return new Customer(getCustomerID(), getLastName(), getAddress(),

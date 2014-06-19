@@ -3,7 +3,7 @@ package bakery;
 import java.util.Date;
 
 import java.text.SimpleDateFormat;
-/** Item class
+/** Order class
  * @author Jesus Cheng
  * @author Dan Osborne
  * @version 1.0
@@ -21,13 +21,26 @@ public class Order {
     private double discountUsedOnOrder;
     private double total;
     
+    /**
+     * Order Class
+     * @param orderID order ID
+     * @param item item name
+     * @param total total
+     * @param quantity quantity of itema
+     * @param customerID customer ID
+     * @param loyaltyAtTimeOfOrder loyalty At Time Of Order
+     * @param availableDiscount available discunt
+     * @param discountUsedOnOrder discount Used On Order
+     * @param paid is it paid?
+     * @param orderDate order date
+     * @param pickUpDate pick up date
+     */
     public Order(Integer orderID, Item item, double total,
         Integer quantity, int customerID, double loyaltyAtTimeOfOrder, 
             double  availableDiscount, double discountUsedOnOrder, 
                 boolean paid, Date orderDate, Date pickUpDate) {
         this.orderID = orderID;
         this.customerID = customerID; 
-        this.orderID = orderID; // TODO: generate
         this.paid = paid;
         this.orderDate = orderDate;
         this.pickUpDate = pickUpDate;
