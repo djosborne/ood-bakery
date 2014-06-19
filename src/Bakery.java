@@ -13,165 +13,416 @@ import bakery.customer.CustomerRoll;
 import bakery.inventory.Inventory;
 import bakery.order.OrderList;
 
+/**
+ * Master UI Class for the Bakery. Runs all bakery related functionality
+ * 
+ * @author dosborne jcheng
+ * @version 6.18.14
+ */
 public class Bakery {
+    /** Master inventory */
     private Inventory inv;
+
+    /** Master customer Roll */
     private CustomerRoll custRoll;
+
+    /** Master order List */
     private OrderList orderList;
 
+    /** Input scanner for handling user input */
     private Scanner inputScanner = new Scanner(System.in);
 
+    /**
+     * Constructor for Bakery
+     * 
+     * @param inv
+     *            Inventory
+     * @param custRoll
+     *            CustomerRoll
+     * @param orderList
+     *            OrderList
+     */
     Bakery(Inventory inv, CustomerRoll custRoll, OrderList orderList) {
         this.inv = inv;
         this.custRoll = custRoll;
         this.orderList = orderList;
     }
 
+    /**
+     * Getter method for the Bakery's inventory
+     * 
+     * @return Inventory
+     */
     private Inventory getInventory() {
         return inv;
     }
 
+    /**
+     * Getter method for customer Roll
+     * 
+     * @return CustomerRoll
+     */
     private CustomerRoll getCustomerRoll() {
         return custRoll;
     }
 
+    /**
+     * Getter method for OrderList
+     * 
+     * @return OrderList
+     */
     private OrderList getOrderList() {
         return orderList;
     }
 
-    void setCustomerRoll(CustomerRoll cr) {
-        this.custRoll = cr;
-    }
-
+    /**
+     * Helper method to check if customer with provided info is registered in
+     * the customerRoll
+     * 
+     * @param lastName
+     *            Last Name of customer
+     * @param address
+     *            Address of customer
+     * @param city
+     *            City of customer
+     * @param state
+     *            State of Customer
+     * @param zipCode
+     *            Integer representation of Zip Code of customer
+     * @return True if they are registered, False otherwise
+     */
     boolean isRegisteredCustomer(String lastName, String address,
         String city, String state, Integer zipCode) {
         return getCustomerRoll().isReturningCustomer(lastName, address, city,
             state, zipCode);
     }
 
+    /**
+     * Helper method to check if customer with provided ID is registered in the
+     * customerRoll
+     * 
+     * @param customerID
+     *            ID of the customer to search for
+     * @return True if they are registered, false otherwise
+     */
     boolean isRegisteredCustomer(Integer customerID) {
         return getCustomerRoll().isReturningCustomer(customerID);
     }
 
+    /**
+     * Helper method to check if Item with provided ID exists in the inventory
+     * 
+     * @param itemID
+     *            ID of the item
+     * @return True if the item exists, false otherwise
+     */
     boolean isInInventory(Integer itemID) {
         return getInventory().containsItem(itemID);
     }
 
+    /**
+     * Helper method to check if Item with provided information already exists
+     * in inventory
+     * 
+     * @param bakeryItemName
+     *            Name of Item
+     * @param bakeryItemCategory
+     *            Category of item
+     * @return True if it exists, false otherwise
+     */
     boolean isInInventory(String bakeryItemName, String bakeryItemCategory) {
         return getInventory()
             .containsItem(bakeryItemName, bakeryItemCategory);
     }
 
-    // provided ID
-    Bakery registerNewCustomer(Integer ID, String lastName, String address,
-        String city, String state, Integer zipCode) {
+    /**
+     * Helper function to register new customers in the customer roll. This
+     * allows a customerID to be passed in and override the
+     * auto-customer-ID-generation process. This should only be used for input
+     * from a file where the customerID was specified.
+     * 
+     * PRECONDITION: No user with provided ID should exist in the customerRoll
+     * 
+     * @param ID
+     *            ID of the new customer
+     * @param lastName
+     *            Last name of the customer
+     * @param address
+     *            Address of the customer
+     * @param city
+     *            City of the customer
+     * @param state
+     *            State of the customer
+     * @param zipCode
+     *            Integer represenation of the zip code of the customer
+     * @return New Bakery with a customer registered with the provided
+     *         information
+     */
+    private Bakery registerNewCustomer(Integer customerID, String lastName,
+        String address, String city, String state, Integer zipCode) {
         return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(
-            ID, lastName, address, city, state, zipCode), getOrderList());
+            customerID, lastName, address, city, state, zipCode),
+            getOrderList());
     }
 
-    // generate ID
+    /**
+     * Helper function to register new customers in the customer roll. This
+     * method will automatically generate a user ID for the user to use.
+     * 
+     * @param lastName
+     *            Last name of the new customer
+     * @param address
+     *            Address of the new customer
+     * @param city
+     *            City of the new customer
+     * @param state
+     *            State of the new customer
+     * @param zipCode
+     *            Zip Code of the new customer
+     * @return new Bakery with a customer roll containing the new customer
+     */
     public Bakery registerNewCustomer(String lastName, String address,
         String city, String state, Integer zipCode) {
         return new Bakery(getInventory(), getCustomerRoll().addNewCustomer(
             lastName, address, city, state, zipCode), getOrderList());
     }
 
-    CustomerRoll getCustomerByLastName(String lastName) {
-        return getCustomerRoll().getCustomersByLastName(lastName);
-    }
-
-    // generate ID
-    Bakery removeCustomer(Integer customerID) {
+    /**
+     * Helper function to remove customer from the bakery
+     * 
+     * @param customerID
+     *            ID of the customer that needs to be removed
+     * @return A new bakery instance with the specified customer removed
+     */
+    public Bakery removeCustomer(Integer customerID) {
         return new Bakery(getInventory(), getCustomerRoll().removeCustomer(
             customerID), getOrderList());
     }
 
-    Bakery addToInventory(Integer itemID, String itemName, String category,
-        double itemPrice) {
+    /**
+     * Function to add inventory items to inventory. Accepts an itemID. Should
+     * only be used for file imports where an ID is preset.
+     * 
+     * @param itemID
+     *            ID of the new item
+     * @param itemName
+     *            Name of the new item
+     * @param category
+     *            Category of the new item
+     * @param itemPrice
+     *            Price of the new item
+     * @return New bakery with the added item in its inventory
+     */
+    private Bakery addToInventory(Integer itemID, String itemName,
+        String category, double itemPrice) {
         return new Bakery(getInventory().addToStock(itemID, itemName,
             category, itemPrice), getCustomerRoll(), getOrderList());
     }
 
+    /**
+     * Function to add item to inventory. ID will be generated for the new item
+     * 
+     * @param itemName
+     *            Name of the item
+     * @param category
+     *            Category of the item
+     * @param itemPrice
+     *            Price of the item
+     * @return New Bakery with the added item
+     */
     public Bakery addToInventory(String itemName, String category,
         double itemPrice) {
         return new Bakery(getInventory().addToStock(itemName, category,
             itemPrice), getCustomerRoll(), getOrderList());
     }
 
+    /**
+     * Removes the specified item from the bakery's inventory
+     * 
+     * @param itemID
+     *            ID Of the item to remoe
+     * @return A new bakery with the item removed from its inventory
+     */
     public Bakery removeFromInventory(Integer itemID) {
         return new Bakery(getInventory().removeFromStock(itemID),
             getCustomerRoll(), getOrderList());
     }
 
+    /**
+     * Adds orders to the ORderList. This function is only used for direct
+     * imports where no math needs to be performed on the rewards amounts.
+     * 
+     * @param orderID
+     *            ID of the order
+     * @param customerID
+     *            ID of the customer
+     * @param total
+     *            Total cost for the customer. This includes other orders with
+     *            the same total
+     * @param itemID
+     *            ID of the item to be added
+     * @param quantity
+     *            Quantity of item purchased in this order
+     * @param loyaltyAtTimeOfOrder
+     *            Loyalty points the customer had when placing this order. Is
+     *            used when the chart is saved
+     * @param availableDiscount
+     *            Discount points the customer has available after the order.
+     * @param discountUsedOnOrder
+     *            Discoutn points used on this order
+     * @param paid
+     *            True if order has been paid for, false if it needs to be
+     *            billed
+     * @param orderDate
+     *            Date the order was placed
+     * @param pickupDate
+     *            Date the order will be picked up
+     * @return New bakery where the customer has had his rewards points applied,
+     *         and the order has been added
+     */
     private Bakery performTransaction(Integer orderID, Integer customerID,
-        double total, Integer itemID, Integer quantity, double loyaltyAtTimeOfOrder,
-        double availableDiscount, double discountUsedOnOrder, boolean paid,
-        Date orderDate, Date pickupDate) {
+        double total, Integer itemID, Integer quantity,
+        double loyaltyAtTimeOfOrder, double availableDiscount,
+        double discountUsedOnOrder, boolean paid, Date orderDate,
+        Date pickupDate) {
 
         Item item = getInventory().getItem(itemID);
 
         return new Bakery(getInventory(), getCustomerRoll().setPoints(
-            customerID, loyaltyAtTimeOfOrder, availableDiscount), getOrderList().addToOrderList(
-            customerID, orderID, total, paid, orderDate, pickupDate, item, quantity,
-            loyaltyAtTimeOfOrder, availableDiscount, discountUsedOnOrder));
+            customerID, loyaltyAtTimeOfOrder, availableDiscount),
+            getOrderList().addToOrderList(customerID, orderID, total, paid,
+                orderDate, pickupDate, item, quantity, loyaltyAtTimeOfOrder,
+                availableDiscount, discountUsedOnOrder));
     }
-    
-    public double calculateOrderTotal(ArrayList<Integer> itemIDs, ArrayList<Integer> quantities) {
-        double total = 0;
-        for (int i = 0; i < itemIDs.size(); i++) {
-            total += getInventory().getItem(itemIDs.get(i)).getPrice() * quantities.get(i);
-        }
-        return total;
-    }
-    
-    // discountUsedOnOrder must be positive. negativitiy will be handled here
-    public Bakery performTransaction(Integer customerID, ArrayList<Integer> itemIDs, ArrayList<Integer> itemQuantities, double discountUsedOnOrder, boolean paid, Date pickupDate) {
-        double previousDiscountPoints = getCustomerRoll().getCustomer(customerID).getDiscountPoints();
-        double previousLoyaltyPoints = getCustomerRoll().getCustomer(customerID).getLoyaltyPoints();
-        
+
+    /**
+     * Public function to add orders to the orderRoll. Also will adjust customer
+     * rewards balances
+     * 
+     * PRECONDITION: discountUsedOnOrder must be positive. negativitiy will be
+     * handled here
+     * 
+     * PRECONDITION: itemIDs(x) must correspond with itemQuantities(x)
+     * 
+     * PRECONDITION: discountUsedOnOrder must be between 0 and
+     * previousDiscountPoints
+     * 
+     * @param customerID
+     *            ID of the customer who made the purchase
+     * @param itemIDs
+     *            ArrayList containing all the items ordered for this order
+     * @param itemQuantities
+     *            ArrayList containing all the quantities for the items in this
+     *            order. Must correspond directly (by index) with itemIDs
+     * @param discountUsedOnOrder
+     *            Discoutn points used by customer for this order. Must be
+     * @param paid
+     *            Boolean value - true if they have paid. false if not
+     * @param pickupDate
+     *            Date represenation of when the customer is scheduled to pick
+     *            up the order
+     * @return New bakery with the order added
+     */
+    public Bakery performTransaction(Integer customerID,
+        ArrayList<Integer> itemIDs, ArrayList<Integer> itemQuantities,
+        double discountUsedOnOrder, boolean paid, Date pickupDate) {
+        double previousDiscountPoints = getCustomerRoll().getCustomer(
+            customerID).getDiscountPoints();
+        double previousLoyaltyPoints = getCustomerRoll().getCustomer(
+            customerID).getLoyaltyPoints();
+
         if (previousDiscountPoints < discountUsedOnOrder) {
-            throw new RuntimeException("Not enough discount points for that user!");
+            throw new RuntimeException(
+                "Not enough discount points for that user!");
         }
-        
+
         double total = calculateOrderTotal(itemIDs, itemQuantities);
-        
+
         // point for dollar, they're the same
         double loyaltyEarnedThisOrder = total - discountUsedOnOrder;
-        
+
         // double totalDue = total - discountUsedOnOrder;
 
         // To be stored in Order and Customer as discountPoints
-        double newAvailableDiscount = previousDiscountPoints - discountUsedOnOrder + loyaltyToDiscountHelper(loyaltyEarnedThisOrder + previousLoyaltyPoints); 
-        
+        double newAvailableDiscount = previousDiscountPoints
+            - discountUsedOnOrder
+            + loyaltyToDiscountHelper(loyaltyEarnedThisOrder
+                + previousLoyaltyPoints);
+
         // also referred to as availableDiscount for this order
-        double newLoyaltyAmount = loyaltyToLoyalty(previousLoyaltyPoints + loyaltyEarnedThisOrder);
-        
-        CustomerRoll newCustomerRoll = getCustomerRoll().setPoints(customerID, newAvailableDiscount, newLoyaltyAmount);
+        double newLoyaltyAmount = loyaltyToLoyalty(previousLoyaltyPoints
+            + loyaltyEarnedThisOrder);
+
+        CustomerRoll newCustomerRoll = getCustomerRoll().setPoints(
+            customerID, newAvailableDiscount, newLoyaltyAmount);
         OrderList newOrderList = getOrderList();
-        
+
         Integer orderID = newOrderList.getAvailableOrderID();
-        
+
         for (int i = 0; i < itemIDs.size(); i++) {
-            newOrderList = newOrderList.addToOrderList(customerID, orderID, total, paid, new Date(), pickupDate, getInventory().getItem(itemIDs.get(i)), itemQuantities.get(i), newLoyaltyAmount, newAvailableDiscount, discountUsedOnOrder * -1);
+            newOrderList = newOrderList.addToOrderList(customerID, orderID,
+                total, paid, new Date(), pickupDate, getInventory().getItem(
+                    itemIDs.get(i)), itemQuantities.get(i), newLoyaltyAmount,
+                newAvailableDiscount, discountUsedOnOrder * -1);
         }
-        
+
         return new Bakery(getInventory(), newCustomerRoll, newOrderList);
-        
+
     }
-    
-    
+
+    /**
+     * Helper function which finds the total a order will have
+     * 
+     * @param itemIDs
+     *            ArrayList containing all the IDs of the items the customer has
+     *            ordered
+     * @param quantities
+     *            Matching ArrayList where each item represents the number of
+     *            items ordered corresponding to itemIDs
+     * @return cost of the order
+     */
+    public double calculateOrderTotal(ArrayList<Integer> itemIDs,
+        ArrayList<Integer> quantities) {
+        double total = 0;
+        for (int i = 0; i < itemIDs.size(); i++) {
+            total += getInventory().getItem(itemIDs.get(i)).getPrice()
+                * quantities.get(i);
+        }
+        return total;
+    }
+
+    /**
+     * Helper function to find how many discount points were earned from loyalty
+     * points. Returns 10 for every 100 points
+     * 
+     * @param loyaltyAmount
+     *            number of loyalty points
+     * @return number of discount points
+     */
     private double loyaltyToDiscountHelper(double loyaltyAmount) {
         return Math.floor(loyaltyAmount / 100) * 10;
-      }
-    
+    }
+
+    /**
+     * Helper function to reduce loyaltyPoints to a number below 100
+     * 
+     * @param loyaltyAmount
+     *            Number of loyalty points
+     * @return a reset number of loyalty points between 0 and 100
+     */
     private double loyaltyToLoyalty(double loyaltyAmount) {
         while (loyaltyAmount >= 100) {
             loyaltyAmount -= 100;
         }
         return loyaltyAmount;
     }
-    
-    
 
+    /**
+     * Function which dumps an entire Bakery object into a orders.txt file
+     * 
+     * @param filename
+     *            Name of the file to save into
+     */
     public void save(String filename) {
         try {
             FileWriter fw = new FileWriter(filename);
@@ -236,6 +487,12 @@ public class Bakery {
         }
     }
 
+    /**
+     * Main Method
+     * 
+     * @param args
+     *            unused
+     */
     public static void main(String[] args) {
         Bakery bakeryCtrl = new Bakery(Inventory.emptyInventory(),
             CustomerRoll.emptyRoll(), OrderList.emptyOrder());
@@ -344,6 +601,16 @@ public class Bakery {
         orderScanner.close();
     }
 
+    /**
+     * Loads inventory from the inventoryScanner and orders from the
+     * ORderScanner into a new Bakery Object. These scanners must already be
+     * initialized and open, and must conform to the required format (including
+     * a header of column labels)
+     * 
+     * @param inventoryScanner
+     * @param orderScanner
+     * @return New Bakery with orders and inventory imported.
+     */
     public Bakery load(Scanner inventoryScanner, Scanner orderScanner) {
         /**********************************************************************
          * Move items from scanner into data objects.
@@ -417,13 +684,19 @@ public class Bakery {
             catch (Exception e) {
             }
 
-            bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID, total,
-                bakeryItemID, quantity, currentLoyalty, availableDiscount,
-                discountUsedOnOrder, paid, dOrderDate, dPickupDate);
+            bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
+                total, bakeryItemID, quantity, currentLoyalty,
+                availableDiscount, discountUsedOnOrder, paid, dOrderDate,
+                dPickupDate);
         }
         return bakeryCtrl;
     }
 
+    /**
+     * Function which runs all menu options by the user.
+     * 
+     * @return New Bakery with modifications made during the GUI interactions
+     */
     private Bakery RunGui() {
         Bakery bakeryCtrl = this;
         /**********************************************************************
@@ -482,7 +755,7 @@ public class Bakery {
                 bakeryCtrl.viewExistingOrders();
             }
             else if (userInput.equals("3")) {
-                 bakeryCtrl = bakeryCtrl.updateExistingOrders();
+                bakeryCtrl = bakeryCtrl.updateExistingOrders();
             }
             else if (userInput.equals("4")) {
                 bakeryCtrl = bakeryCtrl.addNewCustomer();
@@ -513,6 +786,11 @@ public class Bakery {
         return bakeryCtrl;
     }
 
+    /**
+     * GUI function used to update existing orders
+     * 
+     * @return new Bakery instance with modifications made by user
+     */
     private Bakery updateExistingOrders() {
         // print existing orders
         System.out.println(getOrderList().toString());
@@ -559,8 +837,7 @@ public class Bakery {
                     continue;
                 }
             }
-            
-            
+
             Date newPickupDate = null;
             validInput = false;
             while (!validInput) {
@@ -568,10 +845,11 @@ public class Bakery {
                 System.out.println("1.) Keep Same Pickup date");
                 System.out.println("2.) Use Current date as Pickup Date");
                 System.out.println("3.) Set New Pickup Date");
-                
+
                 String sUserInput = inputScanner.nextLine();
                 if (sUserInput.equals("1")) {
-                    newPickupDate = getOrderList().getOneOrderWithID(orderID).getPickUpDate();
+                    newPickupDate = getOrderList().getOneOrderWithID(orderID)
+                        .getPickUpDate();
                     validInput = true;
                 }
                 else if (sUserInput.equals("2")) {
@@ -579,15 +857,17 @@ public class Bakery {
                     validInput = true;
                 }
                 else if (sUserInput.equals("3")) {
-                    
+
                     boolean validDate = false;
                     while (!validDate) {
                         // get user input
-                        System.out.println("Enter a new Pickup Date (mm/dd/yyyy): ");
+                        System.out
+                            .println("Enter a new Pickup Date (mm/dd/yyyy): ");
                         String userInput = inputScanner.nextLine();
 
                         // convert to date object
-                        SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
+                        SimpleDateFormat dFormatter = new SimpleDateFormat(
+                            "MM/dd/yy");
                         try {
                             newPickupDate = dFormatter.parse(userInput);
                             validDate = true;
@@ -603,11 +883,13 @@ public class Bakery {
                     System.out.println("[ERROR] Invalid Input");
                 }
             }
-            
 
-            OrderList updatedOrders = getOrderList().getOrdersByOrderID(orderID).withNewStatus(newPaidStatus, newPickupDate);
-            
-            return new Bakery(getInventory(), getCustomerRoll(), getOrderList().removeOrdersWithID(orderID).addToOrderList(updatedOrders));
+            OrderList updatedOrders = getOrderList().getOrdersByOrderID(
+                orderID).withNewStatus(newPaidStatus, newPickupDate);
+
+            return new Bakery(getInventory(), getCustomerRoll(),
+                getOrderList().removeOrdersWithID(orderID).addToOrderList(
+                    updatedOrders));
         }
         else {
             System.out.println("That inventory item does not exist!");
@@ -615,6 +897,11 @@ public class Bakery {
         }
     }
 
+    /**
+     * GUI function used to add new orders
+     * 
+     * @return new Bakery with orders added by user
+     */
     Bakery addNewOrder() {
         Bakery modifiedBakery = this;
 
@@ -676,10 +963,9 @@ public class Bakery {
          * Begin Order Total Processing
          **************************************/
         // Get AvailableDiscount
-        double availableDiscount = modifiedBakery.getCustomerRoll().getCustomer(customerID).getDiscountPoints();
-            
+        double availableDiscount = modifiedBakery.getCustomerRoll()
+            .getCustomer(customerID).getDiscountPoints();
 
-        
         // Gather Items, Calculate Total
         double total = 0;
         boolean notDoneOrdering = true;
@@ -735,11 +1021,10 @@ public class Bakery {
         System.out.println("Your current available rewards points is: "
             + availableDiscount);
 
-
         // Get the discountUsedOnOrder from customer input
         // double loyaltyEarnedThisOrder = total;
         double discountUsedOnOrder = 0;
-        
+
         if (availableDiscount > 0) {
             boolean validInput = false;
             while (!validInput) {
@@ -758,9 +1043,7 @@ public class Bakery {
                 }
             }
         }
-        
-        
-        
+
         // Get when they are paying
         boolean paid = false;
 
@@ -809,11 +1092,15 @@ public class Bakery {
             }
         }
 
-        modifiedBakery = modifiedBakery.performTransaction(customerID, itemIDs, itemQuantities, discountUsedOnOrder, paid, dPickupDate);
+        modifiedBakery = modifiedBakery.performTransaction(customerID,
+            itemIDs, itemQuantities, discountUsedOnOrder, paid, dPickupDate);
 
         return modifiedBakery;
     }
 
+    /**
+     * GUI Function used to print customers registered in the system
+     */
     void viewExistingCustomers() {
         boolean quit = false;
         while (!quit) {
@@ -861,8 +1148,8 @@ public class Bakery {
                 System.out.println("------------");
                 System.out.print("Last Name: ");
                 String lastName = inputScanner.nextLine();
-                System.out
-                    .println(getCustomerByLastName(lastName).toString());
+                System.out.println(getCustomerRoll().getCustomersByLastName(
+                    lastName).toString());
             }
             else if (userInput.equals("4")) {
                 quit = true;
@@ -874,6 +1161,11 @@ public class Bakery {
         }
     }
 
+    /**
+     * GUI function used to add new customers to the bakery
+     * 
+     * @return new Bakery with customers added by user
+     */
     public Bakery addNewCustomer() {
         System.out.println("Please enter the following customer info:");
 
@@ -924,7 +1216,11 @@ public class Bakery {
         }
     }
 
-    // CHANGE addToInventory
+    /**
+     * GUI function used to add new items to the inventory
+     * 
+     * @return New Bakery with inventory additions made by user
+     */
     public Bakery addInventoryItem() {
         System.out.println("Please enter the following Item info:");
 
@@ -953,6 +1249,9 @@ public class Bakery {
         System.out.println(getInventory().toString());
     }
 
+    /**
+     * Gui function used to view existing order reciepts.
+     */
     void viewExistingOrders() {
         boolean quit = false;
         while (!quit) {
@@ -1121,6 +1420,11 @@ public class Bakery {
         }
     }
 
+    /**
+     * GUI function used to update existing customers
+     * 
+     * @return new Bakery with customer information updated
+     */
     public Bakery updateExistingCustomer() {
         System.out.println(getCustomerRoll().toString());
 
