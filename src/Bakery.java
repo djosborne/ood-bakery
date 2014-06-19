@@ -143,7 +143,7 @@ public class Bakery {
      * 
      * PRECONDITION: No user with provided ID should exist in the customerRoll
      * 
-     * @param ID
+     * @param customerID
      *            ID of the new customer
      * @param lastName
      *            Last name of the customer
@@ -429,7 +429,11 @@ public class Bakery {
 
             SimpleDateFormat dFormatter = new SimpleDateFormat("MM/dd/yy");
 
-            fw.write("CustomerID\tLastName\tAddress\tCity\tState\tZipCode\tOrderID\tPaid?\tOrderDate\tPickupDate\tBakeryItemID\tBakeryItemName\tBakeryItemCategory\tQuantity\tPrice\tTotal\tDiscountUsedOnOrder\tTotalDue\tAvailableDiscout\tCurrentLoyalty\n");
+            fw.write("CustomerID\tLastName\tAddress\tCity\tState\tZipCode\t");
+            fw.write("OrderID\tPaid?\tOrderDate\tPickupDate\tBakeryItemID\t");
+            fw.write("BakeryItemName\tBakeryItemCategory\tQuantity\tPrice\t");
+            fw.write("Total\tDiscountUsedOnOrder\tTotalDue\t");
+            fw.write("AvailableDiscout\tCurrentLoyalty\n");
 
             for (Order o : getOrderList()) {
 
@@ -481,7 +485,6 @@ public class Bakery {
             fw.close();
         }
         catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             System.out.print("ERROR");
         }
@@ -527,14 +530,14 @@ public class Bakery {
                     allSet = true;
                 }
                 catch (Exception e) {
-                    System.out
-                        .println("[ERROR] Failed to open orders.txt or bakeryItems.txt.");
-                    System.out
-                        .println("Please ensure both files are in the correct location before trying again.");
+                    System.out.println("[ERROR] Failed to open "
+                        + "orders.txt or bakeryItems.txt.");
+                    System.out.println("Please ensure both files are in "
+                        + "the correct location before trying again.");
                     System.out.println("------------------------------");
                     System.out.println("1.) Use CCS provided data.");
-                    System.out
-                        .println("2.) Use resulting data from last runthrough");
+                    System.out.println("2.) Use resulting data from last"
+                        + "runthrough");
                     System.out.println("3.) Provide a new dataset");
                     System.out.print("Enter [1/2/3]: ");
                 }
@@ -549,14 +552,15 @@ public class Bakery {
                     allSet = true;
                 }
                 catch (Exception e) {
-                    System.out
-                        .println("Failed to open ordersSave.txt or bakeryItemsSave.txt.");
-                    System.out
-                        .println("Please do not select this option if a previous session has not been run.");
+                    System.out.println("Failed to open ordersSave.txt or "
+                        + "bakeryItemsSave.txt.");
+                    System.out.println("Please do not select this "
+                        + "option if a previous session has"
+                        + " not been run.");
                     System.out.println("------------------------------");
                     System.out.println("1.) Use CCS provided data.");
-                    System.out
-                        .println("2.) Use resulting data from last runthrough");
+                    System.out.println("2.) Use resulting data from "
+                        + "last runthrough");
                     System.out.println("3.) Provide a new dataset");
                     System.out.print("Enter [1/2/3]: ");
                 }
@@ -581,8 +585,8 @@ public class Bakery {
                     System.out.println("Failed to open " + userInput);
                     System.out.println("------------------------------");
                     System.out.println("1.) Use CCS provided data.");
-                    System.out
-                        .println("2.) Use resulting data from last runthrough");
+                    System.out.println("2.) Use resulting data from "
+                        + "last runthrough");
                     System.out.println("3.) Provide a new dataset");
                     System.out.print("Enter [1/2/3]: ");
                 }
@@ -595,7 +599,7 @@ public class Bakery {
         }
 
         bakeryCtrl = bakeryCtrl.load(inventoryScanner, orderScanner);
-        bakeryCtrl = bakeryCtrl.RunGui();
+        bakeryCtrl = bakeryCtrl.runGUI();
         bakeryCtrl.save("ordersSave.csv");
         inventoryScanner.close();
         orderScanner.close();
@@ -608,7 +612,9 @@ public class Bakery {
      * a header of column labels)
      * 
      * @param inventoryScanner
+     *            Initialized and opened scanner for the inventory file
      * @param orderScanner
+     *            Initialized and opened scanner for the order file
      * @return New Bakery with orders and inventory imported.
      */
     public Bakery load(Scanner inventoryScanner, Scanner orderScanner) {
@@ -623,7 +629,7 @@ public class Bakery {
         // read actual data
         while (inventoryScanner.hasNext()) {
             String line = inventoryScanner.nextLine();
-            String entries[] = line.split("\t");
+            String[] entries = line.split("\t");
 
             bakeryCtrl = bakeryCtrl.addToInventory(Integer
                 .parseInt(entries[0]), entries[1], entries[2], Double
@@ -682,6 +688,7 @@ public class Bakery {
                 dOrderDate = dFormatter.parse(sOrderDate);
             }
             catch (Exception e) {
+                System.out.println("[ERROR] Invalid Date entered");
             }
 
             bakeryCtrl = bakeryCtrl.performTransaction(orderID, customerID,
@@ -697,7 +704,7 @@ public class Bakery {
      * 
      * @return New Bakery with modifications made during the GUI interactions
      */
-    private Bakery RunGui() {
+    private Bakery runGUI() {
         Bakery bakeryCtrl = this;
         /**********************************************************************
          * Run remaining GUI
@@ -726,15 +733,15 @@ public class Bakery {
             System.out.println("------------------------------");
             // orders
             System.out.println("ORDERS");
-            System.out.println("1.) Add New Order"); /*- need output reciept customer info, order info, order total */
-            System.out.println("2.) View Existing Orders"); /*- by pickup date, by order date, by product, by paid status */
+            System.out.println("1.) Add New Order");
+            System.out.println("2.) View Existing Orders");
             System.out.println("3.) Update Existing Order");
 
             // customers
             System.out.println();
             System.out.println("CUSTOMERS");
-            System.out.println("4.) Add New Customer"); // admin only
-            System.out.println("5.) View Existing Customer Information"); /*- loyalty status, contact info, all orders */
+            System.out.println("4.) Add New Customer");
+            System.out.println("5.) View Existing Customer Information");
             System.out.println("6.) Update Existing Customer Info");
 
             // inventory
@@ -1028,8 +1035,8 @@ public class Bakery {
         if (availableDiscount > 0) {
             boolean validInput = false;
             while (!validInput) {
-                System.out
-                    .println("How many points would you like to apply to this order (or 0 if none): ");
+                System.out.println("How many points would you like to apply "
+                    + "to this order (or 0 if none): ");
                 String sPointsUsed = inputScanner.nextLine();
                 try {
                     discountUsedOnOrder = Double.valueOf(sPointsUsed);
@@ -1245,6 +1252,9 @@ public class Bakery {
         }
     }
 
+    /**
+     * GUI function which prints entire inventory
+     */
     void viewExistingInventory() {
         System.out.println(getInventory().toString());
     }
@@ -1305,8 +1315,8 @@ public class Bakery {
                     // get user input
 
                     // get user input
-                    System.out
-                        .println("Please Submit a Order Date date (mm/dd/yyyy): ");
+                    System.out.println("Please Submit a Order Date date "
+                        + "(mm/dd/yyyy): ");
                     String dateInput = inputScanner.nextLine();
 
                     // convert to date object
@@ -1363,6 +1373,11 @@ public class Bakery {
         }
     }
 
+    /**
+     * GUI Function used to update items in the inventory
+     * 
+     * @return New Bakery with updated items in its inventory
+     */
     public Bakery updateInventoryItems() {
         // Print entire inventory
         System.out.println(getInventory().toString());
