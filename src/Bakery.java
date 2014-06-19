@@ -418,12 +418,42 @@ public class Bakery {
     }
 
     /**
-     * Function which dumps an entire Bakery object into a orders.txt file
+     * Function which dumps and entire Bakery into
      * 
      * @param filename
-     *            Name of the file to save into
+     *            Name of the file to save the inventory itno
      */
-    public void save(String filename) {
+    public void saveInventory(String filename) {
+        try {
+            FileWriter fw = new FileWriter(filename);
+            fw.write("BakeryItemID\tBakeryItemName\tCategory\tPrice\n");
+            for (Item i : getInventory()) {
+                fw.write(i.getItemID());
+                fw.write("\t");
+                fw.write(i.getItemName());
+                fw.write("\t");
+                fw.write(i.getCategory());
+                fw.write("\t");
+                fw.write(String.valueOf(i.getPrice()));
+                fw.write("\n");
+            }
+
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.print("[ERROR] Could not save Inventory");
+        }
+    }
+
+    /**
+     * Function which dumps an entire Bakery Order Roll into a orders.txt file
+     * 
+     * @param filename
+     *            Name of the file to save orders into
+     */
+    public void saveOrders(String filename) {
         try {
             FileWriter fw = new FileWriter(filename);
 
@@ -486,7 +516,7 @@ public class Bakery {
         }
         catch (IOException e) {
             e.printStackTrace();
-            System.out.print("ERROR");
+            System.out.print("[ERROR] Coudl not save Orders");
         }
     }
 
@@ -517,7 +547,7 @@ public class Bakery {
         Scanner orderScanner = new Scanner("");
         boolean allSet = false;
         boolean skipLoad = false;
-        
+
         while (!allSet) {
             userInput = bakeryCtrl.inputScanner.nextLine();
             System.out.println();
@@ -606,7 +636,8 @@ public class Bakery {
             bakeryCtrl = bakeryCtrl.load(inventoryScanner, orderScanner);
         }
         bakeryCtrl = bakeryCtrl.runGUI();
-        bakeryCtrl.save("ordersSave.csv");
+        bakeryCtrl.saveOrders("ordersSave.csv");
+        bakeryCtrl.saveInventory("itemsSave.txt");
         inventoryScanner.close();
         orderScanner.close();
     }
