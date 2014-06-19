@@ -1,0 +1,87 @@
+BakeryItemID	BakeryItemName	Category	Price
+	Almond Croissant	Pastries	3.0
+	Apple	Pies	16.0
+	Apple Crumb	Pies	17.0
+	Apple Spice - Autumn	Cakes	24.0
+	Banana Cream	Pies	16.0
+	Black Forest	Cakes	22.0
+	Black Walnut	Cakes	22.0
+	Blackberry	Pies	17.0
+		Blueberry	Pies	16.0
+
+	Brownies	Pastries	2.0
+	Buche de Noel (Christmas Cake)- Winter	Cakes	32.0
+	Butter Pecan	Cookies	1.5
+	Butterscotch	Cookies	3.0
+	Candy Cane- Winter	Cupcakes	2.5
+	Cannoli, Chocolate Chip	Pastries	2.75
+	Cannoli, Plain	Pastries	2.5
+	Caramel Mocha Latte	Cupcakes	3.0
+	Carrot Cake	Cakes	28.0
+	Carrot Cake	Cupcakes	2.0
+	Cheesecake	Cakes	22.5
+	Cheesecake, strawberry	Cakes	25.0
+	Cherry	Pies	17.0
+	Chocolate Amaretto	Cupcakes	2.5
+	Chocolate Banana Walnut	Cookies	2.0
+	Chocolate Chess	Pies	13.0
+	Chocolate Chip	Cookies	1.5
+	Chocolate Croissant	Pastries	3.5
+	Chocolate Mousse Cup	Pastries	5.0
+	Chocolate Strawberries	Pastries	2.0
+	Coconut	Cakes	22.5
+	Coconut Cream	Pies	18.5
+ 	Cookies n' Cream	Cakes	22.0
+!	Cookies n' Cream	Cupcakes	1.5
+"	Cranberry Orange	Cookies	3.0
+#	Cranberry Walnut	Cookies	3.0
+$	Cream Puffs	Pastries	2.5
+%	Crème Brulee	Pastries	2.5
+&	Easter Creme Cake- Spring	Cakes	17.0
+'	Éclair	Pastries	4.0
+(	French french vanilla	Cupcakes	3.0
+)	French Silk	Pies	12.0
+*	French Vanilla	Cakes	22.0
++	Fruit Tartlette	Pastries	4.0
+,	Fudge Brownie	Cookies	3.0
+-	Fudge Chocolate	Cookies	3.5
+.	Fudge Marble	Cakes	24.0
+/	German Chocolate	Cakes	24.0
+0	Ginger Shortbread	Cookies	2.75
+1	Gingerbread - Winter	Cakes	17.0
+2	Hummingbird - Summer	Cakes	19.0
+3	Italian Rum	Cakes	22.0
+4	Key Lime	Pies	12.0
+5	Key Lime Tartlette	Pastries	4.0
+6	Lemon	Cakes	22.5
+7	Lemon Bar	Pastries	3.75
+8	Lemon Blueberry - Summer	Cakes	21.5
+9	Lemon Drop	Cupcakes	3.0
+:	Lemon Meringue	Pies	13.5
+;	Lemon Sugar	Cookies	3.5
+<	Mango Mousse Cup	Pastries	2.5
+=	Mini Cheesecake, Plain	Pastries	2.5
+>	Mini Cheesecake, Strawberry	Pastries	3.0
+?	Oatmeal Raisin	Cookies	1.5
+@	Orange Creamsicle	Cupcakes	3.0
+A	Peach	Pies	15.5
+B	Peanut Butter	Cookies	3.0
+C	Peanut Butter Chocolate	Pies	17.5
+D	Peanut Butter Cup	Cupcakes	5.0
+E	Pecan	Pies	24.0
+F	Pineapple Coconut	Cupcakes	3.0
+G	Pumpkin	Pies	13.0
+H	Pumpkin Spice - Autumn	Cakes	22.0
+I	Pumpkin Spice- Autumn	Cupcakes	2.5
+J	Rasberry Chocolate Tartlette	Pastries	3.0
+K	Red Velvet	Cakes	21.5
+L	Red Velvet	Cupcakes	2.5
+M	S'mores - Summer	Cupcakes	3.0
+N	Snickerdoodle	Cookies	2.0
+O	Strawberry Cream	Cupcakes	2.5
+P	Strawberry Cream	Pies	15.0
+Q	Strawberry Swirl	Cakes	23.0
+R	Sugar	Cookies	2.0
+S	Sweet Potato	Pies	12.0
+T	Tiramisu	Pastries	4.0
+U	Triple Berry Shortcake - Summer	Cakes	22.5

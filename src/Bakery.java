@@ -452,7 +452,7 @@ public class Bakery {
             FileWriter fw = new FileWriter(filename);
             fw.write("BakeryItemID\tBakeryItemName\tCategory\tPrice\n");
             for (Item i : getInventory()) {
-                fw.write(i.getItemID());
+                fw.write(i.getItemID().toString());
                 fw.write("\t");
                 fw.write(i.getItemName());
                 fw.write("\t");
@@ -640,7 +640,7 @@ public class Bakery {
             bakeryCtrl = bakeryCtrl.load(inventoryScanner, orderScanner);
         }
         bakeryCtrl = bakeryCtrl.runGUI();
-        bakeryCtrl.saveOrders("ordersSave.csv");
+        bakeryCtrl.saveOrders("ordersSave.txt");
         bakeryCtrl.saveInventory("itemsSave.txt");
         inventoryScanner.close();
         orderScanner.close();

@@ -2,6 +2,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,9 +21,13 @@ public class BakeryTest {
 
     private Bakery emptyBakery;
     private Bakery fullBakery;
+    private Bakery loadBakery;
 
+    /**
+     * Setup for test
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         emptyBakery = new Bakery(Inventory.emptyInventory(), CustomerRoll
             .emptyRoll(), OrderList.emptyOrder());
 
@@ -38,17 +43,27 @@ public class BakeryTest {
         fullBakery = fullBakery.performTransaction(1, itemIds,
             itemQuantities, 0, true, new Date());
 
+        Scanner inventoryScanner = new Scanner("bakeryItems.txt");
+        Scanner orderScanner = new Scanner("orders.txt");
+
+        loadBakery = emptyBakery.load(inventoryScanner, orderScanner);
+
     }
 
+    /**
+     * Test bakery customer functions
+     */
     @Test
     public void testBakeryCustomers() {
         assertFalse("empty bakery is missing person", emptyBakery
             .isRegisteredCustomer(0));
         assertTrue("Full bakery has person", fullBakery
             .isRegisteredCustomer(1));
-
     }
 
+    /**
+     * test bakery inventory functions
+     */
     @Test
     public void testBakeryInventory() {
         assertFalse("empty bakery is missing item", emptyBakery
