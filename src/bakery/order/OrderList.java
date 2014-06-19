@@ -35,6 +35,7 @@ public abstract class OrderList implements Iterable<Order> {
      * @param loyaltyAtTimeOfOrder rewards points at time of order
      * @param availableDiscount the available discount
      * @param discountUsedOnOrder the discount used in the order
+     * @return Order List
      */
     public OrderList addToOrderList(Integer customerID, Integer orderID, 
         double total, boolean paid, Date orderDate, Date pickUpDate, 
@@ -126,14 +127,14 @@ public abstract class OrderList implements Iterable<Order> {
     public abstract OrderList getOrdersByCustomerID(Integer customerID);
     
     /** Get the orders by date
-     * @param dPickUpDate
+     * @param dPickupDate
      *             the pick up date
      * @return all orders with the same pick up date ID
      */
     public abstract OrderList getOrdersPlacedOn(Date dPickupDate);
     
     /** Get the orders by date
-     * @param dPickUpDate
+     * @param dPickupDate
      *             the pick up date
      * @return all orders with the same pick up date ID
      */
@@ -169,7 +170,7 @@ public abstract class OrderList implements Iterable<Order> {
     public MyIterator<Order> iterator() {
         ArrayList<Order> orders = this.getAllOrders(new ArrayList<Order>());
         Collections.sort(orders, new OrderComparator());
-        return new MyIterator<Order> (orders);
+        return new MyIterator<Order>(orders);
     }
     
     /**

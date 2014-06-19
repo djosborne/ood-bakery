@@ -29,10 +29,10 @@ public class InventoryTest {
     private Inventory inv1;
     private Inventory inv2;
 
-    @Before
     /**
      * SetUp
      */
+    @Before
     public void setUp() {
         inv0 = Inventory.emptyInventory();
         inv1 = Inventory.emptyInventory();
@@ -49,6 +49,8 @@ public class InventoryTest {
         System.out.println(inv1.size());
         System.out.println(inv1.getPrice(1));
         System.out.println(inv1.toString());
+        assertSame(inv2.size(), 2);
+        assertTrue(inv0.isEmpty());
     }
     
     /**

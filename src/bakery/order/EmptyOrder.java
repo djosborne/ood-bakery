@@ -136,7 +136,7 @@ public class EmptyOrder extends OrderList {
     }
 
     /** Get the orders by date
-     * @param dPickUpDate
+     * @param dPickupDate
      *             the pick up date
      * @return all orders with the same pick up date ID
      */
@@ -145,7 +145,7 @@ public class EmptyOrder extends OrderList {
     }
 
     /** Get the orders by date
-     * @param dPickUpDate
+     * @param dPickupDate
      *             the pick up date
      * @return all orders with the same pick up date ID
      */

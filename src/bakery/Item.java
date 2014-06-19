@@ -1,5 +1,10 @@
 package bakery;
 
+/** Item class
+ * @author Jesus Cheng
+ * @author Dan Osborne
+ * @version 1.0
+ */
 public class Item {
     private Integer itemID;
     private String itemName;
@@ -14,10 +19,11 @@ public class Item {
      *            item name
      * @param category
      *            item category
-     * @param item Price
+     * @param itemPrice
      *             Price for item
      */
-    public Item(int itemID, String itemName, String category, double itemPrice) {
+    public Item(int itemID, String itemName, 
+        String category, double itemPrice) {
         this.itemID = itemID;
         this.itemName = itemName;
         this.category = category;
@@ -56,6 +62,7 @@ public class Item {
     
     /**
      * Overriding toString() method 
+     * @return string
      */
     public String toString() {
         return "[" + itemID + ", " + itemName + ", "
@@ -64,6 +71,8 @@ public class Item {
 
     /**
      * Overriding equals method from object
+     * @param o object to be compared
+     * @return true or false is equal
      */
     public boolean equals(Object o) {
         if (o instanceof Item) {

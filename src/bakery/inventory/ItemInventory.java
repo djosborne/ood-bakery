@@ -257,7 +257,8 @@ public class ItemInventory extends Inventory {
     public Item getItem(Integer iD) {
         if (getItem().getItemID().equals(iD)) {
             return getItem();
-        } else {
+        } 
+        else {
             return getRest().getItem(iD);
         }
     }

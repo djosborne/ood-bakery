@@ -51,7 +51,7 @@ public class EntryOrder extends OrderList {
      * @return returns new order list with new order
      */
     public OrderList addToOrderList(OrderList orders) {
-            return new EntryOrder(getOrder(), getRest().addToOrderList(orders));
+        return new EntryOrder(getOrder(), getRest().addToOrderList(orders));
     }
     
     /** remove item from list.
@@ -88,10 +88,10 @@ public class EntryOrder extends OrderList {
         }
     }
     
-    /** Whether the map contains item.
-     * @param item
-     *         item in inventory
-     * @return false
+    /** Whether the map contains order.
+     * @param Order
+     *         order in list
+     * @return true or false
      */
     public boolean containsOrder(Order order) {
         if (order.equals(order0)) {
@@ -218,7 +218,7 @@ public class EntryOrder extends OrderList {
     }
     
     /** Get the orders by date
-     * @param dPickUpDate
+     * @param dPickupDate
      *             the pick up date
      * @return all orders with the same pick up date ID
      */
@@ -236,7 +236,7 @@ public class EntryOrder extends OrderList {
     }
     
     /** Get the orders by date
-     * @param dPickUpDate
+     * @param dPickupDate
      *             the pick up date
      * @return all orders with the same pick up date ID
      */
@@ -263,9 +263,10 @@ public class EntryOrder extends OrderList {
         return new EntryOrder(new Order(o.getOrderID(), o.getItem(), 
             o.getTotal(), o.getQuantity(), o.getCustomerID(), 
                 o.getLoyaltyAtTimeOfOrder(), o.getAvailableDiscount(), 
-                    o.getDiscountUsedOnOrder(), newPaidStatus, o.getOrderDate(), 
-                        newPickupDate), getRest().withNewStatus(newPaidStatus, 
-                            newPickupDate));
+                    o.getDiscountUsedOnOrder(), newPaidStatus, 
+                        o.getOrderDate(), newPickupDate), 
+                            getRest().withNewStatus(newPaidStatus, 
+                                newPickupDate));
     }
 
     /** Get one order by order ID

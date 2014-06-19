@@ -43,15 +43,15 @@ public class OrderListTest {
     
 
     private Order order1 = new Order(1, item1, 
-    	item1.getPrice() * 1, 1, 1, 1, 0, 0, true, date1, date1);
+        item1.getPrice() * 1, 1, 1, 1, 0, 0, true, date1, date1);
     private Order order2 = new Order(2, item2, 
-    	item2.getPrice() * 2, 2, 2, 2, 0, 0, true, date2, date2);
+        item2.getPrice() * 2, 2, 2, 2, 0, 0, true, date2, date2);
     private Order order3 = new Order(3, item3, 
-    	item3.getPrice() * 3, 3, 3, 3, 0, 0, true, date3, date3);
+        item3.getPrice() * 3, 3, 3, 3, 0, 0, true, date3, date3);
     private Order order4 = new Order(4, item4, 
-    	item4.getPrice() * 4, 4, 4, 4, 0, 0, true, date4, date4);
+        item4.getPrice() * 4, 4, 4, 4, 0, 0, true, date4, date4);
     private Order order5 = new Order(4, item2, 
-    	item2.getPrice() * 4, 4, 4, 4, 0, 0, true, date4, date4);
+        item2.getPrice() * 4, 4, 4, 4, 0, 0, true, date4, date4);
     
     /**
      * Set up the test
@@ -90,6 +90,9 @@ public class OrderListTest {
         assertFalse(ord3.isEmpty());
     }
     
+    /**
+     * Test size
+     */
     @Test
     public void testSize() {
         assertSame(ord0.size(), 0);
@@ -99,6 +102,9 @@ public class OrderListTest {
         //assertSame(ord3.removeFromOrderList(order1).size(), 2);
     }
     
+    /**
+     * Test ContainsOrder
+     */
     @Test
     public void testContainsOrder() {
         assertFalse(ord0.containsOrder(1));
@@ -108,6 +114,9 @@ public class OrderListTest {
         assertTrue(ord4.containsOrder(order4));
     }
 
+    /**
+     * testGetOrdersByOrderID
+     */
     @Test
     public void testGetOrdersByOrderID() {
         System.out.println(ord2.getOrdersByOrderID(2).toString());
@@ -115,6 +124,9 @@ public class OrderListTest {
         System.out.println(ord4.getOrdersByOrderID(4).toString());
     }
     
+    /**
+     * testGetOrdersByCustomerID
+     */
     @Test
     public void testGetOrdersByCustomerID() {
         System.out.println(ord2.getOrdersByCustomerID(1).toString());
