@@ -259,7 +259,6 @@ public abstract class CustomerRoll {
     /**
      * Tests input to see if it equals the current CustomerRoll
      * 
-     * TODO: Need to fix this
      * 
      * @param o
      *            Object to be compared with
@@ -268,7 +267,7 @@ public abstract class CustomerRoll {
     public boolean equals(Object o) {
         if (o instanceof CustomerRoll) {
             CustomerRoll that = (CustomerRoll) o;
-            if (!(numCustomers() == that.numCustomers())) {
+            if (numCustomers() != that.numCustomers()) {
                 return false;
             }
 

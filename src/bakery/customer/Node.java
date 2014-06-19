@@ -255,6 +255,8 @@ public class Node extends CustomerRoll {
      * 
      * @param customers
      *            Arraylist to add to
+     * 
+     * @return arraylist containing all customers
      */
     ArrayList<Customer> getAllCustomers(ArrayList<Customer> customers) {
         customers.add(getCustomer());
