@@ -516,7 +516,8 @@ public class Bakery {
         Scanner inventoryScanner = new Scanner("");
         Scanner orderScanner = new Scanner("");
         boolean allSet = false;
-
+        boolean skipLoad = false;
+        
         while (!allSet) {
             userInput = bakeryCtrl.inputScanner.nextLine();
             System.out.println();
@@ -588,8 +589,12 @@ public class Bakery {
                     System.out.println("2.) Use resulting data from "
                         + "last runthrough");
                     System.out.println("3.) Provide a new dataset");
-                    System.out.print("Enter [1/2/3]: ");
+                    System.out.println("4.) Initialize a blank Bakery");
+                    System.out.print("Enter [1/2/3/4]: ");
                 }
+            }
+            else if (userInput.equals("4")) {
+                skipLoad = true;
             }
             else {
                 System.out.println("------------------------------");
@@ -597,8 +602,9 @@ public class Bakery {
                 System.out.print("Please choose 1, 2, or 3: ");
             }
         }
-
-        bakeryCtrl = bakeryCtrl.load(inventoryScanner, orderScanner);
+        if (!skipLoad) {
+            bakeryCtrl = bakeryCtrl.load(inventoryScanner, orderScanner);
+        }
         bakeryCtrl = bakeryCtrl.runGUI();
         bakeryCtrl.save("ordersSave.csv");
         inventoryScanner.close();
